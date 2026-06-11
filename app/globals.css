@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* ── Cores extraídas do Frame-1.png ── */
+  --color-forest:  #3B4535;
+  --color-green:   #4A7C59;
+  --color-gold:    #B8954A;
+  --color-cream:   #F5F0E4;
+  --color-sand:    #E0D9C8;
+  --color-white:   #FFFFFF;
+
+  --color-warning: #C07A1A;
+  --color-error:   #B03030;
+  --color-info:    #3A6EA8;
+  --color-neutral: #7A7565;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  --sidebar-width: 108px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-forest);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Textura: imagem opaca multiplicada com creme = paper look ~40% visível */
+  background-color: var(--color-cream);
+  background-image: url('/icons/paper-texture.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  /* multiply: a textura escurece o creme proporcionalmente, sem saturar */
+  background-blend-mode: multiply;
+  /* Opacidade da textura controlada com filter na layer de conteúdo via overlay */
+}
+
+/* Overlay que atenua a textura para ~35% — a textura está no body, o overlay clareia */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(245, 240, 228, 0.62);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Todo o conteúdo acima do overlay */
+#__next, main, aside {
+  position: relative;
+  z-index: 1;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-sand); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-gold); }
+::selection { background: var(--color-gold); color: #fff; }
