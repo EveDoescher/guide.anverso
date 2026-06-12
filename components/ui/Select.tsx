@@ -1,0 +1,132 @@
+"use client";
+
+import { Check, ChevronDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+
+type SelectOption = {
+  label: string;
+  value: string;
+  disabled?: boolean;
+};
+
+type SelectProps = {
+  label?: string;
+  helper?: string;
+  error?: string;
+  placeholder?: string;
+  options: SelectOption[];
+  value?: string;
+  onValueChange?: (value: string) => void;
+  className?: string;
+  disabled?: boolean;
+};
+
+export function Select({
+  label,
+  helper,
+  error,
+  placeholder = "Selecione uma opção",
+  options,
+  value = "",
+  onValueChange,
+  className = "",
+  disabled = false,
+}: SelectProps) {
+  const [open, setOpen] = useState(false);
+  const wrapperRef = useRef<HTMLLabelElement>(null);
+
+  const selectedOption = options.find((option) => option.value === value);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (!wrapperRef.current?.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  function handleSelect(nextValue: string) {
+    onValueChange?.(nextValue);
+    setOpen(false);
+  }
+
+  return (
+    <label ref={wrapperRef} className="relative block">
+      {label ? (
+        <span className="mb-1.5 block text-[11px] font-medium text-[var(--color-text)]">
+          {label}
+        </span>
+      ) : null}
+
+      <button
+        type="button"
+        disabled={disabled}
+        onClick={() => setOpen((current) => !current)}
+        className={[
+          "anverso-focus flex h-9 w-full items-center justify-between gap-3 rounded-[8px] border bg-[var(--color-paper-soft)] px-3",
+          "text-left text-[12px] transition-all",
+          "disabled:cursor-not-allowed disabled:bg-[var(--color-surface-muted)] disabled:text-[rgba(80,79,77,0.58)]",
+          error
+            ? "border-[var(--color-error)]"
+            : open
+              ? "border-[var(--color-green)]"
+              : "border-[var(--color-border)]",
+          selectedOption ? "text-[var(--color-text)]" : "text-[rgba(80,79,77,0.68)]",
+          className,
+        ].join(" ")}
+      >
+        <span className="truncate">{selectedOption?.label ?? placeholder}</span>
+
+        <ChevronDown
+          size={16}
+          className={[
+            "shrink-0 text-[var(--color-text)] transition-transform",
+            open ? "rotate-180" : "",
+          ].join(" ")}
+        />
+      </button>
+
+      {open ? (
+        <div className="absolute left-0 right-0 top-[calc(100%+6px)] z-[80] overflow-hidden rounded-[10px] border border-[var(--color-border)] bg-[var(--color-paper)] shadow-[0_14px_34px_rgba(47,44,45,0.12)]">
+          <div className="max-h-56 overflow-y-auto p-1.5">
+            {options.map((option) => {
+              const selected = option.value === value;
+
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  disabled={option.disabled}
+                  onClick={() => handleSelect(option.value)}
+                  className={[
+                    "flex h-8 w-full items-center justify-between gap-3 rounded-[7px] px-2.5 text-left text-[12px] transition-all",
+                    selected
+                      ? "bg-[rgba(63,91,74,0.10)] font-bold text-[var(--color-green)]"
+                      : "text-[var(--color-text)] hover:bg-[rgba(47,44,45,0.05)]",
+                    "disabled:cursor-not-allowed disabled:opacity-45",
+                  ].join(" ")}
+                >
+                  <span>{option.label}</span>
+                  {selected ? <Check size={14} /> : null}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      ) : null}
+
+      {error ? (
+        <span className="mt-1.5 block text-[10px] font-medium text-[var(--color-error)]">
+          {error}
+        </span>
+      ) : helper ? (
+        <span className="mt-1.5 block text-[10px] text-[var(--color-neutral)]">
+          {helper}
+        </span>
+      ) : null}
+    </label>
+  );
+}

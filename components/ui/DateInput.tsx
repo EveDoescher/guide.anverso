@@ -1,0 +1,209 @@
+"use client";
+
+import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+
+type DateInputProps = {
+  label?: string;
+  helper?: string;
+  error?: string;
+  value?: string;
+  placeholder?: string;
+  onValueChange?: (value: string) => void;
+  className?: string;
+  disabled?: boolean;
+};
+
+const weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
+const months = [
+  "janeiro",
+  "fevereiro",
+  "março",
+  "abril",
+  "maio",
+  "junho",
+  "julho",
+  "agosto",
+  "setembro",
+  "outubro",
+  "novembro",
+  "dezembro",
+];
+
+function parseDate(value?: string) {
+  if (!value) return null;
+
+  const [day, month, year] = value.split("/").map(Number);
+
+  if (!day || !month || !year) return null;
+
+  return new Date(year, month - 1, day);
+}
+
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat("pt-BR").format(date);
+}
+
+export function DateInput({
+  label,
+  helper,
+  error,
+  value = "",
+  placeholder = "dd/mm/aaaa",
+  onValueChange,
+  className = "",
+  disabled = false,
+}: DateInputProps) {
+  const parsedValue = parseDate(value);
+  const today = useMemo(() => new Date(), []);
+
+  const [open, setOpen] = useState(false);
+  const [viewDate, setViewDate] = useState(parsedValue ?? today);
+  const wrapperRef = useRef<HTMLLabelElement>(null);
+
+  const year = viewDate.getFullYear();
+  const month = viewDate.getMonth();
+
+  const firstDayOfMonth = new Date(year, month, 1);
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const startOffset = firstDayOfMonth.getDay();
+
+  const calendarDays = Array.from({ length: startOffset + daysInMonth }, (_, index) => {
+    if (index < startOffset) return null;
+
+    return new Date(year, month, index - startOffset + 1);
+  });
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (!wrapperRef.current?.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  function changeMonth(direction: -1 | 1) {
+    setViewDate((current) => new Date(current.getFullYear(), current.getMonth() + direction, 1));
+  }
+
+  function selectDate(date: Date) {
+    onValueChange?.(formatDate(date));
+    setViewDate(date);
+    setOpen(false);
+  }
+
+  function isSelected(date: Date) {
+    return parsedValue?.toDateString() === date.toDateString();
+  }
+
+  function isToday(date: Date) {
+    return today.toDateString() === date.toDateString();
+  }
+
+  return (
+    <label ref={wrapperRef} className="relative block">
+      {label ? (
+        <span className="mb-1.5 block text-[11px] font-medium text-[var(--color-text)]">
+          {label}
+        </span>
+      ) : null}
+
+      <button
+        type="button"
+        disabled={disabled}
+        onClick={() => setOpen((current) => !current)}
+        className={[
+          "anverso-focus flex h-9 w-full items-center justify-between gap-3 rounded-[8px] border bg-[var(--color-paper-soft)] px-3",
+          "text-left text-[12px] transition-all",
+          "disabled:cursor-not-allowed disabled:bg-[var(--color-surface-muted)] disabled:text-[rgba(80,79,77,0.58)]",
+          error
+            ? "border-[var(--color-error)]"
+            : open
+              ? "border-[var(--color-green)]"
+              : "border-[var(--color-border)]",
+          value ? "text-[var(--color-text)]" : "text-[rgba(80,79,77,0.68)]",
+          className,
+        ].join(" ")}
+      >
+        <span>{value || placeholder}</span>
+        <Calendar size={15} className="shrink-0 text-[var(--color-text)]" />
+      </button>
+
+      {open ? (
+        <div className="absolute left-0 top-[calc(100%+6px)] z-[80] w-[248px] rounded-[12px] border border-[var(--color-border)] bg-[var(--color-paper)] p-3 shadow-[0_14px_34px_rgba(47,44,45,0.12)]">
+          <div className="mb-3 flex items-center justify-between">
+            <button
+              type="button"
+              onClick={() => changeMonth(-1)}
+              className="anverso-focus flex h-7 w-7 items-center justify-center rounded-[7px] text-[var(--color-text)] hover:bg-[rgba(47,44,45,0.06)]"
+              aria-label="Mês anterior"
+            >
+              <ChevronLeft size={15} />
+            </button>
+
+            <p className="text-[12px] font-bold capitalize text-[var(--color-text)]">
+              {months[month]} {year}
+            </p>
+
+            <button
+              type="button"
+              onClick={() => changeMonth(1)}
+              className="anverso-focus flex h-7 w-7 items-center justify-center rounded-[7px] text-[var(--color-text)] hover:bg-[rgba(47,44,45,0.06)]"
+              aria-label="Próximo mês"
+            >
+              <ChevronRight size={15} />
+            </button>
+          </div>
+
+          <div className="mb-1 grid grid-cols-7 gap-1">
+            {weekdays.map((weekday, index) => (
+              <span
+                key={`${weekday}-${index}`}
+                className="flex h-6 items-center justify-center text-[10px] font-bold text-[var(--color-neutral)]"
+              >
+                {weekday}
+              </span>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-7 gap-1">
+            {calendarDays.map((date, index) =>
+              date ? (
+                <button
+                  key={date.toISOString()}
+                  type="button"
+                  onClick={() => selectDate(date)}
+                  className={[
+                    "anverso-focus flex h-7 items-center justify-center rounded-[7px] text-[11px] font-medium transition-all",
+                    isSelected(date)
+                      ? "bg-[var(--color-green)] text-white"
+                      : isToday(date)
+                        ? "border border-[var(--color-green)] text-[var(--color-green)]"
+                        : "text-[var(--color-text)] hover:bg-[rgba(47,44,45,0.06)]",
+                  ].join(" ")}
+                >
+                  {date.getDate()}
+                </button>
+              ) : (
+                <span key={`empty-${index}`} />
+              ),
+            )}
+          </div>
+        </div>
+      ) : null}
+
+      {error ? (
+        <span className="mt-1.5 block text-[10px] font-medium text-[var(--color-error)]">
+          {error}
+        </span>
+      ) : helper ? (
+        <span className="mt-1.5 block text-[10px] text-[var(--color-neutral)]">
+          {helper}
+        </span>
+      ) : null}
+    </label>
+  );
+}
