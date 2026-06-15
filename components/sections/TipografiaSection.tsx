@@ -1,93 +1,122 @@
+"use client";
+
+import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 import { SectionShell } from "@/components/ui/SectionShell";
 
 const SCALE = [
-  { name: "Display / H1", size: "48px", weight: "900", sample: "Trabalho de Conclusão", family: "display", usage: "Hero, títulos de página" },
-  { name: "H2",           size: "32px", weight: "700", sample: "Escolha seu perfil",    family: "display", usage: "Cabeçalhos de seção" },
-  { name: "H3",           size: "24px", weight: "600", sample: "Capa do trabalho",      family: "display", usage: "Subtítulos, cards" },
-  { name: "Body",         size: "16px", weight: "400", sample: "Seu trabalho está quase pronto. Revise os últimos detalhes antes de gerar o DOCX.", family: "body", usage: "Parágrafos, descrições" },
-  { name: "Small",        size: "14px", weight: "400", sample: "ABNT UNIP · Atualizado há 2 horas", family: "body", usage: "Metadados, labels secundários" },
-  { name: "Label",        size: "11px", weight: "600", sample: "CAMPOS DE FORMULÁRIO", family: "body", usage: "Labels de seção (uppercase + tracking)" },
+  { name: "H1", size: "36px", sample: "Titulo principal", use: "Abertura e marcos" },
+  { name: "H2", size: "24px", sample: "Titulo secundario", use: "Secoes do guia" },
+  { name: "H3", size: "18px", sample: "Titulo terciario", use: "Cards e modulos" },
+  { name: "Body", size: "14px", sample: "Texto de paragrafo com leitura confortavel.", use: "Interface" },
+  { name: "Legenda", size: "11px", sample: "Texto auxiliar", use: "Metadados" },
 ];
 
 export function TipografiaSection() {
+  const [dense, setDense] = useState(false);
+
   return (
-    <SectionShell id="tipografia" label="Tipografia" pill="Escala & Fontes">
-
-      {/* Font pairing */}
-      <div className="grid grid-cols-2 gap-4 mb-10">
-        <div
-          className="rounded-xl p-6 border"
-          style={{ backgroundColor: "var(--color-white)", borderColor: "var(--color-sand)" }}
-        >
-          <p className="text-xs font-semibold uppercase tracking-widest mb-3"
-             style={{ color: "var(--color-gold)" }}>Display & Headings</p>
-          <p className="text-5xl font-black" style={{ fontFamily: "var(--font-display)", color: "var(--color-forest)", lineHeight: 1 }}>
-            Playfair Display
+    <SectionShell
+      id="tipografia"
+      label="Tipografia"
+      pill="Escala"
+      intro="A serifada carrega a memoria editorial da marca. A sans segura os formularios, estados e leitura funcional."
+    >
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)_minmax(280px,0.72fr)]">
+        <div className="guide-panel rounded-[12px] p-5">
+          <p className="text-[10px] font-bold uppercase text-[var(--color-gold)]">
+            Familia tipografica
           </p>
-          <p className="text-2xl font-normal italic mt-1" style={{ fontFamily: "var(--font-display)", color: "var(--color-neutral)" }}>
-            Títulos acolhedores
-          </p>
-          <p className="text-xs mt-4" style={{ color: "var(--color-neutral)" }}>
-            Serif · Pesos 400, 600, 700, 900 · Regular + Italic
-          </p>
-        </div>
-        <div
-          className="rounded-xl p-6 border"
-          style={{ backgroundColor: "var(--color-white)", borderColor: "var(--color-sand)" }}
-        >
-          <p className="text-xs font-semibold uppercase tracking-widest mb-3"
-             style={{ color: "var(--color-gold)" }}>Body & UI</p>
-          <p className="text-5xl font-light" style={{ fontFamily: "var(--font-body)", color: "var(--color-forest)", lineHeight: 1 }}>
-            DM Sans
-          </p>
-          <p className="text-2xl mt-1" style={{ fontFamily: "var(--font-body)", color: "var(--color-neutral)" }}>
-            Texto claro e legível
-          </p>
-          <p className="text-xs mt-4" style={{ color: "var(--color-neutral)" }}>
-            Humanista sans · Pesos 300, 400, 500, 600 · Variable
-          </p>
-        </div>
-      </div>
-
-      {/* Type scale */}
-      <div
-        className="rounded-xl border overflow-hidden"
-        style={{ borderColor: "var(--color-sand)" }}
-      >
-        {SCALE.map(({ name, size, weight, sample, family, usage }, i) => (
-          <div
-            key={name}
-            className="flex items-center gap-6 px-6 py-4 border-b last:border-b-0"
-            style={{ borderColor: "var(--color-sand)", backgroundColor: i % 2 === 0 ? "var(--color-white)" : "var(--color-cream)" }}
-          >
-            {/* Meta */}
-            <div className="w-28 flex-shrink-0">
-              <p className="text-xs font-semibold" style={{ color: "var(--color-forest)" }}>{name}</p>
-              <p className="text-[10px]" style={{ color: "var(--color-neutral)" }}>{size} · {weight}</p>
-            </div>
-            {/* Sample */}
-            <div className="flex-1 min-w-0">
-              <p
-                className="truncate"
-                style={{
-                  fontFamily: family === "display" ? "var(--font-display)" : "var(--font-body)",
-                  fontSize: Math.min(parseInt(size), 28) + "px",
-                  fontWeight: weight,
-                  color: "var(--color-forest)",
-                  lineHeight: 1.2,
-                  letterSpacing: name === "Label" ? "0.1em" : undefined,
-                  textTransform: name === "Label" ? "uppercase" : undefined,
-                }}
-              >
-                {sample}
+          <div className="mt-6 space-y-7">
+            <div>
+              <p className="font-serif text-[62px] font-bold leading-none text-[var(--color-forest)]">
+                Aa
+              </p>
+              <p className="mt-2 text-[12px] font-bold text-[var(--color-text)]">
+                Playfair Display
+              </p>
+              <p className="text-[10.5px] text-[var(--color-neutral)]">
+                Titulos e momentos de marca.
               </p>
             </div>
-            {/* Usage */}
-            <div className="w-36 flex-shrink-0 text-right">
-              <p className="text-[10px]" style={{ color: "var(--color-neutral)" }}>{usage}</p>
+            <div>
+              <p className="font-sans text-[48px] font-medium leading-none text-[var(--color-forest)]">
+                Aa
+              </p>
+              <p className="mt-2 text-[12px] font-bold text-[var(--color-text)]">
+                DM Sans
+              </p>
+              <p className="text-[10.5px] text-[var(--color-neutral)]">
+                Campos, botoes e texto de interface.
+              </p>
             </div>
           </div>
-        ))}
+        </div>
+
+        <div className="guide-panel rounded-[12px] p-5">
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-[10px] font-bold uppercase text-[var(--color-gold)]">
+              Hierarquia
+            </p>
+            <button
+              type="button"
+              onClick={() => setDense((current) => !current)}
+              className="anverso-focus rounded-[999px] border border-[var(--color-border)] px-3 py-1 text-[10px] font-bold text-[var(--color-forest)] transition-all hover:border-[var(--color-forest)]"
+            >
+              {dense ? "Modo aberto" : "Modo denso"}
+            </button>
+          </div>
+
+          <div className={dense ? "mt-4 space-y-2" : "mt-4 space-y-4"}>
+            {SCALE.map((item) => (
+              <div
+                key={item.name}
+                className="grid grid-cols-[54px_1fr_96px] items-baseline gap-4 border-b border-[var(--color-border-soft)] pb-3 last:border-b-0"
+              >
+                <p className="text-[11px] font-bold text-[var(--color-forest)]">
+                  {item.name}
+                </p>
+                <p
+                  className="truncate text-[var(--color-text)]"
+                  style={{
+                    fontFamily:
+                      item.name === "Body" || item.name === "Legenda"
+                        ? "var(--font-sans)"
+                        : "var(--font-serif)",
+                    fontSize: dense ? "14px" : item.size,
+                    fontWeight: item.name.startsWith("H") ? 700 : 400,
+                    lineHeight: 1.15,
+                  }}
+                >
+                  {item.sample}
+                </p>
+                <p className="text-right text-[9.5px] text-[var(--color-neutral)]">
+                  {item.use}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="guide-panel rounded-[12px] p-5">
+          <p className="text-[10px] font-bold uppercase text-[var(--color-gold)]">
+            Descricao com contexto
+          </p>
+          <p className="mt-5 font-serif text-[23px] font-bold leading-tight text-[var(--color-forest)]">
+            Impacto positivo que floresce no tempo.
+          </p>
+          <p className="mt-3 text-[12px] leading-relaxed text-[var(--color-neutral)]">
+            Aplicamos simplicidade e precisao no que comunicamos de impacto
+            menor.
+          </p>
+          <button
+            type="button"
+            className="anverso-focus mt-5 inline-flex items-center gap-2 border-b border-[var(--color-gold)] pb-1 text-[12px] font-bold text-[var(--color-gold)] transition-all hover:gap-3"
+          >
+            Saiba mais
+            <ArrowRight size={14} />
+          </button>
+        </div>
       </div>
     </SectionShell>
   );

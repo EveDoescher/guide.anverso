@@ -1038,13 +1038,19 @@ function PreviaDocumento() {
 ══════════════════════════════════════════════════════ */
 export function ComponentesSection() {
   return (
-    <div className="space-y-14">
+    <SectionShell
+      id="componentes"
+      label="Componentes"
+      pill="Biblioteca de Interface"
+      intro="Os componentes continuam como demos completas do produto; a pagina apenas organiza a leitura em blocos de entrada, jornada, apoio e resultado."
+    >
+      <div className="space-y-10">
       <ComponentSectionGroup
         eyebrow="Entrada e escolha"
         title="Começo da experiência"
         description="Ações, filtros e campos aparecem juntos como o primeiro contato do usuário com a criação do documento. O bloco prioriza escolha rápida, entrada de dados e clareza visual."
       >
-        <div className="grid grid-cols-[320px_minmax(0,1fr)] items-start gap-5">
+        <div className="grid items-start gap-5 xl:grid-cols-[320px_minmax(0,1fr)]">
           <AcoesPrincipais />
           <SelecaoFiltros />
         </div>
@@ -1070,7 +1076,7 @@ export function ComponentesSection() {
         title="Respostas do sistema"
         description="Feedbacks, confirmações, uploads, estados vazios e ajudas contextuais aparecem como apoio ao usuário, sem competir com o fluxo principal."
       >
-        <div className="grid grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] items-start gap-5">
+        <div className="grid items-start gap-5 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
           <FeedbackValidacao />
           <ModaisApoio />
         </div>
@@ -1086,6 +1092,7 @@ export function ComponentesSection() {
           <PreviaDocumento />
         </div>
       </ComponentSectionGroup>
-    </div>
+      </div>
+    </SectionShell>
   );
 }

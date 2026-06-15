@@ -8,9 +8,13 @@ import { VozSection } from "@/components/sections/VozSection";
 
 export default function DesignGuidePage() {
   return (
-    <div className="flex min-h-screen">
+    <>
       <Sidebar />
-      <main className="flex-1" style={{ marginLeft: 108 }}>
+
+      <main
+        className="min-h-screen pb-8"
+        style={{ marginLeft: "var(--sidebar-width)" }}
+      >
         <MarcaSection />
         <CoresSection />
         <TipografiaSection />
@@ -18,17 +22,25 @@ export default function DesignGuidePage() {
         <IconesSection />
         <VozSection />
 
-        {/* Footer */}
-        <footer className="px-10 py-8 border-t flex items-center justify-between"
-                style={{ borderColor: "var(--color-sand)" }}>
-          <p className="text-xs" style={{ fontFamily: "var(--font-display)", color: "var(--color-forest)", fontStyle: "italic" }}>
+        <footer
+          className="guide-container mt-2 flex items-center justify-between border-t px-2 py-7"
+          style={{ borderColor: "var(--color-sand)" }}
+        >
+          <p
+            className="text-xs italic"
+            style={{
+              fontFamily: "var(--font-serif)",
+              color: "var(--color-forest)",
+            }}
+          >
             Anverso Design Guide
           </p>
+
           <p className="text-[10px]" style={{ color: "var(--color-neutral)" }}>
-            Calma · Clareza · Confiança
+            Calma - Clareza - Confianca
           </p>
         </footer>
       </main>
-    </div>
+    </>
   );
 }

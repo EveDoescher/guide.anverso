@@ -1,94 +1,150 @@
+"use client";
+
+import { useState } from "react";
+import { ArrowRight, HeartHandshake, Lightbulb, MessageCircle, ShieldCheck } from "lucide-react";
 import { SectionShell } from "@/components/ui/SectionShell";
-import { MessageCircle, AlertCircle, Wind, ArrowRight } from "lucide-react";
 
 const PRINCIPLES = [
-  { Icon: MessageCircle, title: "Fala como um colega", desc: "Não como um sistema. Sem jargão técnico, sem asteriscos vermelhos agressivos." },
-  { Icon: AlertCircle,   title: "Oriente, não acuse",  desc: "\"Falta informar\" em vez de \"campo inválido\". O usuário quer resolver, não ser culpado." },
-  { Icon: Wind,          title: "Respira junto",        desc: "Use imperativo suave: \"Respira.\", \"Vamos.\", \"Confira.\" — nunca \"ERRO:\"." },
-  { Icon: ArrowRight,    title: "Mostre o próximo passo",desc: "Toda mensagem de erro deve terminar com uma ação possível, nunca num beco sem saída." },
+  {
+    title: "Clareza",
+    text: "Fale de forma simples, direta e sem jargao tecnico.",
+    Icon: MessageCircle,
+  },
+  {
+    title: "Empatia",
+    text: "Oriente a pessoa sem culpa, pressa ou tom de erro.",
+    Icon: HeartHandshake,
+  },
+  {
+    title: "Credibilidade",
+    text: "Comunique com seguranca, criterio e transparencia.",
+    Icon: ShieldCheck,
+  },
+  {
+    title: "Inspirar acao",
+    text: "Sempre indique o proximo passo possivel.",
+    Icon: Lightbulb,
+  },
 ];
 
 const EXAMPLES = [
-  { contexto: "Campo vazio obrigatório",  certo: "Falta informar a cidade para montarmos a capa.",                               errado: "Campo obrigatório não preenchido." },
-  { contexto: "DOCX gerado com sucesso", certo: "Respira. Seu trabalho está formatado e pronto para entrega.",                   errado: "Documento gerado com sucesso." },
-  { contexto: "Início do fluxo",          certo: "Vamos por partes. Primeiro, escolha o perfil do seu trabalho.",                errado: "Preencha o formulário abaixo." },
-  { contexto: "Pendência antes de gerar", certo: "Quase pronto — só falta conferir a cidade da capa.",                           errado: "Erro: campo cidade vazio." },
-  { contexto: "Dica inline",              certo: "Use caixa alta apenas se o perfil exigir. Dúvida? A norma já está configurada.",errado: "O campo deve estar em maiúsculas conforme ABNT NBR 14724:2011." },
-  { contexto: "Estado de rascunho",       certo: "Salvo como rascunho. Continue quando quiser — seu progresso está aqui.",       errado: "Rascunho salvo. Status: DRAFT." },
+  {
+    situation: "Erro de envio",
+    use: "Falte de novo? Vamos tentar reenviar agora.",
+    avoid: "Falha no upload. Erro 500.",
+  },
+  {
+    situation: "Confirmacao",
+    use: "Tudo funcionando. Seu progresso esta salvo.",
+    avoid: "Operacao concluida com sucesso.",
+  },
+  {
+    situation: "Atencao",
+    use: "Falta informar a cidade para montarmos a capa.",
+    avoid: "Campo obrigatorio nao preenchido.",
+  },
+  {
+    situation: "Geracao",
+    use: "Respira. Seu DOCX esta pronto para baixar.",
+    avoid: "Arquivo gerado.",
+  },
+];
+
+const PHRASES = [
+  "Impacto positivo que floresce no tempo.",
+  "Fortalecemos para transformar o tempo em regeneracao.",
+  "Juntos, cuidamos do futuro possivel.",
 ];
 
 export function VozSection() {
-  return (
-    <SectionShell id="voz" label="Tom de Voz" pill="Microcopy & Princípios">
-      <div className="space-y-6">
+  const [activePhrase, setActivePhrase] = useState(0);
 
-        {/* Princípios */}
-        <div className="grid grid-cols-4 gap-4">
-          {PRINCIPLES.map(({ Icon, title, desc }) => (
-            <div key={title} className="rounded-xl p-5 border"
-              style={{ backgroundColor: "#fff", borderColor: "var(--color-sand)" }}>
-              <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-3"
-                style={{ backgroundColor: "var(--color-cream)" }}>
-                <Icon size={16} style={{ color: "var(--color-green)" }} />
-              </div>
-              <h4 className="text-sm font-bold mb-1.5"
-                style={{ fontFamily: "var(--font-display)", color: "var(--color-forest)" }}>
-                {title}
-              </h4>
-              <p className="text-xs leading-relaxed" style={{ color: "var(--color-neutral)" }}>{desc}</p>
+  return (
+    <SectionShell
+      id="voz"
+      label="Tom de Voz"
+      pill="Microcopy"
+      intro="O texto do Anverso deve reduzir ansiedade, mostrar criterio e transformar pendencias em passos claros."
+    >
+      <div className="grid gap-4 lg:grid-cols-4">
+        {PRINCIPLES.map(({ title, text, Icon }) => (
+          <article
+            key={title}
+            className="guide-panel rounded-[12px] p-4 transition-all hover:-translate-y-1"
+          >
+            <span className="flex h-10 w-10 items-center justify-center rounded-[999px] border border-[rgba(168,117,36,0.32)] bg-[rgba(168,117,36,0.08)] text-[var(--color-gold)]">
+              <Icon size={18} />
+            </span>
+            <p className="mt-4 text-[13px] font-bold text-[var(--color-forest)]">
+              {title}
+            </p>
+            <p className="mt-1 text-[10.5px] leading-relaxed text-[var(--color-neutral)]">
+              {text}
+            </p>
+          </article>
+        ))}
+      </div>
+
+      <div className="mt-4 grid gap-4 xl:grid-cols-[minmax(0,1fr)_330px]">
+        <div className="guide-panel overflow-hidden rounded-[12px]">
+          <div className="grid grid-cols-[150px_1fr_1fr] bg-[var(--color-forest)] px-4 py-3 text-[10px] font-bold uppercase text-white">
+            <span>Situacao</span>
+            <span>Como comunicar</span>
+            <span>Evitar</span>
+          </div>
+          {EXAMPLES.map((example, index) => (
+            <div
+              key={example.situation}
+              className="grid grid-cols-[150px_1fr_1fr] gap-3 border-b border-[var(--color-border-soft)] px-4 py-4 last:border-b-0"
+              style={{
+                backgroundColor:
+                  index % 2 === 0
+                    ? "rgba(255,251,246,0.46)"
+                    : "rgba(247,240,228,0.40)",
+              }}
+            >
+              <p className="text-[11px] font-bold text-[var(--color-text)]">
+                {example.situation}
+              </p>
+              <p className="text-[11px] leading-relaxed text-[var(--color-forest)]">
+                {example.use}
+              </p>
+              <p className="text-[11px] leading-relaxed text-[var(--color-neutral)]">
+                {example.avoid}
+              </p>
             </div>
           ))}
         </div>
 
-        {/* Exemplos — contraste alto */}
-        <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: "var(--color-gold)" }}>
-            Exemplos de Microcopy
+        <aside className="guide-panel rounded-[12px] p-4">
+          <p className="text-[10px] font-bold uppercase text-[var(--color-gold)]">
+            Frases de exemplo
           </p>
-          <div className="rounded-xl overflow-hidden border" style={{ borderColor: "var(--color-sand)" }}>
-            {/* Header — fundo escuro, texto claro garantido */}
-            <div className="grid grid-cols-[160px_1fr_1fr] px-5 py-3"
-              style={{ backgroundColor: "var(--color-forest)" }}>
-              <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(245,240,228,0.5)" }}>Contexto</span>
-              <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "#7EC49A" }}>✓ Usar</span>
-              <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "#E8908E" }}>✕ Evitar</span>
-            </div>
-
-            {EXAMPLES.map(({ contexto, certo, errado }, i) => (
-              <div key={contexto}
-                className="grid grid-cols-[160px_1fr_1fr] px-5 py-4 border-b last:border-b-0 items-start"
-                style={{
-                  borderColor: "var(--color-sand)",
-                  backgroundColor: i % 2 === 0 ? "#fff" : "var(--color-cream)",
-                }}>
-                <p className="text-[11px] font-medium pr-4" style={{ color: "var(--color-neutral)" }}>
-                  {contexto}
-                </p>
-                <div className="pr-4 flex items-start gap-2">
-                  <span className="flex-shrink-0 mt-0.5 text-[11px] font-bold" style={{ color: "var(--color-green)" }}>✓</span>
-                  <p className="text-xs leading-relaxed" style={{ color: "var(--color-forest)" }}>{certo}</p>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="flex-shrink-0 mt-0.5 text-[11px] font-bold" style={{ color: "var(--color-error)" }}>✕</span>
-                  <p className="text-xs leading-relaxed" style={{ color: "var(--color-neutral)" }}>{errado}</p>
-                </div>
-              </div>
+          <div className="mt-4 space-y-2">
+            {PHRASES.map((phrase, index) => (
+              <button
+                key={phrase}
+                type="button"
+                onClick={() => setActivePhrase(index)}
+                className={[
+                  "anverso-focus flex w-full items-center justify-between gap-3 rounded-[10px] border px-3 py-3 text-left text-[11px] transition-all",
+                  activePhrase === index
+                    ? "border-[var(--color-forest)] bg-[rgba(63,91,74,0.08)] text-[var(--color-forest)]"
+                    : "border-[var(--color-border)] bg-[var(--color-paper-soft)] text-[var(--color-neutral)]",
+                ].join(" ")}
+              >
+                <span>{phrase}</span>
+                <ArrowRight size={13} />
+              </button>
             ))}
           </div>
-        </div>
 
-        {/* Quote final */}
-        <blockquote className="rounded-2xl p-8 relative overflow-hidden"
-          style={{ backgroundColor: "var(--color-forest)" }}>
-          <p className="text-2xl italic leading-relaxed"
-            style={{ fontFamily: "var(--font-display)", color: "var(--color-cream)" }}>
-            "Menos ansiedade, mais foco. Esse é o plano."
-          </p>
-          <p className="text-xs mt-3 font-medium" style={{ color: "var(--color-gold)" }}>
-            — Prancha de identidade visual do Anverso
-          </p>
-        </blockquote>
-
+          <blockquote className="mt-5 rounded-[12px] bg-[var(--color-forest)] p-5">
+            <p className="font-serif text-[21px] italic leading-snug text-[var(--color-paper)]">
+              "{PHRASES[activePhrase]}"
+            </p>
+          </blockquote>
+        </aside>
       </div>
     </SectionShell>
   );

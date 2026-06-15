@@ -3,12 +3,12 @@
 
 :root {
   /* Brand / Figma base */
-  --color-forest: #3F5B4A;
-  --color-green: #3F5B4A;
+  --color-forest: #355744;
+  --color-green: #3F6B53;
   --color-blue: #294A70;
   --color-brown: #844537;
-  --color-gold: #915818;
-  --color-gold-strong: #996622;
+  --color-gold: #A87524;
+  --color-gold-strong: #8E5F19;
   --color-red-strong: #98463A;
 
   /* Text */
@@ -19,9 +19,9 @@
   --color-soft-text: rgba(47, 44, 45, 0.75);
 
   /* Paper / surfaces */
-  --color-paper: #FFFBF7;
+  --color-paper: #FFFBF6;
   --color-paper-soft: rgba(255, 251, 247, 0.80);
-  --color-cream: #FFFAF5;
+  --color-cream: #F7F0E4;
   --color-cream-soft: rgba(255, 250, 245, 0.80);
   --color-warm-white: #F1EFEA;
   --color-sand: #DBD9D2;
@@ -32,6 +32,7 @@
   --color-border-soft: rgba(207, 205, 198, 0.75);
   --color-border-strong: #D1D0CB;
   --color-divider: #DAD7D0;
+  --color-white: #FFFFFF;
 
   /* Feedback */
   --color-success: #3F5B4A;
@@ -65,18 +66,20 @@
   --shadow-gold: 0 4px 12px rgba(145, 88, 24, 0.22);
 
   /* Radius */
-  --radius-sm: 10px;
-  --radius-md: 12px;
-  --radius-lg: 14px;
-  --radius-xl: 18px;
-  --radius-2xl: 24px;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 22px;
 
   /* Typography */
   --font-serif: 'Playfair Display', serif;
   --font-sans: 'DM Sans', sans-serif;
+  --font-display: var(--font-serif);
+  --font-body: var(--font-sans);
 
   /* Layout */
-  --sidebar-width: 108px;
+  --sidebar-width: 112px;
 
   /* Motion */
   --transition-soft: 160ms ease;
@@ -88,9 +91,9 @@ html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-sans);
   background:
-    linear-gradient(rgba(255, 251, 247, 0.78), rgba(255, 251, 247, 0.78)),
-    url('/paper-texture.png');
-  background-size: cover;
+    linear-gradient(rgba(255, 251, 246, 0.78), rgba(255, 251, 246, 0.78)),
+    url('/icons/paper-texture.jpg');
+  background-size: auto, 900px auto;
   color: var(--color-text);
 }
 
@@ -99,15 +102,45 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: rgba(245, 240, 228, 0.62);
+  background: rgba(247, 240, 228, 0.54);
   pointer-events: none;
   z-index: 0;
 }
 
 /* Todo o conteúdo acima do overlay */
-#__next, main, aside {
+main {
   position: relative;
   z-index: 1;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.guide-container {
+  width: min(1180px, calc(100% - 56px));
+  margin-inline: auto;
+}
+
+.guide-card {
+  border: 1px solid rgba(63, 91, 74, 0.16);
+  background: rgba(255, 251, 246, 0.64);
+  box-shadow: 0 14px 40px rgba(47, 44, 45, 0.035);
+}
+
+.guide-panel {
+  border: 1px solid rgba(63, 91, 74, 0.14);
+  background: rgba(255, 251, 246, 0.48);
+  box-shadow: 0 10px 30px rgba(47, 44, 45, 0.025);
+}
+
+.guide-line {
+  background-image: linear-gradient(90deg, rgba(63, 91, 74, 0.22) 40%, transparent 0);
+  background-size: 8px 1px;
 }
 
 ::-webkit-scrollbar { width: 5px; }
@@ -122,4 +155,14 @@ body::before {
 
 .anverso-focus:focus-visible {
   box-shadow: 0 0 0 3px rgba(63, 91, 74, 0.22);
+}
+
+@media (max-width: 900px) {
+  :root {
+    --sidebar-width: 0px;
+  }
+
+  .guide-container {
+    width: min(100% - 28px, 760px);
+  }
 }

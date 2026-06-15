@@ -2,233 +2,191 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import type { ComponentType, SVGProps } from "react";
 import {
-  FileText, Eye, Download, Save, Trash2, Search, Calendar,
-  Bookmark, Edit2, MoreHorizontal, Info, AlertTriangle, Cloud,
-  ChevronRight, Check, X, CheckCircle2, Circle,
-  Leaf, ArrowRight, Plus,
-  BookOpen, ClipboardList, FileCheck, User, Tag,
-  AlertCircle, MessageCircle, Wind, ArrowLeft, ChevronDown,
+  AlertTriangle,
+  Bookmark,
+  Calendar,
+  Check,
+  ChevronDown,
+  Cloud,
+  Download,
+  Edit2,
+  Eye,
+  FileText,
+  Info,
+  MessageCircle,
+  MoreHorizontal,
+  Plus,
+  Search,
+  Trash2,
 } from "lucide-react";
 import { SectionShell } from "@/components/ui/SectionShell";
+import { Chip } from "@/components/ui/Chip";
 
-const PNG_FUNCTIONAL = [
-  { file: "docs-icon.png",        name: "docs-icon",       uso: "Arquivo de trabalho" },
-  { file: "bookmark.png",         name: "bookmark",        uso: "Salvar / favorito"   },
-  { file: "edit.png",             name: "edit",            uso: "Editar conteúdo"     },
-  { file: "delete.png",           name: "delete",          uso: "Excluir item"        },
-  { file: "download.png",         name: "download",        uso: "Baixar DOCX"         },
-  { file: "diskette.png",         name: "diskette",        uso: "Salvar rascunho"     },
-  { file: "cloud-computing.png",  name: "cloud",           uso: "Upload / sync"       },
-  { file: "search-symbol.png",    name: "search",          uso: "Busca"               },
-  { file: "view.png",             name: "view",            uso: "Visualizar prévia"   },
-  { file: "calendar.png",         name: "calendar",        uso: "Data de entrega"     },
-  { file: "more.png",             name: "more (···)",      uso: "Menu de ações"       },
-  { file: "info.png",             name: "info",            uso: "Dica rápida"         },
-  { file: "warning.png",          name: "warning",         uso: "Atenção / pendência" },
-  { file: "right-arrow-icon.png", name: "right-arrow",     uso: "Avançar etapa"       },
-];
-const PNG_STATE = [
-  { file: "OK.png",          name: "OK",          uso: "Etapa completa",   size: 32 },
-  { file: "ATENTION.png",    name: "ATENTION",    uso: "Precisa revisão",  size: 32 },
-  { file: "INFORMATION.png", name: "INFORMATION", uso: "Dica informativa", size: 32 },
-];
-const PNG_INPUT = [
-  { file: "check-box-on.png",  name: "checkbox-on",  uso: "Selecionado"     },
-  { file: "check-box-off.png", name: "checkbox-off", uso: "Não selecionado" },
-  { file: "radio-btn-on.png",  name: "radio-on",     uso: "Opção ativa"     },
-  { file: "radio-btn-off.png", name: "radio-off",    uso: "Opção inativa"   },
-];
-const PNG_DECO = [
-  { file: "leaves.png",   name: "leaves",   uso: "Decorativo canto",  size: 40 },
-  { file: "leaves-2.png", name: "leaves-2", uso: "Decorativo var. 2", size: 40 },
-  { file: "leaves-3.png", name: "leaves-3", uso: "Decorativo var. 3", size: 40 },
-  { file: "xicara.png",   name: "xícara",   uso: "Ícone de marca",    size: 40 },
-  { file: "line.png",     name: "line",     uso: "Divisor decorativo", size: 48 },
+type IconComponent = ComponentType<SVGProps<SVGSVGElement> & { size?: number }>;
+
+const PNG_ASSETS = [
+  { file: "docs-icon.png", name: "Documento", category: "Funcional" },
+  { file: "bookmark.png", name: "Favorito", category: "Funcional" },
+  { file: "edit.png", name: "Editar", category: "Funcional" },
+  { file: "delete.png", name: "Excluir", category: "Funcional" },
+  { file: "download.png", name: "Download", category: "Funcional" },
+  { file: "calendar.png", name: "Data", category: "Funcional" },
+  { file: "OK.png", name: "Sucesso", category: "Estado" },
+  { file: "ATENTION.png", name: "Atencao", category: "Estado" },
+  { file: "INFORMATION.png", name: "Informacao", category: "Estado" },
+  { file: "check-box-on.png", name: "Checkbox on", category: "Input" },
+  { file: "radio-btn-on.png", name: "Radio on", category: "Input" },
+  { file: "leaves.png", name: "Folhas", category: "Marca" },
+  { file: "leaves-2.png", name: "Folhas 2", category: "Marca" },
+  { file: "xicara.png", name: "Xicara", category: "Marca" },
 ];
 
-const LUCIDE_ICONS = [
-  { Icon: FileText,       name: "FileText",       uso: "Documento / trabalho" },
-  { Icon: Eye,            name: "Eye",            uso: "Visualizar"           },
-  { Icon: Download,       name: "Download",       uso: "Baixar"               },
-  { Icon: Save,           name: "Save",           uso: "Salvar"               },
-  { Icon: Trash2,         name: "Trash2",         uso: "Excluir (destrutivo)" },
-  { Icon: Search,         name: "Search",         uso: "Campo de busca"       },
-  { Icon: Calendar,       name: "Calendar",       uso: "Campo de data"        },
-  { Icon: Bookmark,       name: "Bookmark",       uso: "Favoritar"            },
-  { Icon: Edit2,          name: "Edit2",          uso: "Editar"               },
-  { Icon: MoreHorizontal, name: "MoreHorizontal", uso: "Menu ···"             },
-  { Icon: Info,           name: "Info",           uso: "Helper text"          },
-  { Icon: AlertTriangle,  name: "AlertTriangle",  uso: "Alerta inline"        },
-  { Icon: AlertCircle,    name: "AlertCircle",    uso: "Erro / pendência"     },
-  { Icon: Cloud,          name: "Cloud",          uso: "Upload"               },
-  { Icon: ChevronRight,   name: "ChevronRight",   uso: "Avançar / nav"        },
-  { Icon: ChevronDown,    name: "ChevronDown",    uso: "Dropdown / expand"    },
-  { Icon: Check,          name: "Check",          uso: "Confirmar / done"     },
-  { Icon: X,              name: "X",              uso: "Fechar / dismiss"     },
-  { Icon: CheckCircle2,   name: "CheckCircle2",   uso: "Estado completo"      },
-  { Icon: Circle,         name: "Circle",         uso: "Radio button"         },
-  { Icon: Plus,           name: "Plus",           uso: "Adicionar"            },
-  { Icon: ArrowRight,     name: "ArrowRight",     uso: "Próximo passo"        },
-  { Icon: ArrowLeft,      name: "ArrowLeft",      uso: "Voltar / anterior"    },
-  { Icon: User,           name: "User",           uso: "Etapa Perfil"         },
-  { Icon: BookOpen,       name: "BookOpen",       uso: "Etapa Conteúdo"       },
-  { Icon: ClipboardList,  name: "ClipboardList",  uso: "Etapa Revisão"        },
-  { Icon: FileCheck,      name: "FileCheck",      uso: "Etapa DOCX"           },
-  { Icon: Leaf,           name: "Leaf",           uso: "Dica rápida"          },
-  { Icon: Tag,            name: "Tag",            uso: "Perfis / categorias"  },
-  { Icon: MessageCircle,  name: "MessageCircle",  uso: "Tom de Voz"           },
-  { Icon: Wind,           name: "Wind",           uso: "Princípio: Respira"   },
+const LUCIDE: { Icon: IconComponent; name: string; category: string }[] = [
+  { Icon: FileText, name: "FileText", category: "Documento" },
+  { Icon: Eye, name: "Eye", category: "Acao" },
+  { Icon: Download, name: "Download", category: "Acao" },
+  { Icon: Edit2, name: "Edit2", category: "Acao" },
+  { Icon: Trash2, name: "Trash2", category: "Acao" },
+  { Icon: Search, name: "Search", category: "Campo" },
+  { Icon: Calendar, name: "Calendar", category: "Campo" },
+  { Icon: ChevronDown, name: "ChevronDown", category: "Campo" },
+  { Icon: Bookmark, name: "Bookmark", category: "Acao" },
+  { Icon: MoreHorizontal, name: "MoreHorizontal", category: "Acao" },
+  { Icon: Info, name: "Info", category: "Estado" },
+  { Icon: AlertTriangle, name: "AlertTriangle", category: "Estado" },
+  { Icon: Cloud, name: "Cloud", category: "Upload" },
+  { Icon: Check, name: "Check", category: "Estado" },
+  { Icon: Plus, name: "Plus", category: "Acao" },
+  { Icon: MessageCircle, name: "MessageCircle", category: "Voz" },
 ];
 
-function PngCard({ file, name, uso, size = 24 }: { file: string; name: string; uso: string; size?: number }) {
+function PngCard({ file, name, category }: { file: string; name: string; category: string }) {
   return (
-    <div className="flex flex-col items-center gap-2 p-3 rounded-xl hover:shadow-sm transition-all group"
-      style={{ backgroundColor: "#fff", border: "1px solid var(--color-sand)" }}>
-      <div className="w-10 h-10 flex items-center justify-center">
-        <Image src={`/icons/${file}`} alt={name} width={size} height={size}
-          className="object-contain group-hover:scale-110 transition-transform" unoptimized />
+    <article className="guide-panel rounded-[10px] p-3 text-center transition-all hover:-translate-y-1">
+      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-[8px] bg-[rgba(255,251,246,0.62)]">
+        <Image
+          src={`/icons/${file}`}
+          alt=""
+          width={28}
+          height={28}
+          className="object-contain"
+          unoptimized
+        />
       </div>
-      <p className="text-[9px] font-semibold text-center leading-tight" style={{ color: "var(--color-forest)" }}>{name}</p>
-      <p className="text-[8px] text-center leading-tight" style={{ color: "var(--color-neutral)" }}>{uso}</p>
-    </div>
+      <p className="mt-2 text-[10.5px] font-bold text-[var(--color-forest)]">
+        {name}
+      </p>
+      <p className="text-[9px] text-[var(--color-neutral)]">{category}</p>
+    </article>
   );
 }
 
-/* Lucide sem fundo — ícone nu, maior, no centro */
-function LucideCard({ Icon, name, uso }: { Icon: React.FC<{ size?: number; color?: string }>; name: string; uso: string }) {
+function LucideCard({ Icon, name, category }: { Icon: IconComponent; name: string; category: string }) {
   return (
-    <div className="flex flex-col items-center gap-2 p-3 rounded-xl hover:shadow-sm transition-all group cursor-default"
-      style={{ backgroundColor: "#fff", border: "1px solid var(--color-sand)" }}>
-      <div className="w-10 h-10 flex items-center justify-center group-hover:scale-110 transition-transform">
-        <Icon size={22} color="var(--color-forest)" />
+    <article className="guide-panel rounded-[10px] p-3 text-center transition-all hover:-translate-y-1">
+      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-[8px] bg-[rgba(63,91,74,0.07)] text-[var(--color-forest)]">
+        <Icon size={23} />
       </div>
-      <p className="text-[9px] font-semibold text-center leading-tight" style={{ color: "var(--color-forest)" }}>{name}</p>
-      <p className="text-[8px] text-center leading-tight" style={{ color: "var(--color-neutral)" }}>{uso}</p>
-    </div>
+      <p className="mt-2 text-[10.5px] font-bold text-[var(--color-forest)]">
+        {name}
+      </p>
+      <p className="text-[9px] text-[var(--color-neutral)]">{category}</p>
+    </article>
   );
 }
 
 export function IconesSection() {
-  const [tab, setTab] = useState<"png" | "lucide">("png");
+  const [mode, setMode] = useState<"marca" | "ui">("marca");
+  const [filter, setFilter] = useState("Todos");
+
+  const categories =
+    mode === "marca"
+      ? ["Todos", ...Array.from(new Set(PNG_ASSETS.map((item) => item.category)))]
+      : ["Todos", ...Array.from(new Set(LUCIDE.map((item) => item.category)))];
+
+  const pngItems =
+    filter === "Todos"
+      ? PNG_ASSETS
+      : PNG_ASSETS.filter((item) => item.category === filter);
+
+  const lucideItems =
+    filter === "Todos" ? LUCIDE : LUCIDE.filter((item) => item.category === filter);
+
+  function changeMode(nextMode: "marca" | "ui") {
+    setMode(nextMode);
+    setFilter("Todos");
+  }
 
   return (
-    <SectionShell id="icones" label="Ícones" pill="Assets & Biblioteca">
-      <div className="space-y-8">
-
-        {/* Fonte dos Ícones */}
-        <div className="rounded-2xl border p-6" style={{ backgroundColor: "#fff", borderColor: "var(--color-sand)" }}>
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-5" style={{ color: "var(--color-gold)" }}>
-            Fonte dos Ícones
+    <SectionShell
+      id="icones"
+      label="Icones"
+      pill="Galeria"
+      intro="Icones de marca entram como assinatura visual. Icones Lucide resolvem a maior parte das acoes e controles da interface."
+    >
+      <div className="grid gap-4 lg:grid-cols-[280px_1fr]">
+        <aside className="guide-panel rounded-[12px] p-4">
+          <p className="text-[10px] font-bold uppercase text-[var(--color-gold)]">
+            Categorias e filtros
           </p>
-          <div className="grid grid-cols-2 gap-5">
-            <div className="rounded-xl p-5 relative overflow-hidden"
-              style={{ backgroundColor: "var(--color-forest)", border: "none" }}>
-              <div className="absolute right-0 bottom-0 opacity-10 pointer-events-none">
-                <Image src="/icons/leaves-2.png" alt="" width={90} height={90} />
-              </div>
-              <p className="text-[9px] uppercase tracking-widest mb-1 font-bold" style={{ color: "rgba(184,149,74,0.8)" }}>
-                Ícones Funcionais de UI
-              </p>
-              <p className="text-xl font-bold mb-2" style={{ fontFamily: "var(--font-display)", color: "var(--color-cream)" }}>
-                Lucide React
-              </p>
-              <p className="text-[11px] mb-3 leading-relaxed" style={{ color: "rgba(245,240,228,0.6)" }}>
-                Open-source, consistente, tree-shakeable. Cobre toda interação de UI.
-              </p>
-              <code className="text-[10px] px-2.5 py-1 rounded-lg font-mono block mb-1"
-                style={{ backgroundColor: "rgba(0,0,0,0.3)", color: "var(--color-gold)" }}>
-                npm install lucide-react
-              </code>
-              <code className="text-[10px] px-2.5 py-1 rounded-lg font-mono block"
-                style={{ backgroundColor: "rgba(0,0,0,0.3)", color: "rgba(245,240,228,0.7)" }}>
-                {"import { FileText } from 'lucide-react'"}
-              </code>
-            </div>
-            <div className="rounded-xl p-5"
-              style={{ backgroundColor: "var(--color-cream)", border: "1px solid var(--color-sand)" }}>
-              <p className="text-[9px] uppercase tracking-widest mb-1 font-bold" style={{ color: "var(--color-neutral)" }}>
-                Ícones de Marca / Status
-              </p>
-              <p className="text-xl font-bold mb-2" style={{ fontFamily: "var(--font-display)", color: "var(--color-forest)" }}>
-                PNGs Customizados
-              </p>
-              <p className="text-[11px] mb-3 leading-relaxed" style={{ color: "var(--color-neutral)" }}>
-                Criados para o Anverso. Estilo orgânico, traços à mão — não existe equivalente no Lucide.
-              </p>
-              <code className="text-[10px] px-2.5 py-1 rounded-lg font-mono block mb-1"
-                style={{ backgroundColor: "var(--color-sand)", color: "var(--color-forest)" }}>
-                /public/icons/*.png
-              </code>
-              <code className="text-[10px] px-2.5 py-1 rounded-lg font-mono block"
-                style={{ backgroundColor: "var(--color-sand)", color: "var(--color-neutral)" }}>
-                {"<Image src='/icons/OK.png' width={20} height={20} />"}
-              </code>
-            </div>
-          </div>
-        </div>
 
-        {/* Tab selector */}
-        <div className="flex gap-2">
-          {(["png", "lucide"] as const).map(t => (
-            <button key={t} onClick={() => setTab(t)}
-              className="px-5 py-2 rounded-xl text-xs font-semibold transition-all"
-              style={{
-                backgroundColor: tab === t ? "var(--color-forest)" : "#fff",
-                color: tab === t ? "#fff" : "var(--color-neutral)",
-                border: `1px solid ${tab === t ? "var(--color-forest)" : "var(--color-sand)"}`,
-              }}>
-              {t === "png" ? "PNGs customizados do Anverso" : "Lucide React — ícones de UI"}
+          <div className="mt-4 grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => changeMode("marca")}
+              className={[
+                "anverso-focus rounded-[9px] border px-3 py-2 text-[11px] font-bold transition-all",
+                mode === "marca"
+                  ? "border-[var(--color-forest)] bg-[var(--color-forest)] text-white"
+                  : "border-[var(--color-border)] bg-[var(--color-paper-soft)] text-[var(--color-neutral)]",
+              ].join(" ")}
+            >
+              Marca
             </button>
-          ))}
+            <button
+              type="button"
+              onClick={() => changeMode("ui")}
+              className={[
+                "anverso-focus rounded-[9px] border px-3 py-2 text-[11px] font-bold transition-all",
+                mode === "ui"
+                  ? "border-[var(--color-forest)] bg-[var(--color-forest)] text-white"
+                  : "border-[var(--color-border)] bg-[var(--color-paper-soft)] text-[var(--color-neutral)]",
+              ].join(" ")}
+            >
+              UI
+            </button>
+          </div>
+
+          <div className="mt-4 flex flex-wrap gap-2">
+            {categories.map((category) => (
+              <Chip
+                key={category}
+                selected={filter === category}
+                onClick={() => setFilter(category)}
+              >
+                {category}
+              </Chip>
+            ))}
+          </div>
+
+          <p className="mt-5 text-[10.5px] leading-relaxed text-[var(--color-neutral)]">
+            Regra: use assets de marca para momentos expressivos; use Lucide
+            para acoes repetidas, campos e navegacao.
+          </p>
+        </aside>
+
+        <div className="guide-panel rounded-[12px] p-4">
+          <p className="mb-4 text-[10px] font-bold uppercase text-[var(--color-gold)]">
+            Galeria selecionada
+          </p>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+            {mode === "marca"
+              ? pngItems.map((item) => <PngCard key={`${item.file}-${item.name}`} {...item} />)
+              : lucideItems.map((item) => <LucideCard key={item.name} {...item} />)}
+          </div>
         </div>
-
-        {tab === "png" && (
-          <div className="space-y-6">
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: "var(--color-gold)" }}>Funcionais</p>
-              <div className="grid grid-cols-7 gap-3">
-                {PNG_FUNCTIONAL.map(p => <PngCard key={p.file} {...p} />)}
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-6">
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: "var(--color-gold)" }}>Estado / Status</p>
-                <div className="grid grid-cols-3 gap-3">
-                  {PNG_STATE.map(p => <PngCard key={p.file} {...p} />)}
-                </div>
-              </div>
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: "var(--color-gold)" }}>Inputs</p>
-                <div className="grid grid-cols-4 gap-3">
-                  {PNG_INPUT.map(p => <PngCard key={p.file} {...p} size={20} />)}
-                </div>
-              </div>
-            </div>
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: "var(--color-gold)" }}>Decorativos & Marca</p>
-              <div className="grid grid-cols-5 gap-3">
-                {PNG_DECO.map(p => <PngCard key={p.file} {...p} />)}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {tab === "lucide" && (
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: "var(--color-gold)" }}>
-              Ícones Lucide React usados no Anverso
-            </p>
-            <div className="grid grid-cols-8 gap-3">
-              {LUCIDE_ICONS.map(({ Icon, name, uso }) => (
-                <LucideCard key={name}
-                  Icon={Icon as React.FC<{ size?: number; color?: string }>}
-                  name={name} uso={uso} />
-              ))}
-            </div>
-          </div>
-        )}
-
       </div>
     </SectionShell>
   );

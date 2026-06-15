@@ -33,8 +33,8 @@ export function ComponentSectionGroup({
         <div className="mb-2 hidden h-px flex-1 bg-[linear-gradient(90deg,rgba(63,91,74,0.20),transparent)] lg:block" />
       </div>
 
-      <div className="rounded-[26px] border border-[rgba(63,91,74,0.10)] bg-[rgba(255,251,247,0.22)] p-4 shadow-[0_14px_38px_rgba(47,44,45,0.025)]">
-        {children}
+      <div className="max-w-full overflow-x-auto rounded-[26px] border border-[rgba(63,91,74,0.10)] bg-[rgba(255,251,247,0.22)] p-4 shadow-[0_14px_38px_rgba(47,44,45,0.025)]">
+        <div className="min-w-[720px] xl:min-w-0">{children}</div>
       </div>
     </section>
   );
