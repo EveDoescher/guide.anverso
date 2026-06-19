@@ -1,10 +1,19 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
+import { motionEase, motionTimings } from "@/components/ui/MotionPrimitives";
 
 type ComponentSectionGroupProps = {
   eyebrow: string;
   title: string;
   description: string;
   children: ReactNode;
+  /**
+   * Quando true, aplica cores de texto para fundos escuros.
+   * Default agora é false para combinar com a nova diretriz de "papel".
+   */
+  dark?: boolean;
 };
 
 export function ComponentSectionGroup({
@@ -12,30 +21,66 @@ export function ComponentSectionGroup({
   title,
   description,
   children,
+  dark = false,
 }: ComponentSectionGroupProps) {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <section className="relative">
-      <div className="mb-4 flex items-end gap-5">
-        <div className="max-w-[780px]">
-          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[var(--color-gold)]">
+    <motion.section
+      initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.08 }}
+      transition={{ duration: motionTimings.section, ease: motionEase }}
+      className="relative mb-16"
+    >
+      {/* Cabeçalho do grupo */}
+      <div className="mb-8 flex items-end gap-5">
+        <div className="max-w-[760px]">
+          <p
+            className="text-[10px] font-bold uppercase tracking-[0.22em]"
+            style={{
+              color: dark ? "rgba(212,170,92,0.75)" : "var(--color-gold)",
+            }}
+          >
             {eyebrow}
           </p>
 
-          <h3 className="mt-1 font-serif text-[25px] font-bold leading-tight text-[var(--color-forest)]">
+          <h3
+            className="mt-2 font-serif font-bold leading-tight"
+            style={{
+              fontSize: "clamp(1.4rem, 2.6vw, 1.9rem)",
+              color: dark ? "var(--color-ink-inv)" : "var(--color-espresso)",
+            }}
+          >
             {title}
           </h3>
 
-          <p className="mt-1.5 text-[12px] leading-relaxed text-[var(--color-neutral)]">
-            {description}
-          </p>
+          {description && (
+            <p
+              className="mt-3 text-[13px] font-serif italic leading-relaxed"
+              style={{
+                color: dark ? "var(--color-muted-inv)" : "var(--color-neutral)",
+              }}
+            >
+              {description}
+            </p>
+          )}
         </div>
 
-        <div className="mb-2 hidden h-px flex-1 bg-[linear-gradient(90deg,rgba(63,91,74,0.20),transparent)] lg:block" />
+        <div
+          className="mb-4 hidden h-px flex-1 lg:block"
+          style={{
+            background: dark
+              ? "linear-gradient(90deg, rgba(181,137,42,0.30), transparent)"
+              : "linear-gradient(90deg, rgba(92,51,32,0.15), transparent)",
+          }}
+        />
       </div>
 
-      <div className="max-w-full overflow-x-auto rounded-[26px] border border-[rgba(63,91,74,0.10)] bg-[rgba(255,251,247,0.22)] p-4 shadow-[0_14px_38px_rgba(47,44,45,0.025)]">
-        <div className="min-w-[720px] xl:min-w-0">{children}</div>
+      {/* Showcase Grid */}
+      <div className="grid gap-6">
+        {children}
       </div>
-    </section>
+    </motion.section>
   );
 }

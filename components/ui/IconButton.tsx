@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, ComponentType } from "react";
 
-type IconButtonVariant = "cream" | "paper" | "forest" | "gold" | "ghost";
+type IconButtonVariant = "cream" | "paper" | "forest" | "gold" | "ghost" | "primary";
 
 type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   icon: ComponentType<{ size?: number; className?: string }>;
@@ -19,6 +19,8 @@ const variantClasses: Record<IconButtonVariant, string> = {
     "bg-[var(--color-gold)] border-transparent text-white hover:brightness-110",
   ghost:
     "bg-transparent border-transparent text-[var(--color-neutral)] hover:bg-[rgba(47,44,45,0.06)]",
+  primary:
+    "bg-[var(--color-green)] border-transparent text-white shadow-[var(--shadow-button)] hover:brightness-110",
 };
 
 export function IconButton({
@@ -36,7 +38,7 @@ export function IconButton({
           title={label}
           className={[
               "anverso-focus group relative flex h-[42px] w-[42px] items-center justify-center rounded-[10px] border transition-all",
-              "hover:-translate-y-0.5 active:scale-95 disabled:pointer-events-none disabled:opacity-45",
+              "hover:-translate-y-0.5 active:scale-95 disabled:pointer-events-none disabled:opacity-30 disabled:grayscale",
               variantClasses[variant],
               className,
           ].join(" ")}

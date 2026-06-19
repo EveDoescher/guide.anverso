@@ -34,65 +34,69 @@ const PNG_ASSETS = [
   { file: "download.png", name: "Download", category: "Funcional" },
   { file: "calendar.png", name: "Data", category: "Funcional" },
   { file: "OK.png", name: "Sucesso", category: "Estado" },
-  { file: "ATENTION.png", name: "Atencao", category: "Estado" },
-  { file: "INFORMATION.png", name: "Informacao", category: "Estado" },
+  { file: "ATENTION.png", name: "Atenção", category: "Estado" },
+  { file: "INFORMATION.png", name: "Informação", category: "Estado" },
   { file: "check-box-on.png", name: "Checkbox on", category: "Input" },
   { file: "radio-btn-on.png", name: "Radio on", category: "Input" },
   { file: "leaves.png", name: "Folhas", category: "Marca" },
   { file: "leaves-2.png", name: "Folhas 2", category: "Marca" },
-  { file: "xicara.png", name: "Xicara", category: "Marca" },
+  { file: "xicara.png", name: "Xícara", category: "Marca" },
 ];
 
 const LUCIDE: { Icon: IconComponent; name: string; category: string }[] = [
   { Icon: FileText, name: "FileText", category: "Documento" },
-  { Icon: Eye, name: "Eye", category: "Acao" },
-  { Icon: Download, name: "Download", category: "Acao" },
-  { Icon: Edit2, name: "Edit2", category: "Acao" },
-  { Icon: Trash2, name: "Trash2", category: "Acao" },
+  { Icon: Eye, name: "Eye", category: "Ação" },
+  { Icon: Download, name: "Download", category: "Ação" },
+  { Icon: Edit2, name: "Edit2", category: "Ação" },
+  { Icon: Trash2, name: "Trash2", category: "Ação" },
   { Icon: Search, name: "Search", category: "Campo" },
   { Icon: Calendar, name: "Calendar", category: "Campo" },
   { Icon: ChevronDown, name: "ChevronDown", category: "Campo" },
-  { Icon: Bookmark, name: "Bookmark", category: "Acao" },
-  { Icon: MoreHorizontal, name: "MoreHorizontal", category: "Acao" },
+  { Icon: Bookmark, name: "Bookmark", category: "Ação" },
+  { Icon: MoreHorizontal, name: "MoreHorizontal", category: "Ação" },
   { Icon: Info, name: "Info", category: "Estado" },
   { Icon: AlertTriangle, name: "AlertTriangle", category: "Estado" },
   { Icon: Cloud, name: "Cloud", category: "Upload" },
   { Icon: Check, name: "Check", category: "Estado" },
-  { Icon: Plus, name: "Plus", category: "Acao" },
+  { Icon: Plus, name: "Plus", category: "Ação" },
   { Icon: MessageCircle, name: "MessageCircle", category: "Voz" },
 ];
 
 function PngCard({ file, name, category }: { file: string; name: string; category: string }) {
   return (
-    <article className="guide-panel rounded-[10px] p-3 text-center transition-all hover:-translate-y-1">
-      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-[8px] bg-[rgba(255,251,246,0.62)]">
+    <article className="p-4 text-center transition-all hover:bg-[rgba(92,51,32,0.03)] border border-[rgba(92,51,32,0.1)]">
+      <div className="mx-auto flex h-14 w-14 items-center justify-center bg-transparent">
         <Image
           src={`/icons/${file}`}
           alt=""
-          width={28}
-          height={28}
+          width={32}
+          height={32}
           className="object-contain"
+          style={{
+            /* Aproximação CSS para a cor var(--color-espresso) #2c1810 a partir do preto */
+            filter: "brightness(0) saturate(100%) invert(11%) sepia(26%) saturate(2203%) hue-rotate(347deg) brightness(92%) contrast(87%)",
+          }}
           unoptimized
         />
       </div>
-      <p className="mt-2 text-[10.5px] font-bold text-[var(--color-forest)]">
+      <p className="mt-3 text-[11px] font-serif font-bold text-[var(--color-espresso)]">
         {name}
       </p>
-      <p className="text-[9px] text-[var(--color-neutral)]">{category}</p>
+      <p className="mt-1 text-[9px] uppercase tracking-widest text-[var(--color-neutral)]">{category}</p>
     </article>
   );
 }
 
 function LucideCard({ Icon, name, category }: { Icon: IconComponent; name: string; category: string }) {
   return (
-    <article className="guide-panel rounded-[10px] p-3 text-center transition-all hover:-translate-y-1">
-      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-[8px] bg-[rgba(63,91,74,0.07)] text-[var(--color-forest)]">
-        <Icon size={23} />
+    <article className="p-4 text-center transition-all hover:bg-[rgba(92,51,32,0.03)] border border-[rgba(92,51,32,0.1)]">
+      <div className="mx-auto flex h-14 w-14 items-center justify-center text-[var(--color-espresso)]">
+        <Icon size={24} strokeWidth={1.5} />
       </div>
-      <p className="mt-2 text-[10.5px] font-bold text-[var(--color-forest)]">
+      <p className="mt-3 text-[11px] font-serif font-bold text-[var(--color-espresso)]">
         {name}
       </p>
-      <p className="text-[9px] text-[var(--color-neutral)]">{category}</p>
+      <p className="mt-1 text-[9px] uppercase tracking-widest text-[var(--color-neutral)]">{category}</p>
     </article>
   );
 }
@@ -122,44 +126,44 @@ export function IconesSection() {
   return (
     <SectionShell
       id="icones"
-      label="Icones"
+      label="Ícones"
       pill="Galeria"
-      intro="Icones de marca entram como assinatura visual. Icones Lucide resolvem a maior parte das acoes e controles da interface."
+      intro="Ícones de marca entram como assinatura visual. Ícones Lucide resolvem a maior parte das ações e controles da interface."
     >
-      <div className="grid gap-4 lg:grid-cols-[280px_1fr]">
-        <aside className="guide-panel rounded-[12px] p-4">
-          <p className="text-[10px] font-bold uppercase text-[var(--color-gold)]">
+      <div className="grid gap-8 lg:grid-cols-[280px_1fr] items-start">
+        <aside className="p-6 border border-[rgba(92,51,32,0.15)] bg-[rgba(92,51,32,0.01)]">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-espresso)]">
             Categorias e filtros
           </p>
 
-          <div className="mt-4 grid grid-cols-2 gap-2">
+          <div className="mt-6 grid grid-cols-2 gap-3">
             <button
               type="button"
               onClick={() => changeMode("marca")}
               className={[
-                "anverso-focus rounded-[9px] border px-3 py-2 text-[11px] font-bold transition-all",
+                "anverso-focus py-3 text-[11px] font-serif font-bold transition-all border-b-2",
                 mode === "marca"
-                  ? "border-[var(--color-forest)] bg-[var(--color-forest)] text-white"
-                  : "border-[var(--color-border)] bg-[var(--color-paper-soft)] text-[var(--color-neutral)]",
+                  ? "border-[var(--color-espresso)] text-[var(--color-espresso)]"
+                  : "border-transparent text-[var(--color-neutral)] hover:text-[var(--color-espresso)]",
               ].join(" ")}
             >
-              Marca
+              Ícones Customizados
             </button>
             <button
               type="button"
               onClick={() => changeMode("ui")}
               className={[
-                "anverso-focus rounded-[9px] border px-3 py-2 text-[11px] font-bold transition-all",
+                "anverso-focus py-3 text-[11px] font-serif font-bold transition-all border-b-2",
                 mode === "ui"
-                  ? "border-[var(--color-forest)] bg-[var(--color-forest)] text-white"
-                  : "border-[var(--color-border)] bg-[var(--color-paper-soft)] text-[var(--color-neutral)]",
+                  ? "border-[var(--color-espresso)] text-[var(--color-espresso)]"
+                  : "border-transparent text-[var(--color-neutral)] hover:text-[var(--color-espresso)]",
               ].join(" ")}
             >
-              UI
+              Ícones de Sistema
             </button>
           </div>
 
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-8 flex flex-wrap gap-2">
             {categories.map((category) => (
               <Chip
                 key={category}
@@ -171,17 +175,13 @@ export function IconesSection() {
             ))}
           </div>
 
-          <p className="mt-5 text-[10.5px] leading-relaxed text-[var(--color-neutral)]">
-            Regra: use assets de marca para momentos expressivos; use Lucide
-            para acoes repetidas, campos e navegacao.
+          <p className="mt-8 text-[12px] font-serif italic leading-relaxed text-[var(--color-neutral)] pt-6 border-t border-[rgba(92,51,32,0.1)]">
+            Regra: use ilustrações para momentos expressivos e vazios; use os ícones de sistema (Lucide) para ações repetidas, botões e navegação estrutural.
           </p>
         </aside>
 
-        <div className="guide-panel rounded-[12px] p-4">
-          <p className="mb-4 text-[10px] font-bold uppercase text-[var(--color-gold)]">
-            Galeria selecionada
-          </p>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+        <div className="p-0">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-[-1px]">
             {mode === "marca"
               ? pngItems.map((item) => <PngCard key={`${item.file}-${item.name}`} {...item} />)
               : lucideItems.map((item) => <LucideCard key={item.name} {...item} />)}

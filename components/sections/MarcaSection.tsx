@@ -1,54 +1,31 @@
 import Image from "next/image";
-import type { ReactNode } from "react";
-import { ArrowRight, Heart, Leaf, ShieldCheck, Sparkles } from "lucide-react";
 import { SectionShell } from "@/components/ui/SectionShell";
+import { PressableMotion, Reveal, Stagger, StaggerItem } from "@/components/ui/MotionPrimitives";
 
-const BRAND_CARDS = [
-  {
-    title: "Proposito",
-    text: "Tirar peso da formatacao academica e devolver foco para o texto.",
-    Icon: Sparkles,
-  },
-  {
-    title: "Visao",
-    text: "Ser o jeito tranquilo de preparar trabalhos com qualidade e criterio.",
-    Icon: Leaf,
-  },
-  {
-    title: "Valores",
-    text: "Clareza, cuidado, confianca e uma sensacao constante de progresso.",
-    Icon: ShieldCheck,
-  },
-  {
-    title: "Personalidade",
-    text: "Calma, precisa e humana. Guia o usuario sem parecer burocratica.",
-    Icon: Heart,
-  },
+const ESSENCIA = [
+  { word: "Calma",      sub: "Sem pressa, sem ruído" },
+  { word: "Clareza",    sub: "Cada passo, visível" },
+  { word: "Confiança",  sub: "Você entrega, nós cuidamos" },
 ];
 
-function BrandAsset({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
-  return (
-    <div className="guide-panel rounded-[12px] p-4 transition-all hover:-translate-y-1 hover:border-[rgba(63,91,74,0.32)] hover:bg-[rgba(255,251,246,0.72)]">
-      <div className="flex h-[98px] items-center justify-center rounded-[8px] border border-[var(--color-border-soft)] bg-[rgba(255,251,246,0.72)]">
-        {children}
-      </div>
-      <p className="mt-3 text-[12px] font-bold text-[var(--color-forest)]">
-        {title}
-      </p>
-      <p className="mt-1 text-[10.5px] leading-relaxed text-[var(--color-neutral)]">
-        {description}
-      </p>
-    </div>
-  );
-}
+const PILARES = [
+  {
+    label: "Propósito",
+    text:  "Tirar o peso da formatação acadêmica e devolver foco para o texto.",
+  },
+  {
+    label: "Visão",
+    text:  "Ser o jeito tranquilo de preparar trabalhos com qualidade e critério.",
+  },
+  {
+    label: "Valores",
+    text:  "Clareza, cuidado, confiança e a sensação constante de progresso.",
+  },
+  {
+    label: "Personalidade",
+    text:  "Calma, precisa e humana. Guia sem parecer burocrática.",
+  },
+];
 
 export function MarcaSection() {
   return (
@@ -56,133 +33,171 @@ export function MarcaSection() {
       id="marca"
       label="Marca"
       pill="Identidade"
-      intro="A primeira dobra apresenta o nome como sinal principal e organiza os elementos de apoio em pequenas pecas reutilizaveis."
+      intro="Nome, símbolo, valores e personalidade: os blocos que compõem a presença visual do Anverso."
     >
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,0.9fr)]">
-        <div className="guide-panel relative min-h-[220px] overflow-hidden rounded-[12px] p-6">
-          <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(63,91,74,0.05),transparent_55%)]" />
-          <div className="absolute -right-5 bottom-0 opacity-20">
-            <Image
-              src="/icons/leaves-3.png"
-              alt=""
-              width={170}
-              height={170}
-              unoptimized
-            />
-          </div>
-
-          <div className="relative z-10 flex h-full min-h-[190px] flex-col items-center justify-center text-center">
+      {/* ── Hero: logo centralizado com atmosfera editorial ── */}
+      <Reveal>
+        <div
+          className="relative px-6 py-20 flex flex-col items-center text-center"
+          style={{
+            borderBottom: "1px solid rgba(92,51,32,0.15)",
+          }}
+        >
+          <div className="relative z-10 flex flex-col items-center text-center">
             <Image
               src="/icons/Anverso-logo.png"
               alt="Anverso"
-              width={360}
+              width={500}
               height={150}
               className="object-contain"
-              style={{ width: "min(78%, 360px)", height: "auto" }}
+              style={{ width: "min(75vw, 420px)", height: "auto" }}
               loading="eager"
               unoptimized
             />
-            <p className="mt-4 max-w-[420px] font-serif text-[18px] leading-snug text-[var(--color-forest)]">
-              Impacto positivo que floresce no tempo.
+
+            <p
+              className="mt-8 max-w-[520px] font-serif text-[24px] italic leading-snug"
+              style={{ color: "var(--color-espresso)" }}
+            >
+              Seu trabalho em ordem, sem complicação.
             </p>
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-[10px] font-bold uppercase text-[var(--color-gold)]">
-              <span>Calma</span>
-              <span className="h-px w-6 bg-[var(--color-border)]" />
-              <span>Clareza</span>
-              <span className="h-px w-6 bg-[var(--color-border)]" />
-              <span>Confianca</span>
+
+            {/* Três valores como trio limpo */}
+            <div className="mt-14 flex flex-wrap justify-center gap-8 md:gap-16">
+              {ESSENCIA.map((item) => (
+                <div key={item.word} className="flex flex-col items-center gap-2">
+                  <span
+                    className="font-serif text-[12px] font-bold uppercase"
+                    style={{ letterSpacing: "0.22em", color: "var(--color-espresso)" }}
+                  >
+                    {item.word}
+                  </span>
+                  <span
+                    className="text-[12px] font-serif italic"
+                    style={{ color: "var(--color-neutral)" }}
+                  >
+                    {item.sub}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
+      </Reveal>
 
-        <div className="grid grid-cols-2 gap-3">
-          <BrandAsset
-            title="Logotipo principal"
-            description="Uso prioritario em abertura, capas e cabecalhos."
-          >
-            <Image
-              src="/icons/Anverso-logo.png"
-              alt="Anverso"
-              width={160}
-              height={70}
-              className="object-contain"
-              unoptimized
-            />
-          </BrandAsset>
+      {/* ── Grade assimétrica: pilares + assets ── */}
+      <div className="mt-12 grid gap-12 md:grid-cols-[minmax(0,1fr)_320px]">
+        {/* Pilares — texto denso à esquerda */}
+        <Stagger className="grid gap-6 sm:grid-cols-2">
+          {PILARES.map(({ label, text }) => (
+            <StaggerItem key={label}>
+              <PressableMotion className="h-full">
+                <div
+                  className="flex h-full flex-col gap-4 p-6 transition-colors hover:bg-[rgba(92,51,32,0.02)]"
+                  style={{
+                    borderLeft: "1px solid rgba(92,51,32,0.15)",
+                  }}
+                >
+                  <span
+                    className="font-serif text-[20px] font-bold"
+                    style={{ color: "var(--color-espresso)" }}
+                  >
+                    {label}
+                  </span>
+                  <p
+                    className="text-[14px] leading-relaxed font-serif"
+                    style={{ color: "var(--color-neutral)" }}
+                  >
+                    {text}
+                  </p>
+                </div>
+              </PressableMotion>
+            </StaggerItem>
+          ))}
+        </Stagger>
 
-          <BrandAsset
-            title="Versao horizontal"
-            description="Boa para barras, rodapes e espacos estreitos."
-          >
-            <Image
-              src="/icons/Anverso-logo.png"
-              alt="Anverso"
-              width={128}
-              height={58}
-              className="object-contain"
-              unoptimized
-            />
-          </BrandAsset>
-
-          <BrandAsset
-            title="Icone simbolo"
-            description="Elemento de marca para estados vazios e apoio visual."
-          >
-            <Image
-              src="/icons/xicara.png"
-              alt=""
-              width={58}
-              height={58}
-              className="object-contain"
-              unoptimized
-            />
-          </BrandAsset>
-
-          <BrandAsset
-            title="Ramo grafico"
-            description="Decorativo leve. Ajuda sem competir com a interface."
-          >
-            <Image
-              src="/icons/leaves.png"
-              alt=""
-              width={78}
-              height={78}
-              className="object-contain opacity-80"
-              unoptimized
-            />
-          </BrandAsset>
-        </div>
-      </div>
-
-      <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-        {BRAND_CARDS.map(({ title, text, Icon }) => (
-          <article
-            key={title}
-            className="guide-panel rounded-[12px] p-4 transition-all hover:-translate-y-1 hover:border-[rgba(168,117,36,0.38)]"
-          >
-            <div className="flex items-start gap-3">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[8px] bg-[rgba(168,117,36,0.10)] text-[var(--color-gold)]">
-                <Icon size={17} />
-              </span>
-              <div>
-                <p className="text-[12px] font-bold text-[var(--color-forest)]">
-                  {title}
-                </p>
-                <p className="mt-1 text-[10.5px] leading-relaxed text-[var(--color-neutral)]">
-                  {text}
+        {/* Assets de marca — coluna vertical à direita */}
+        <Stagger className="flex flex-col gap-6">
+          {/* Logo */}
+          <StaggerItem>
+            <PressableMotion>
+              <div
+                className="flex flex-col items-center gap-6 p-8"
+                style={{
+                  border: "1px solid rgba(92,51,32,0.15)",
+                  background: "transparent",
+                }}
+              >
+                <Image
+                  src="/icons/Anverso-logo.png"
+                  alt="Anverso"
+                  width={150}
+                  height={60}
+                  className="object-contain"
+                  unoptimized
+                />
+                <p
+                  className="text-[10px] font-bold uppercase border-t border-[rgba(92,51,32,0.1)] w-full text-center pt-4"
+                  style={{ letterSpacing: "0.16em", color: "var(--color-espresso)" }}
+                >
+                  Logotipo principal
                 </p>
               </div>
-            </div>
-          </article>
-        ))}
-      </div>
+            </PressableMotion>
+          </StaggerItem>
 
-      <div className="mt-4 flex flex-wrap items-center gap-3 rounded-[12px] border border-dashed border-[rgba(63,91,74,0.22)] bg-[rgba(255,251,246,0.40)] p-4">
-        <ArrowRight size={15} className="text-[var(--color-gold)]" />
-        <p className="text-[11px] leading-relaxed text-[var(--color-neutral)]">
-          A marca deve aparecer primeiro como presenca calma, depois como sistema:
-          logo, simbolo, valores e componentes trabalham como uma mesma linguagem.
-        </p>
+          {/* Símbolo + ramo */}
+          <StaggerItem>
+            <div className="grid grid-cols-2 gap-4">
+              <PressableMotion>
+                <div
+                  className="flex flex-col items-center gap-4 p-6"
+                  style={{
+                    border: "1px solid rgba(92,51,32,0.15)",
+                  }}
+                >
+                  <Image
+                    src="/icons/xicara.png"
+                    alt=""
+                    width={44}
+                    height={44}
+                    className="object-contain"
+                    unoptimized
+                  />
+                  <p
+                    className="text-center text-[9px] font-bold uppercase"
+                    style={{ letterSpacing: "0.14em", color: "var(--color-espresso)" }}
+                  >
+                    Símbolo
+                  </p>
+                </div>
+              </PressableMotion>
+              <PressableMotion>
+                <div
+                  className="flex flex-col items-center gap-4 p-6"
+                  style={{
+                    border: "1px solid rgba(92,51,32,0.15)",
+                  }}
+                >
+                  <Image
+                    src="/icons/leaves.png"
+                    alt=""
+                    width={44}
+                    height={44}
+                    className="object-contain opacity-80"
+                    unoptimized
+                  />
+                  <p
+                    className="text-center text-[9px] font-bold uppercase"
+                    style={{ letterSpacing: "0.14em", color: "var(--color-espresso)" }}
+                  >
+                    Ramo
+                  </p>
+                </div>
+              </PressableMotion>
+            </div>
+          </StaggerItem>
+        </Stagger>
       </div>
     </SectionShell>
   );

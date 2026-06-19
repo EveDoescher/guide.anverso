@@ -1,59 +1,73 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, HeartHandshake, Lightbulb, MessageCircle, ShieldCheck } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { HeartHandshake, Lightbulb, MessageCircle, ShieldCheck } from "lucide-react";
 import { SectionShell } from "@/components/ui/SectionShell";
+import {
+  PressableMotion,
+  Reveal,
+  Stagger,
+  StaggerItem,
+  motionEase,
+  motionTimings,
+} from "@/components/ui/MotionPrimitives";
 
 const PRINCIPLES = [
   {
     title: "Clareza",
-    text: "Fale de forma simples, direta e sem jargao tecnico.",
-    Icon: MessageCircle,
+    text:  "Fale de forma simples, direta e sem jargão técnico.",
+    Icon:  MessageCircle,
+    color: "var(--color-forest)",
   },
   {
     title: "Empatia",
-    text: "Oriente a pessoa sem culpa, pressa ou tom de erro.",
-    Icon: HeartHandshake,
+    text:  "Oriente a pessoa sem culpa, pressa ou tom de erro.",
+    Icon:  HeartHandshake,
+    color: "var(--color-mocha)",
   },
   {
     title: "Credibilidade",
-    text: "Comunique com seguranca, criterio e transparencia.",
-    Icon: ShieldCheck,
+    text:  "Comunique com segurança, critério e transparência.",
+    Icon:  ShieldCheck,
+    color: "var(--color-espresso)",
   },
   {
-    title: "Inspirar acao",
-    text: "Sempre indique o proximo passo possivel.",
-    Icon: Lightbulb,
+    title: "Inspirar ação",
+    text:  "Sempre indique o próximo passo possível.",
+    Icon:  Lightbulb,
+    color: "var(--color-gold-strong)",
   },
 ];
 
 const EXAMPLES = [
   {
     situation: "Erro de envio",
-    use: "Falte de novo? Vamos tentar reenviar agora.",
+    use:   "Falhou de novo? Vamos tentar reenviar agora.",
     avoid: "Falha no upload. Erro 500.",
   },
   {
-    situation: "Confirmacao",
-    use: "Tudo funcionando. Seu progresso esta salvo.",
-    avoid: "Operacao concluida com sucesso.",
+    situation: "Confirmação",
+    use:   "Tudo funcionando. Seu progresso está salvo.",
+    avoid: "Operação concluída com sucesso.",
   },
   {
-    situation: "Atencao",
-    use: "Falta informar a cidade para montarmos a capa.",
-    avoid: "Campo obrigatorio nao preenchido.",
+    situation: "Atenção",
+    use:   "Falta informar a cidade para montarmos a capa.",
+    avoid: "Campo obrigatório não preenchido.",
   },
   {
-    situation: "Geracao",
-    use: "Respira. Seu DOCX esta pronto para baixar.",
+    situation: "Geração",
+    use:   "Respira. Seu DOCX está pronto para baixar.",
     avoid: "Arquivo gerado.",
   },
 ];
 
 const PHRASES = [
-  "Impacto positivo que floresce no tempo.",
-  "Fortalecemos para transformar o tempo em regeneracao.",
-  "Juntos, cuidamos do futuro possivel.",
+  "\"Vamos por partes.\"",
+  "\"Falta só mais um detalhe para preparar seu DOCX.\"",
+  "\"Respira. A gente organiza isso com você.\"",
+  "\"Seu trabalho está quase pronto.\"",
 ];
 
 export function VozSection() {
@@ -63,88 +77,181 @@ export function VozSection() {
     <SectionShell
       id="voz"
       label="Tom de Voz"
-      pill="Microcopy"
-      intro="O texto do Anverso deve reduzir ansiedade, mostrar criterio e transformar pendencias em passos claros."
+      pill="Redação"
+      intro="O texto do Anverso reduz ansiedade, mostra critério e transforma pendências em passos claros."
     >
-      <div className="grid gap-4 lg:grid-cols-4">
-        {PRINCIPLES.map(({ title, text, Icon }) => (
-          <article
-            key={title}
-            className="guide-panel rounded-[12px] p-4 transition-all hover:-translate-y-1"
-          >
-            <span className="flex h-10 w-10 items-center justify-center rounded-[999px] border border-[rgba(168,117,36,0.32)] bg-[rgba(168,117,36,0.08)] text-[var(--color-gold)]">
-              <Icon size={18} />
-            </span>
-            <p className="mt-4 text-[13px] font-bold text-[var(--color-forest)]">
-              {title}
-            </p>
-            <p className="mt-1 text-[10.5px] leading-relaxed text-[var(--color-neutral)]">
-              {text}
-            </p>
-          </article>
-        ))}
-      </div>
+      {/* ── Layout de três colunas ── */}
+      <div className="grid gap-8 xl:grid-cols-[340px_minmax(0,1fr)_minmax(0,1fr)]">
 
-      <div className="mt-4 grid gap-4 xl:grid-cols-[minmax(0,1fr)_330px]">
-        <div className="guide-panel overflow-hidden rounded-[12px]">
-          <div className="grid grid-cols-[150px_1fr_1fr] bg-[var(--color-forest)] px-4 py-3 text-[10px] font-bold uppercase text-white">
-            <span>Situacao</span>
-            <span>Como comunicar</span>
-            <span>Evitar</span>
-          </div>
-          {EXAMPLES.map((example, index) => (
-            <div
-              key={example.situation}
-              className="grid grid-cols-[150px_1fr_1fr] gap-3 border-b border-[var(--color-border-soft)] px-4 py-4 last:border-b-0"
-              style={{
-                backgroundColor:
-                  index % 2 === 0
-                    ? "rgba(255,251,246,0.46)"
-                    : "rgba(247,240,228,0.40)",
-              }}
+        {/* Coluna 1: Manifesto interativo */}
+        <Reveal>
+          <div
+            className="flex h-full flex-col p-8"
+            style={{
+              background: "rgba(92,51,32,0.02)",
+              border: "1px solid rgba(92,51,32,0.15)",
+            }}
+          >
+            <p
+              className="text-[10px] font-bold uppercase"
+              style={{ letterSpacing: "0.22em", color: "var(--color-espresso)" }}
             >
-              <p className="text-[11px] font-bold text-[var(--color-text)]">
-                {example.situation}
-              </p>
-              <p className="text-[11px] leading-relaxed text-[var(--color-forest)]">
-                {example.use}
-              </p>
-              <p className="text-[11px] leading-relaxed text-[var(--color-neutral)]">
-                {example.avoid}
-              </p>
+              Manifesto de voz
+            </p>
+
+            {/* Frase animada */}
+            <div className="relative mt-12 min-h-[140px]">
+              <AnimatePresence mode="wait">
+                <motion.blockquote
+                  key={activePhrase}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: motionTimings.item, ease: motionEase }}
+                >
+                  <p
+                    className="font-serif italic leading-tight"
+                    style={{
+                      fontSize: "clamp(1.5rem, 2.5vw, 1.8rem)",
+                      color: "var(--color-espresso)",
+                    }}
+                  >
+                    {PHRASES[activePhrase]}
+                  </p>
+                </motion.blockquote>
+              </AnimatePresence>
             </div>
-          ))}
+
+            {/* Seletores de frase */}
+            <div className="mt-auto space-y-3 pt-8 border-t border-[rgba(92,51,32,0.1)]">
+              {PHRASES.map((phrase, index) => (
+                <button
+                  key={phrase}
+                  type="button"
+                  onClick={() => setActivePhrase(index)}
+                  className="anverso-focus w-full text-left text-[12px] font-serif transition-colors px-2 py-1.5"
+                  style={
+                    activePhrase === index
+                      ? {
+                          color: "var(--color-espresso)",
+                          borderLeft: "2px solid var(--color-espresso)",
+                          fontWeight: 600,
+                          fontStyle: "italic",
+                        }
+                      : {
+                          color: "var(--color-neutral)",
+                          borderLeft: "2px solid transparent",
+                        }
+                  }
+                >
+                  {phrase.replace(/['"]+/g, '')}
+                </button>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Coluna 2: Princípios */}
+        <div>
+          <p
+            className="mb-6 text-[10px] font-bold uppercase border-b border-[rgba(92,51,32,0.1)] pb-2"
+            style={{ letterSpacing: "0.18em", color: "var(--color-espresso)" }}
+          >
+            Princípios
+          </p>
+          <Stagger className="grid gap-6 sm:grid-cols-2 xl:grid-cols-1">
+            {PRINCIPLES.map(({ title, text, Icon, color }) => (
+              <StaggerItem key={title}>
+                <PressableMotion>
+                  <div className="flex items-start gap-5">
+                    <span
+                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+                      style={{
+                        background: "transparent",
+                        border: `1px solid rgba(92,51,32,0.2)`,
+                        color: color,
+                      }}
+                    >
+                      <Icon size={18} strokeWidth={1.5} />
+                    </span>
+                    <div>
+                      <p
+                        className="text-[14px] font-serif font-bold"
+                        style={{ color: "var(--color-espresso)" }}
+                      >
+                        {title}
+                      </p>
+                      <p
+                        className="mt-1.5 text-[12px] leading-relaxed"
+                        style={{ color: "var(--color-neutral)" }}
+                      >
+                        {text}
+                      </p>
+                    </div>
+                  </div>
+                </PressableMotion>
+              </StaggerItem>
+            ))}
+          </Stagger>
         </div>
 
-        <aside className="guide-panel rounded-[12px] p-4">
-          <p className="text-[10px] font-bold uppercase text-[var(--color-gold)]">
-            Frases de exemplo
+        {/* Coluna 3: Tabela de exemplos */}
+        <div>
+          <p
+            className="mb-6 text-[10px] font-bold uppercase border-b border-[rgba(92,51,32,0.1)] pb-2"
+            style={{ letterSpacing: "0.18em", color: "var(--color-espresso)" }}
+          >
+            Exemplos Práticos
           </p>
-          <div className="mt-4 space-y-2">
-            {PHRASES.map((phrase, index) => (
-              <button
-                key={phrase}
-                type="button"
-                onClick={() => setActivePhrase(index)}
-                className={[
-                  "anverso-focus flex w-full items-center justify-between gap-3 rounded-[10px] border px-3 py-3 text-left text-[11px] transition-all",
-                  activePhrase === index
-                    ? "border-[var(--color-forest)] bg-[rgba(63,91,74,0.08)] text-[var(--color-forest)]"
-                    : "border-[var(--color-border)] bg-[var(--color-paper-soft)] text-[var(--color-neutral)]",
-                ].join(" ")}
-              >
-                <span>{phrase}</span>
-                <ArrowRight size={13} />
-              </button>
-            ))}
-          </div>
-
-          <blockquote className="mt-5 rounded-[12px] bg-[var(--color-forest)] p-5">
-            <p className="font-serif text-[21px] italic leading-snug text-[var(--color-paper)]">
-              "{PHRASES[activePhrase]}"
-            </p>
-          </blockquote>
-        </aside>
+          <Reveal>
+            <div className="flex flex-col gap-6">
+              {EXAMPLES.map((ex) => (
+                <PressableMotion key={ex.situation}>
+                  <div className="group">
+                    <p
+                      className="text-[11px] font-bold uppercase tracking-widest mb-3"
+                      style={{ color: "var(--color-gold-strong)" }}
+                    >
+                      {ex.situation}
+                    </p>
+                    <div className="space-y-3 pl-4 border-l border-[rgba(92,51,32,0.15)]">
+                      {/* Use */}
+                      <div>
+                        <p
+                          className="text-[10px] font-bold uppercase tracking-wider mb-1"
+                          style={{ color: "var(--color-green)" }}
+                        >
+                          Use
+                        </p>
+                        <p
+                          className="text-[13px] font-serif italic"
+                          style={{ color: "var(--color-espresso)" }}
+                        >
+                          "{ex.use}"
+                        </p>
+                      </div>
+                      {/* Evite */}
+                      <div>
+                        <p
+                          className="text-[10px] font-bold uppercase tracking-wider mb-1"
+                          style={{ color: "var(--color-neutral)", opacity: 0.8 }}
+                        >
+                          Evite
+                        </p>
+                        <p
+                          className="text-[13px] font-serif italic"
+                          style={{ color: "var(--color-neutral)", opacity: 0.8 }}
+                        >
+                          "{ex.avoid}"
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </PressableMotion>
+              ))}
+            </div>
+          </Reveal>
+        </div>
       </div>
     </SectionShell>
   );

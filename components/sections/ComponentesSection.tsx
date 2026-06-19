@@ -63,8 +63,8 @@ function AcoesPrincipais() {
       title="Ações Principais"
       className="w-full"
     >
-      <div className="relative z-10 flex flex-col items-start gap-3">
-        <Button variant="primary" size="lg" icon={FileText} className="w-[268px]">
+      <div className="relative z-10 flex flex-col items-center gap-3">
+        <Button variant="primary" size="lg" icon={FileText} className="w-[268px] justify-center">
           Preparar meu DOCX
         </Button>
 
@@ -97,7 +97,7 @@ function AcoesPrincipais() {
         </Button>
       </div>
 
-      <div className="relative z-10 mt-5 flex items-center gap-2">
+      <div className="relative z-10 mt-5 flex items-center justify-center gap-2">
         {quickActions.map(({ Icon, label }) => (
           <IconButton key={label} icon={Icon} label={label} />
         ))}
@@ -187,7 +187,7 @@ function SelecaoFiltros() {
             Toggles
           </p>
 
-          <div className="space-y-3">
+          <div className="flex flex-col items-start gap-3">
             <Toggle
               label="Revisão automática"
               checked={autoReview}
@@ -485,10 +485,10 @@ function FluxoGuiado() {
    5. CARDS
 ══════════════════════════════════════════════════════ */
 const CARDS_DATA = [
-  { title: "TCC — Marketing Digital", profile: "ABNT UNIP", progress: 65, status: { label: "Em andamento", bg: "#FEF3C7", text: "#8A5800" }, time: "Há 2 horas" },
-  { title: "PIM III — Gestão de Projetos", profile: "PIM UNIP", progress: 88, status: { label: "Quase pronto", bg: "#FEF9EC", text: "#8A5800" }, time: "Ontem" },
+  { title: "TCC: Marketing Digital", profile: "ABNT UNIP", progress: 65, status: { label: "Em andamento", bg: "#FEF3C7", text: "#8A5800" }, time: "Há 2 horas" },
+  { title: "PIM III: Gestão de Projetos", profile: "PIM UNIP", progress: 88, status: { label: "Quase pronto", bg: "#FEF9EC", text: "#8A5800" }, time: "Ontem" },
   { title: "Relatório de Estágio", profile: "ABNT Genérico", progress: 100, status: { label: "Completo", bg: "#E3EDE6", text: "#2D5940" }, time: "3 dias atrás" },
-  { title: "Artigo — Inteligência Art.", profile: "Artigo Cient.", progress: 20, status: { label: "Rascunho", bg: "#EDEADF", text: "#5A5040" }, time: "1 semana" },
+  { title: "Artigo: Inteligência Art.", profile: "Artigo Cient.", progress: 20, status: { label: "Rascunho", bg: "#EDEADF", text: "#5A5040" }, time: "1 semana" },
 ];
 
 function Cards() {
@@ -521,7 +521,7 @@ function Cards() {
 
             <ProjectProgressCard
               eyebrow="Projeto recente"
-              title="TCC — Marketing Digital"
+              title="TCC: Marketing Digital"
               meta="ABNT · salvo há 2 horas"
               progress={progress}
               onContinue={advanceProgress}
@@ -754,7 +754,7 @@ function NavegacaoLateral() {
               items={[
                 { label: "Início" },
                 { label: "Meus trabalhos" },
-                { label: "TCC — Marketing Digital", current: true },
+                { label: "TCC: Marketing Digital", current: true },
               ]}
             />
           </div>
@@ -1042,56 +1042,56 @@ export function ComponentesSection() {
       id="componentes"
       label="Componentes"
       pill="Biblioteca de Interface"
-      intro="Os componentes continuam como demos completas do produto; a pagina apenas organiza a leitura em blocos de entrada, jornada, apoio e resultado."
+      intro="Cada bloco demonstra componentes reais do produto: ações, formulários, jornada guiada, estados e navegação."
     >
       <div className="space-y-10">
-      <ComponentSectionGroup
-        eyebrow="Entrada e escolha"
-        title="Começo da experiência"
-        description="Ações, filtros e campos aparecem juntos como o primeiro contato do usuário com a criação do documento. O bloco prioriza escolha rápida, entrada de dados e clareza visual."
-      >
-        <div className="grid items-start gap-5 xl:grid-cols-[320px_minmax(0,1fr)]">
-          <AcoesPrincipais />
-          <SelecaoFiltros />
-        </div>
+        <ComponentSectionGroup
+          eyebrow="Entrada e escolha"
+          title="Começo da experiência"
+          description="Ações, filtros e campos aparecem juntos como o primeiro contato do usuário com a criação do documento. O bloco prioriza escolha rápida, entrada de dados e clareza visual."
+        >
+          <div className="grid items-start gap-5 xl:grid-cols-[320px_minmax(0,1fr)]">
+            <AcoesPrincipais />
+            <SelecaoFiltros />
+          </div>
 
-        <div className="mt-5">
-          <CamposFormulario />
-        </div>
-      </ComponentSectionGroup>
+          <div className="mt-5">
+            <CamposFormulario />
+          </div>
+        </ComponentSectionGroup>
 
-      <ComponentSectionGroup
-        eyebrow="Construção do trabalho"
-        title="Jornada e acompanhamento"
-        description="O fluxo guiado mostra o passo a passo de criação, enquanto os cards simulam o acompanhamento real de documentos, projetos recentes, modelos e referências."
-      >
-        <div className="space-y-5">
-          <FluxoGuiado />
-          <Cards />
-        </div>
-      </ComponentSectionGroup>
+        <ComponentSectionGroup
+          eyebrow="Construção do trabalho"
+          title="Jornada e acompanhamento"
+          description="O fluxo guiado mostra o passo a passo de criação, enquanto os cards simulam o acompanhamento real de documentos, projetos recentes, modelos e referências."
+        >
+          <div className="space-y-5">
+            <FluxoGuiado />
+            <Cards />
+          </div>
+        </ComponentSectionGroup>
 
-      <ComponentSectionGroup
-        eyebrow="Estados e apoio"
-        title="Respostas do sistema"
-        description="Feedbacks, confirmações, uploads, estados vazios e ajudas contextuais aparecem como apoio ao usuário, sem competir com o fluxo principal."
-      >
-        <div className="grid items-start gap-5 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-          <FeedbackValidacao />
-          <ModaisApoio />
-        </div>
-      </ComponentSectionGroup>
+        <ComponentSectionGroup
+          eyebrow="Estados e apoio"
+          title="Respostas do sistema"
+          description="Feedbacks, confirmações, uploads, estados vazios e ajudas contextuais aparecem como apoio ao usuário, sem competir com o fluxo principal."
+        >
+          <div className="grid items-start gap-5 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+            <FeedbackValidacao />
+            <ModaisApoio />
+          </div>
+        </ComponentSectionGroup>
 
-      <ComponentSectionGroup
-        eyebrow="Navegação e resultado"
-        title="Movimento pelo produto"
-        description="A navegação organiza as áreas da plataforma, enquanto a prévia mostra o resultado visual do documento antes da geração final."
-      >
-        <div className="space-y-5">
-          <NavegacaoLateral />
-          <PreviaDocumento />
-        </div>
-      </ComponentSectionGroup>
+        <ComponentSectionGroup
+          eyebrow="Navegação e resultado"
+          title="Movimento pelo produto"
+          description="A navegação organiza as áreas da plataforma, enquanto a prévia mostra o resultado visual do documento antes da geração final."
+        >
+          <div className="space-y-5">
+            <NavegacaoLateral />
+            <PreviaDocumento />
+          </div>
+        </ComponentSectionGroup>
       </div>
     </SectionShell>
   );

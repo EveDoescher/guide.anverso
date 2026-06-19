@@ -48,23 +48,17 @@ export function AppNavigationRail({
         className,
       ].join(" ")}
     >
-      <div className="mb-5 flex items-center gap-3 rounded-[14px] border border-[var(--color-border)] bg-[var(--color-cream-soft)] p-3">
-        <Image
-          src="/icons/leaves.png"
-          alt=""
-          width={34}
-          height={28}
-          className="object-contain opacity-80"
-          unoptimized
-        />
-
-        <div>
-          <p className="font-serif text-[20px] font-bold leading-none text-[var(--color-forest)]">
-            Anverso
-          </p>
-          <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-neutral)]">
-            Espaço de trabalho
-          </p>
+      <div className="mb-4 px-1 flex justify-center">
+        {/* Container invisível para "castrar" o espaço transparente da imagem quadrada */}
+        <div className="relative h-[66px] w-[140px] overflow-hidden">
+          <Image
+            src="/icons/Anverso-logo.png"
+            alt="Anverso"
+            width={140}
+            height={140}
+            className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 object-contain"
+            unoptimized
+          />
         </div>
       </div>
 

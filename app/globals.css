@@ -1,168 +1,280 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap');
 @import "tailwindcss";
 
 :root {
-  /* Brand / Figma base */
-  --color-forest: #355744;
-  --color-green: #3F6B53;
-  --color-blue: #294A70;
-  --color-brown: #844537;
-  --color-gold: #A87524;
-  --color-gold-strong: #8E5F19;
-  --color-red-strong: #98463A;
+  /* ── Verde botânico ───────────────────────────────────── */
+  --color-forest:       #1E3028;   /* verde escuro — protagonista */
+  --color-forest-mid:   #2C4235;   /* verde médio — superfícies */
+  --color-green:        #4C7A5D;   /* verde suave — estados positivos */
+  --color-fern:         #7A9E88;   /* verde névoa — apoio */
+  --color-sage:         #B5C9BB;   /* sálvia — sobre escuro */
 
-  /* Text */
-  --color-ink: #1C1C19;
-  --color-text: #2F2C2D;
-  --color-neutral: #504F4D;
-  --color-muted: rgba(80, 79, 77, 0.75);
-  --color-soft-text: rgba(47, 44, 45, 0.75);
+  /* ── Café ─────────────────────────────────────────────── */
+  --color-espresso:     #2C1810;   /* café escuro — profundidade */
+  --color-coffee:       #5C3320;   /* café médio — tom quente */
+  --color-mocha:        #8B5E3C;   /* mocha — terracota suavizado */
+  --color-latte:        #C49A6C;   /* latte — bege dourado */
+  --color-cream-coffee: #E8D5BE;   /* creme de leite — superfície */
 
-  /* Paper / surfaces */
-  --color-paper: #FFFBF6;
-  --color-paper-soft: rgba(255, 251, 247, 0.80);
-  --color-cream: #F7F0E4;
-  --color-cream-soft: rgba(255, 250, 245, 0.80);
-  --color-warm-white: #F1EFEA;
-  --color-sand: #DBD9D2;
-  --color-surface-muted: rgba(231, 225, 217, 0.75);
+  /* ── Dourado editorial ───────────────────────────────── */
+  --color-gold:         #B5892A;   /* ouro editorial — acento */
+  --color-gold-strong:  #8C6517;   /* ouro profundo — contraste */
+  --color-gold-light:   #D4AA5C;   /* ouro suave — sobre escuro */
+  --color-gold-subtle:  rgba(181, 137, 42, 0.12);
 
-  /* Borders */
-  --color-border: #CFCDC6;
-  --color-border-soft: rgba(207, 205, 198, 0.75);
-  --color-border-strong: #D1D0CB;
-  --color-divider: #DAD7D0;
-  --color-white: #FFFFFF;
+  /* ── Cores de feedback ───────────────────────────────── */
+  --color-blue:         #294A70;
 
-  /* Feedback */
-  --color-success: #3F5B4A;
-  --color-success-soft: rgba(63, 91, 74, 0.30);
-  --color-success-bg: #F9FFF6;
+  /* ── Texto ───────────────────────────────────────────── */
+  --color-ink:          #1A1917;
+  --color-text:         #282421;
+  --color-neutral:      #4A4845;
+  --color-muted:        rgba(74, 72, 69, 0.72);
+  --color-soft-text:    rgba(40, 36, 33, 0.68);
 
-  --color-info: #294A70;
-  --color-info-soft: rgba(41, 74, 112, 0.30);
-  --color-info-bg: #F9FCFF;
+  /* Texto sobre fundo escuro */
+  --color-ink-inv:      #F5EFE4;
+  --color-text-inv:     #E8DFD2;
+  --color-muted-inv:    rgba(232, 223, 210, 0.62);
 
-  --color-warning: #915818;
-  --color-warning-soft: rgba(145, 88, 24, 0.30);
-  --color-warning-bg: #FFF9F2;
+  /* ── Superfícies claras ───────────────────────────────── */
+  --color-paper:        #FAF5EC;
+  --color-paper-soft:   rgba(250, 245, 236, 0.88);
+  --color-cream:        #F2E8D6;
+  --color-cream-soft:   rgba(242, 232, 214, 0.80);
+  --color-warm-white:   #F7F1E7;
+  --color-sand:         #D9CCBA;
+  --color-surface-muted: rgba(220, 210, 194, 0.70);
 
-  --color-error: #844537;
-  --color-error-soft: rgba(132, 69, 55, 0.30);
-  --color-error-bg: #FBE6E6;
-  --color-error-bg-soft: #FFF2EF;
+  /* ── Bordas ───────────────────────────────────────────── */
+  --color-border:       #C8BAA4;
+  --color-border-soft:  rgba(181, 162, 130, 0.36);
+  --color-border-strong: #B0A090;
+  --color-border-inv:   rgba(181, 162, 130, 0.22);
+  --color-divider:      #DDD0BC;
+  --color-white:        #FFFFFF;
 
-  /* Legacy aliases: manter para não quebrar o que já existe */
-  --surface-paper: var(--color-paper);
-  --surface-cream: var(--color-cream);
-  --surface-soft: rgba(255, 251, 247, 0.72);
+  /* ── Feedback ─────────────────────────────────────────── */
+  --color-success:      #3A5443;
+  --color-success-soft: rgba(58, 84, 67, 0.28);
+  --color-success-bg:   #F5FBF6;
 
-  --border-soft: var(--color-border-soft);
-  --border-sand: var(--color-border);
+  --color-info:         #294A70;
+  --color-info-soft:    rgba(41, 74, 112, 0.28);
+  --color-info-bg:      #F6FAFF;
 
-  /* Shadows / focus */
-  --shadow-soft: 0 12px 32px rgba(47, 44, 45, 0.08);
-  --shadow-button: 0 4px 12px rgba(63, 91, 74, 0.24);
-  --shadow-gold: 0 4px 12px rgba(145, 88, 24, 0.22);
+  --color-warning:      #8A5515;
+  --color-warning-soft: rgba(138, 85, 21, 0.28);
+  --color-warning-bg:   #FFF7EE;
 
-  /* Radius */
-  --radius-sm: 8px;
-  --radius-md: 10px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 22px;
+  --color-error:        #7A4030;
+  --color-error-soft:   rgba(122, 64, 48, 0.28);
+  --color-error-bg:     #FBE4E0;
+  --color-error-bg-soft: #FFF0EE;
 
-  /* Typography */
-  --font-serif: 'Playfair Display', serif;
-  --font-sans: 'DM Sans', sans-serif;
+  /* ── Legacy aliases ───────────────────────────────────── */
+  --color-brown:        var(--color-coffee);
+  --color-red-strong:   #8A3A2E;
+  --surface-paper:      var(--color-paper);
+  --surface-cream:      var(--color-cream);
+  --surface-soft:       rgba(255, 251, 247, 0.70);
+  --border-soft:        var(--color-border-soft);
+  --border-sand:        var(--color-border);
+
+  /* ── Sombras ──────────────────────────────────────────── */
+  --shadow-soft:   0 24px 64px rgba(20, 36, 28, 0.10);
+  --shadow-card:   0 18px 48px rgba(40, 32, 20, 0.08);
+  --shadow-lift:   0 32px 80px rgba(20, 36, 28, 0.16);
+  --shadow-button: 0 10px 28px rgba(20, 36, 28, 0.28);
+  --shadow-gold:   0 10px 24px rgba(181, 137, 42, 0.24);
+  --shadow-dark:   0 40px 100px rgba(10, 18, 14, 0.36);
+
+  /* ── Raios ────────────────────────────────────────────── */
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  16px;
+  --radius-xl:  24px;
+  --radius-2xl: 36px;
+
+  /* ── Tipografia ───────────────────────────────────────── */
+  --font-serif:   'Crimson Pro', Georgia, serif;
+  --font-sans:    'Mulish', system-ui, sans-serif;
   --font-display: var(--font-serif);
-  --font-body: var(--font-sans);
+  --font-body:    var(--font-sans);
+  --font-mono:    'Courier New', Courier, monospace;
 
-  /* Layout */
-  --sidebar-width: 112px;
+  /* ── Layout ───────────────────────────────────────────── */
+  --sidebar-width: 124px;
 
-  /* Motion */
-  --transition-soft: 160ms ease;
+  /* ── Motion ───────────────────────────────────────────── */
+  --transition-soft:  240ms cubic-bezier(.2, .8, .2, 1);
+  --ease-out:         cubic-bezier(.16, 1, .3, 1);
+  --ease-out-expo:    cubic-bezier(.19, 1, .22, 1);
 }
 
-* { box-sizing: border-box; }
+/* ── Reset & base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-sans);
-  background:
-    linear-gradient(rgba(255, 251, 246, 0.78), rgba(255, 251, 246, 0.78)),
-    url('/icons/paper-texture.jpg');
-  background-size: auto, 900px auto;
+  background-color: var(--color-paper);
   color: var(--color-text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Overlay que atenua a textura para ~35% — a textura está no body, o overlay clareia */
+/* Textura de papel muito sutil e elegante */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: rgba(247, 240, 228, 0.54);
+  background: url('/icons/paper-texture.jpg');
+  background-size: 640px auto;
   pointer-events: none;
   z-index: 0;
+  opacity: 0.15;
 }
 
-/* Todo o conteúdo acima do overlay */
 main {
   position: relative;
   z-index: 1;
 }
 
-button,
-a,
-input,
-textarea,
-select {
-  font: inherit;
+button, a, input, textarea, select { font: inherit; }
+
+/* ── Tipografia global ──────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6, blockquote, .font-serif {
+  font-family: var(--font-serif) !important;
+  font-weight: 700;
+  text-wrap: balance;
 }
 
+body, button, input, textarea, select, .font-sans {
+  font-family: var(--font-sans) !important;
+}
+
+/* ── Containers ─────────────────────────────────────────────── */
 .guide-container {
-  width: min(1180px, calc(100% - 56px));
+  width: min(1800px, calc(100% - 56px));
   margin-inline: auto;
 }
 
-.guide-card {
-  border: 1px solid rgba(63, 91, 74, 0.16);
-  background: rgba(255, 251, 246, 0.64);
-  box-shadow: 0 14px 40px rgba(47, 44, 45, 0.035);
+/* ── Seção escura — vai de borda a borda (ignora sidebar) ──── */
+/*
+  A seção escura usa posicionamento relativo ao viewport com
+  negative margin para anular o marginLeft do <main>.
+  A sidebar tem z-index 50, então fica por cima.
+*/
+.dark-stage-wrapper {
+  position: relative;
+  margin-left: calc(-1 * var(--sidebar-width));
+  padding-left: var(--sidebar-width);
+  width: calc(100% + var(--sidebar-width));
 }
 
-.guide-panel {
-  border: 1px solid rgba(63, 91, 74, 0.14);
-  background: rgba(255, 251, 246, 0.48);
-  box-shadow: 0 10px 30px rgba(47, 44, 45, 0.025);
+/* ── Cards e painéis ─────────────────────────────────────────── */
+
+/* ── Decorações ─────────────────────────────────────────────── */
+.ink-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(181, 137, 42, 0.44), transparent);
+}
+
+.ink-rule-strong {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(181, 162, 130, 0.50) 20%, rgba(181, 137, 42, 0.65) 50%, rgba(181, 162, 130, 0.50) 80%, transparent);
 }
 
 .guide-line {
-  background-image: linear-gradient(90deg, rgba(63, 91, 74, 0.22) 40%, transparent 0);
+  background-image: linear-gradient(90deg, rgba(181, 137, 42, 0.44) 40%, transparent 0);
   background-size: 8px 1px;
 }
 
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--color-sand); border-radius: 4px; }
+.ornament-line {
+  position: relative;
+}
+
+.ornament-line::before,
+.ornament-line::after {
+  content: "";
+  display: block;
+  height: 1px;
+  flex: 1;
+  min-width: 40px;
+  background: linear-gradient(90deg, transparent, rgba(181, 137, 42, 0.50), transparent);
+}
+
+/* ── Transição suave entre seções ───────────────────────────── */
+/* Fade gradiente na borda inferior de seções escuras */
+.dark-section-fade-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--color-paper));
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Fade gradiente na borda superior de seções escuras */
+.dark-section-fade-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to top, transparent, var(--color-paper));
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 4px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: var(--color-sand); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-gold); }
 ::selection { background: var(--color-gold); color: #fff; }
 
-.anverso-focus {
-  outline: none;
-}
-
+/* ── Focus ──────────────────────────────────────────────────── */
+.anverso-focus { outline: none; }
 .anverso-focus:focus-visible {
-  box-shadow: 0 0 0 3px rgba(63, 91, 74, 0.22);
+  box-shadow: 0 0 0 3px rgba(76, 122, 93, 0.30);
 }
 
-@media (max-width: 900px) {
-  :root {
-    --sidebar-width: 0px;
-  }
+/* ── Folha flutuante ────────────────────────────────────────── */
+.floating-leaf {
+  pointer-events: none;
+  position: fixed;
+  opacity: 0.09;
+  z-index: 0;
+  filter: sepia(15%);
+}
 
+/* ── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration:        0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior:           auto !important;
+    transition-duration:       0.01ms !important;
+  }
+}
+
+/* ── Responsivo ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  :root { --sidebar-width: 0px; }
   .guide-container {
-    width: min(100% - 28px, 760px);
+    width: min(100% - 24px, 760px);
+  }
+  .dark-stage-wrapper {
+    margin-left: 0;
+    padding-left: 0;
+    width: 100%;
   }
 }

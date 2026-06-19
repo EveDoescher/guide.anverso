@@ -41,7 +41,7 @@ export function AdvisorNoteCard({
             </p>
 
             <p className="mt-2 text-[10.5px] font-bold text-[var(--color-gold)]">
-              — {author}
+              - {author}
             </p>
           </div>
         </div>

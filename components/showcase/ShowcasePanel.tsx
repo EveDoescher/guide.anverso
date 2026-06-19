@@ -1,4 +1,8 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
+import { motionEase, motionTimings } from "@/components/ui/MotionPrimitives";
 
 type ShowcasePanelProps = {
   number?: number;
@@ -17,21 +21,46 @@ export function ShowcasePanel({
   contentClassName = "",
   overflow = "hidden",
 }: ShowcasePanelProps) {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <section
+    <motion.section
+      initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: motionTimings.item, ease: motionEase }}
       className={[
-        "relative rounded-[18px] border border-[rgba(63,91,74,0.16)] bg-[rgba(255,251,247,0.58)] p-5",
-        "shadow-[0_10px_28px_rgba(47,44,45,0.035)]",
+        "relative rounded-[16px] p-6 lg:p-10",
         overflow === "visible" ? "overflow-visible" : "overflow-hidden",
         className,
       ].join(" ")}
+      style={{
+        border: "1px solid rgba(92,51,32,0.15)",
+        background: "rgba(92,51,32,0.015)",
+        backgroundImage: "radial-gradient(rgba(92,51,32,0.1) 1px, transparent 0)",
+        backgroundSize: "24px 24px",
+      }}
     >
-      <p className="mb-4 font-serif text-[15px] font-bold uppercase tracking-[0.04em] text-[var(--color-forest)]">
-        {number ? `${number}. ` : ""}
-        {title}
-      </p>
+      <div className="absolute top-0 left-0 w-full h-1" style={{ background: "linear-gradient(90deg, rgba(92,51,32,0.3) 0%, transparent 100%)" }} />
+
+      <div className="mb-8 flex items-baseline gap-3 border-b border-[rgba(92,51,32,0.1)] pb-4">
+        {number ? (
+          <span
+            className="font-mono text-[11px] font-bold tracking-widest"
+            style={{ color: "var(--color-gold)" }}
+          >
+            {String(number).padStart(2, "0")}
+          </span>
+        ) : null}
+        <h4
+          className="font-serif text-[18px] font-bold"
+          style={{ color: "var(--color-espresso)" }}
+        >
+          {title}
+        </h4>
+      </div>
 
       <div className={contentClassName}>{children}</div>
-    </section>
+    </motion.section>
   );
 }

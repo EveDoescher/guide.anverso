@@ -89,7 +89,7 @@ export function DocumentPreview({
       <div className="mt-4 flex items-center justify-between gap-3 rounded-[14px] border border-[var(--color-border)] bg-[var(--color-paper-soft)] px-3 py-2">
         <div className="flex items-center gap-2">
           <IconButton
-            variant="paper"
+            variant="primary"
             icon={ChevronLeft}
             label="Página anterior"
             onClick={previousPage}
@@ -101,7 +101,7 @@ export function DocumentPreview({
           </span>
 
           <IconButton
-            variant="paper"
+            variant="primary"
             icon={ChevronRight}
             label="Próxima página"
             onClick={nextPage}
@@ -111,7 +111,7 @@ export function DocumentPreview({
 
         <div className="flex items-center gap-2">
           <IconButton
-            variant="paper"
+            variant="primary"
             icon={Minus}
             label="Diminuir zoom"
             onClick={zoomOut}
@@ -122,7 +122,7 @@ export function DocumentPreview({
           </span>
 
           <IconButton
-            variant="paper"
+            variant="primary"
             icon={Plus}
             label="Aumentar zoom"
             onClick={zoomIn}
@@ -130,11 +130,11 @@ export function DocumentPreview({
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-[1fr_190px] gap-4">
-        <div className="flex min-h-[430px] items-center justify-center overflow-hidden rounded-[16px] border border-[var(--color-border)] bg-[rgba(219,217,210,0.32)] p-5">
+      <div className="mt-4 grid grid-cols-[1fr_260px] gap-4">
+        <div className="flex min-h-[580px] items-center justify-center overflow-hidden rounded-[16px] border border-[var(--color-border)] bg-[rgba(217,204,186,0.25)] p-5">
           <article
             className={[
-              "relative h-[360px] w-[255px] origin-center overflow-hidden bg-white shadow-[0_18px_42px_rgba(47,44,45,0.16)] transition-transform duration-200",
+              "relative h-[500px] w-[353px] origin-center overflow-hidden bg-[var(--color-paper)] shadow-[0_18px_42px_rgba(47,44,45,0.16)] transition-transform duration-200",
               showGuides
                 ? "outline outline-1 outline-[rgba(63,91,74,0.22)]"
                 : "",
@@ -145,14 +145,14 @@ export function DocumentPreview({
               <div className="pointer-events-none absolute inset-[24px] border border-dashed border-[rgba(63,91,74,0.25)]" />
             ) : null}
 
-            <div className="flex h-full flex-col px-8 py-7 text-center text-[7px] leading-relaxed text-black">
+            <div className="flex h-full flex-col px-10 py-9 text-center text-[9px] leading-relaxed text-black">
               {page.type === "cover" ? (
                 <>
                   <p className="font-bold uppercase">INSTITUIÇÃO DE ENSINO</p>
                   <p className="mt-7 uppercase">NOME DO AUTOR</p>
 
                   <div className="mt-16">
-                    <p className="text-[8px] font-bold uppercase leading-snug">
+                    <p className="text-[10px] font-bold uppercase leading-snug">
                       {page.title}
                     </p>
 
@@ -170,7 +170,7 @@ export function DocumentPreview({
 
               {page.type === "summary" ? (
                 <>
-                  <p className="text-[8px] font-bold uppercase">SUMÁRIO</p>
+                  <p className="text-[10px] font-bold uppercase">SUMÁRIO</p>
 
                   <div className="mt-8 space-y-3 text-left">
                     {[
@@ -192,7 +192,7 @@ export function DocumentPreview({
 
               {page.type === "content" ? (
                 <>
-                  <p className="text-left text-[8px] font-bold uppercase">
+                  <p className="text-left text-[10px] font-bold uppercase">
                     {page.title}
                   </p>
 
@@ -216,7 +216,7 @@ export function DocumentPreview({
                     </p>
                   </div>
 
-                  <p className="absolute bottom-4 right-7 text-[7px]">1</p>
+                  <p className="absolute top-6 right-9 text-[9px]">1</p>
                 </>
               ) : null}
             </div>
