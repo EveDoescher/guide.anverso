@@ -7,8 +7,9 @@ import {
   ChevronDown, Calendar, Check, X, Info, AlertTriangle,
   Cloud, Bookmark, Edit2, MoreHorizontal, Plus, Leaf,
   BookOpen, ClipboardList, FileCheck, ArrowLeft, ArrowRight,
-  CheckCircle2, Circle, AlertCircle, User,
+  CheckCircle2, Circle, AlertCircle, User, Loader2, XCircle
 } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { IconButton } from "@/components/ui/IconButton";
 import { ShowcasePanel } from "@/components/showcase/ShowcasePanel";
@@ -650,29 +651,30 @@ function FeedbackValidacao() {
       overflow="visible"
     >
       <div className="relative z-10 grid grid-cols-2 gap-4">
-        {alerts.map((alert) => {
-          const visible = visibleAlerts[alert.key];
+        <AnimatePresence mode="popLayout">
+          {alerts.map((alert) => {
+            if (!visibleAlerts[alert.key]) return null;
 
-          return (
-            <div
-              key={alert.key}
-              className={[
-                "transition-all duration-300 ease-out",
-                visible
-                  ? "translate-y-0 scale-100 opacity-100"
-                  : "-translate-y-2 scale-[0.98] opacity-0",
-              ].join(" ")}
-            >
-              <Alert
-                tone={alert.tone}
-                title={alert.title}
-                description={alert.description}
-                dismissible
-                onDismiss={() => dismissAndReturn(alert.key)}
-              />
-            </div>
-          );
-        })}
+            return (
+              <motion.div
+                key={alert.key}
+                layout
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.8, y: -20, filter: "blur(4px)" }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              >
+                <Alert
+                  tone={alert.tone}
+                  title={alert.title}
+                  description={alert.description}
+                  dismissible
+                  onDismiss={() => dismissAndReturn(alert.key)}
+                />
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
       </div>
     </ShowcasePanel>
   );
@@ -828,7 +830,7 @@ function ModaisApoio() {
   const [sectionsCount, setSectionsCount] = useState(0);
   const [uploaded, setUploaded] = useState(false);
   const [generating, setGenerating] = useState(false);
-  const [saving, setSaving] = useState(false);
+  const [saveState, setSaveState] = useState<"idle" | "saving" | "success" | "error">("idle");
 
   function runTemporaryAction(
     setter: Dispatch<SetStateAction<boolean>>,
@@ -839,6 +841,19 @@ function ModaisApoio() {
     setTimeout(() => {
       setter(false);
     }, duration);
+  }
+
+  function runSaveAction() {
+    setSaveState("saving");
+
+    setTimeout(() => {
+      const isSuccess = Math.random() < 0.7; // 70% chance of success
+      setSaveState(isSuccess ? "success" : "error");
+
+      setTimeout(() => {
+        setSaveState("idle");
+      }, 2500);
+    }, 1500);
   }
 
   return (
@@ -857,14 +872,27 @@ function ModaisApoio() {
               : "Seu documento será finalizado com base nas configurações atuais."
           }
           visual={
-            <Image
-              src="/icons/leaves.png"
-              alt=""
-              width={70}
-              height={54}
-              className="object-contain opacity-80"
-              unoptimized
-            />
+            <motion.div
+              animate={generating ? { 
+                scale: [1, 1.15, 1], 
+                rotate: [0, -5, 5, 0],
+                filter: ["drop-shadow(0px 0px 0px rgba(0,0,0,0))", "drop-shadow(0px 10px 15px rgba(63,91,74,0.4))", "drop-shadow(0px 0px 0px rgba(0,0,0,0))"]
+              } : { 
+                scale: 1, 
+                rotate: 0,
+                filter: "drop-shadow(0px 0px 0px rgba(0,0,0,0))"
+              }}
+              transition={{ repeat: generating ? Infinity : 0, duration: 1.5, ease: "easeInOut" }}
+            >
+              <Image
+                src="/icons/leaves.png"
+                alt=""
+                width={70}
+                height={54}
+                className="object-contain opacity-80"
+                unoptimized
+              />
+            </motion.div>
           }
         >
           <div className="grid grid-cols-2 gap-2">
@@ -894,21 +922,70 @@ function ModaisApoio() {
         </ModalCard>
 
         <ModalCard
-          title={saving ? "Salvando seu progresso..." : "Deseja salvar seu progresso?"}
+          title={
+            saveState === "saving" ? "Salvando seu progresso..." : 
+            saveState === "success" ? "Progresso salvo!" : 
+            saveState === "error" ? "Falha ao salvar" : 
+            "Deseja salvar seu progresso?"
+          }
           description={
-            saving
-              ? "Guardando suas alterações para você continuar depois."
-              : "Suas alterações serão mantidas para continuar depois."
+            saveState === "saving" ? "Guardando suas alterações para você continuar depois." : 
+            saveState === "success" ? "Você pode fechar esta tela com segurança." : 
+            saveState === "error" ? "Não foi possível guardar. Tente novamente mais tarde." : 
+            "Suas alterações serão mantidas para continuar depois."
           }
           visual={
-            <Image
-              src="/icons/diskette.png"
-              alt=""
-              width={42}
-              height={42}
-              className="object-contain opacity-65"
-              unoptimized
-            />
+            <div className="flex h-[42px] items-center justify-center">
+              <AnimatePresence mode="wait">
+                {saveState === "idle" && (
+                  <motion.div
+                    key="idle"
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Image src="/icons/diskette.png" alt="" width={42} height={42} className="object-contain opacity-65" unoptimized />
+                  </motion.div>
+                )}
+                {saveState === "saving" && (
+                  <motion.div
+                    key="saving"
+                    initial={{ scale: 0, opacity: 0, rotate: -90 }}
+                    animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                    exit={{ scale: 0, opacity: 0, rotate: 90 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex items-center justify-center"
+                  >
+                    <Loader2 size={38} className="animate-spin text-[var(--color-green)]" />
+                  </motion.div>
+                )}
+                {saveState === "success" && (
+                  <motion.div
+                    key="success"
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: [1.2, 1], opacity: 1 }}
+                    exit={{ scale: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className="flex items-center justify-center"
+                  >
+                    <CheckCircle2 size={42} className="text-[var(--color-green)]" />
+                  </motion.div>
+                )}
+                {saveState === "error" && (
+                  <motion.div
+                    key="error"
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: [1.2, 1], opacity: 1, rotate: [0, -15, 15, -15, 15, 0] }}
+                    exit={{ scale: 0, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="flex items-center justify-center"
+                  >
+                    <XCircle size={42} className="text-[var(--color-error)]" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           }
         >
           <div className="grid grid-cols-2 gap-2">
@@ -917,7 +994,7 @@ function ModaisApoio() {
               size="sm"
               align="center"
               trailingIcon={false}
-              disabled={saving}
+              disabled={saveState !== "idle"}
               className="w-full"
             >
               Agora não
@@ -928,11 +1005,12 @@ function ModaisApoio() {
               size="sm"
               align="center"
               trailingIcon={false}
-              loading={saving}
-              onClick={() => runTemporaryAction(setSaving)}
+              loading={saveState === "saving"}
+              disabled={saveState === "success" || saveState === "error"}
+              onClick={runSaveAction}
               className="w-full"
             >
-              {saving ? "Salvando..." : "Salvar"}
+              {saveState === "saving" ? "Salvando..." : saveState === "success" ? "Salvo" : "Salvar"}
             </Button>
           </div>
         </ModalCard>
@@ -950,6 +1028,7 @@ function ModaisApoio() {
           }
           imageSrc="/icons/xicara.png"
           actionLabel="Adicionar seção"
+          actionCount={sectionsCount}
           onAction={() => setSectionsCount((current) => current + 1)}
         />
 
@@ -964,7 +1043,8 @@ function ModaisApoio() {
               ? "O arquivo foi anexado à demonstração."
               : "PDF, DOCX, JPG ou PNG até 20MB"
           }
-          iconSrc="/icons/cloud-computing.png"
+          iconSrc={uploaded ? "/icons/OK.png" : "/icons/cloud-computing.png"}
+          uploaded={uploaded}
           onClick={() => setUploaded(true)}
         />
 

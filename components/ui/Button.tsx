@@ -1,17 +1,19 @@
 import { ChevronRight, Loader2 } from "lucide-react";
-import type { ButtonHTMLAttributes, ComponentType } from "react";
+import type { ComponentType } from "react";
+import { HTMLMotionProps, motion } from "framer-motion";
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "quiet" | "danger" | "gold";
 type ButtonSize = "sm" | "md" | "lg";
 type ButtonAlign = "left" | "center";
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+type ButtonProps = Omit<HTMLMotionProps<"button">, "ref"> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
   align?: ButtonAlign;
   icon?: ComponentType<{ size?: number; className?: string }>;
   trailingIcon?: ComponentType<{ size?: number; className?: string }> | false;
   loading?: boolean;
+  children?: React.ReactNode;
 };
 
 const variantClasses: Record<ButtonVariant, string> = {
@@ -56,12 +58,15 @@ export function Button({
   const iconSize = size === "sm" ? 13 : 15;
 
   return (
-    <button
+    <motion.button
       type={type}
       disabled={disabled || loading}
+      whileHover={disabled || loading ? {} : { scale: 1.02 }}
+      whileTap={disabled || loading ? {} : { scale: 0.97 }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
       className={[
-        "anverso-focus inline-flex shrink-0 items-center gap-3 border font-bold transition-all",
-        "active:scale-[0.98] disabled:pointer-events-none disabled:opacity-45",
+        "anverso-focus group inline-flex shrink-0 items-center gap-3 border font-bold transition-colors",
+        "disabled:pointer-events-none disabled:opacity-45",
         sizeClasses[size],
         alignClasses[align],
         variantClasses[variant],
@@ -72,14 +77,20 @@ export function Button({
       {loading ? (
         <Loader2 size={iconSize} className="animate-spin" />
       ) : Icon ? (
-        <Icon size={iconSize} />
+        <Icon size={iconSize} className="transition-transform duration-300 ease-out group-hover:scale-110 group-hover:-rotate-3" />
       ) : null}
 
       <span className="truncate">{children}</span>
 
       {TrailingIcon ? (
-        <TrailingIcon size={iconSize + 2} className={align === "left" ? "ml-auto" : ""} />
+        <TrailingIcon 
+          size={iconSize + 2} 
+          className={[
+            align === "left" ? "ml-auto" : "",
+            "transition-transform duration-300 ease-out group-hover:translate-x-1"
+          ].join(" ")} 
+        />
       ) : null}
-    </button>
+    </motion.button>
   );
 }

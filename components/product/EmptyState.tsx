@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
+import { motion } from "framer-motion";
 
 type EmptyStateProps = {
   title: string;
@@ -8,6 +9,7 @@ type EmptyStateProps = {
   imageSrc?: string;
   imageAlt?: string;
   onAction?: () => void;
+  actionCount?: number;
   className?: string;
 };
 
@@ -18,16 +20,33 @@ export function EmptyState({
   imageSrc = "/icons/xicara.png",
   imageAlt = "",
   onAction,
+  actionCount = 0,
   className = "",
 }: EmptyStateProps) {
   return (
-    <article
+    <motion.article
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      whileHover={{ y: -2, scale: 1.01 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className={[
         "rounded-[14px] border border-[var(--color-border)] bg-[var(--color-paper-soft)] px-5 py-4 text-center",
         className,
       ].join(" ")}
     >
-      <div className="mb-3 flex justify-center">
+      <motion.div 
+        key={actionCount}
+        initial={{ y: -20, scale: 0.5, opacity: 0, rotate: -20 }}
+        animate={{ y: 0, scale: 1, opacity: 1, rotate: 0 }}
+        transition={{ type: "spring", stiffness: 400, damping: 12 }}
+        whileHover={{ 
+          rotate: [-5, 5, -5, 5, 0], 
+          scale: 1.15,
+          transition: { duration: 0.5, ease: "easeInOut" }
+        }}
+        className="mb-3 flex justify-center"
+      >
         <Image
           src={imageSrc}
           alt={imageAlt}
@@ -36,7 +55,7 @@ export function EmptyState({
           className="object-contain"
           unoptimized
         />
-      </div>
+      </motion.div>
 
       <p className="text-[16px] font-bold leading-tight text-[var(--color-text)]">
         {title}
@@ -56,6 +75,6 @@ export function EmptyState({
           {actionLabel}
         </Button>
       ) : null}
-    </article>
+    </motion.article>
   );
 }

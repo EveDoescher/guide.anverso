@@ -20,6 +20,9 @@ import {
   Plus,
   Search,
   Trash2,
+  CheckCircle2,
+  XCircle,
+  Loader2,
 } from "lucide-react";
 import { SectionShell } from "@/components/ui/SectionShell";
 import { Chip } from "@/components/ui/Chip";
@@ -40,7 +43,10 @@ const PNG_ASSETS = [
   { file: "radio-btn-on.png", name: "Radio on", category: "Input" },
   { file: "leaves.png", name: "Folhas", category: "Marca" },
   { file: "leaves-2.png", name: "Folhas 2", category: "Marca" },
+  { file: "leaves-3.png", name: "Folhas 3", category: "Marca" },
   { file: "xicara.png", name: "Xícara", category: "Marca" },
+  { file: "diskette.png", name: "Disquete", category: "Funcional" },
+  { file: "cloud-computing.png", name: "Nuvem de Upload", category: "Funcional" },
 ];
 
 const LUCIDE: { Icon: IconComponent; name: string; category: string }[] = [
@@ -58,6 +64,9 @@ const LUCIDE: { Icon: IconComponent; name: string; category: string }[] = [
   { Icon: AlertTriangle, name: "AlertTriangle", category: "Estado" },
   { Icon: Cloud, name: "Cloud", category: "Upload" },
   { Icon: Check, name: "Check", category: "Estado" },
+  { Icon: CheckCircle2, name: "CheckCircle2", category: "Estado" },
+  { Icon: XCircle, name: "XCircle", category: "Estado" },
+  { Icon: Loader2, name: "Loader2", category: "Estado" },
   { Icon: Plus, name: "Plus", category: "Ação" },
   { Icon: MessageCircle, name: "MessageCircle", category: "Voz" },
 ];
@@ -128,7 +137,7 @@ export function IconesSection() {
       id="icones"
       label="Ícones"
       pill="Galeria"
-      intro="Ícones de marca entram como assinatura visual. Ícones Lucide resolvem a maior parte das ações e controles da interface."
+      intro="Ícones de marca entram como assinatura visual. Ícones de biblioteca resolvem a maior parte das ações e controles da interface."
     >
       <div className="grid gap-8 lg:grid-cols-[280px_1fr] items-start">
         <aside className="p-6 border border-[rgba(92,51,32,0.15)] bg-[rgba(92,51,32,0.01)]">
@@ -149,18 +158,18 @@ export function IconesSection() {
             >
               Ícones Customizados
             </button>
-            <button
-              type="button"
-              onClick={() => changeMode("ui")}
-              className={[
-                "anverso-focus py-3 text-[11px] font-serif font-bold transition-all border-b-2",
-                mode === "ui"
-                  ? "border-[var(--color-espresso)] text-[var(--color-espresso)]"
-                  : "border-transparent text-[var(--color-neutral)] hover:text-[var(--color-espresso)]",
-              ].join(" ")}
-            >
-              Ícones de Sistema
-            </button>
+              <button
+                type="button"
+                onClick={() => changeMode("ui")}
+                className={[
+                  "anverso-focus py-3 text-[11px] font-serif font-bold transition-all border-b-2",
+                  mode === "ui"
+                    ? "border-[var(--color-espresso)] text-[var(--color-espresso)]"
+                    : "border-transparent text-[var(--color-neutral)] hover:text-[var(--color-espresso)]",
+                ].join(" ")}
+              >
+                Ícones de Biblioteca
+              </button>
           </div>
 
           <div className="mt-8 flex flex-wrap gap-2">
@@ -176,7 +185,7 @@ export function IconesSection() {
           </div>
 
           <p className="mt-8 text-[12px] font-serif italic leading-relaxed text-[var(--color-neutral)] pt-6 border-t border-[rgba(92,51,32,0.1)]">
-            Regra: use ilustrações para momentos expressivos e vazios; use os ícones de sistema (Lucide) para ações repetidas, botões e navegação estrutural.
+            Regra: use ilustrações para momentos expressivos e vazios; use os ícones de biblioteca (como Lucide) para ações repetidas, botões e navegação estrutural.
           </p>
         </aside>
 

@@ -1,4 +1,5 @@
 import { HelpCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
 type ObservationBubbleProps = {
   text: string;
@@ -11,18 +12,21 @@ export function ObservationBubble({
 }: ObservationBubbleProps) {
   return (
     <div className={["group relative inline-flex", className].join(" ")}>
-      <button
+      <motion.button
         type="button"
         aria-label={text}
+        whileHover={{ scale: 1.15, rotate: 15 }}
+        whileTap={{ scale: 0.9 }}
+        transition={{ type: "spring", stiffness: 400, damping: 25 }}
         className={[
           "anverso-focus flex h-8 w-8 items-center justify-center rounded-full",
           "border border-[var(--color-border)] bg-[var(--color-paper-soft)]",
-          "text-[var(--color-neutral)] transition-all",
+          "text-[var(--color-neutral)] transition-colors",
           "hover:border-[var(--color-green)] hover:text-[var(--color-green)] hover:bg-[var(--color-paper)]",
         ].join(" ")}
       >
         <HelpCircle size={26} />
-      </button>
+      </motion.button>
 
       <span
         className={[

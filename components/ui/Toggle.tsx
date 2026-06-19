@@ -1,6 +1,6 @@
-import type { ButtonHTMLAttributes } from "react";
+import { HTMLMotionProps, motion } from "framer-motion";
 
-type ToggleProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onChange"> & {
+type ToggleProps = Omit<HTMLMotionProps<"button">, "onChange" | "ref"> & {
   checked?: boolean;
   label: string;
   onCheckedChange?: (checked: boolean) => void;
@@ -15,12 +15,14 @@ export function Toggle({
   ...props
 }: ToggleProps) {
   return (
-    <button
+    <motion.button
       type={type}
       role="switch"
       aria-checked={checked}
       aria-label={label}
       onClick={() => onCheckedChange?.(!checked)}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
       className={[
         "anverso-focus inline-flex items-center gap-3 text-left text-[12px] font-medium text-[var(--color-text)]",
         className,
@@ -31,19 +33,21 @@ export function Toggle({
 
       <span
         className={[
-          "relative h-[20px] w-[38px] rounded-full border transition-all",
+          "relative h-[20px] w-[38px] rounded-full border transition-colors duration-300",
           checked
             ? "border-[var(--color-green)] bg-[var(--color-green)]"
             : "border-[var(--color-border)] bg-[var(--color-surface-muted)]",
         ].join(" ")}
       >
-        <span
+        <motion.span
+          layout
+          transition={{ type: "spring", stiffness: 500, damping: 30 }}
           className={[
-            "absolute top-1/2 h-[14px] w-[14px] -translate-y-1/2 rounded-full bg-white shadow-sm transition-all",
+            "absolute top-1/2 h-[14px] w-[14px] -translate-y-1/2 rounded-full bg-white shadow-sm",
             checked ? "left-[20px]" : "left-[3px]",
           ].join(" ")}
         />
       </span>
-    </button>
+    </motion.button>
   );
 }

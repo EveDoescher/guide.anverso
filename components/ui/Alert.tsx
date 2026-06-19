@@ -5,6 +5,7 @@ import {
   X,
 } from "lucide-react";
 import type { ComponentType, ReactNode, SVGProps } from "react";
+import { motion } from "framer-motion";
 
 type IconComponent = ComponentType<
   SVGProps<SVGSVGElement> & {
@@ -74,7 +75,10 @@ export function Alert({
   const Icon = icon ?? styles.defaultIcon;
 
   return (
-    <article
+    <motion.article
+      layout
+      whileHover={{ y: -2, scale: 1.01 }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
       className={[
         "relative rounded-[14px] border px-4 py-3.5",
         styles.card,
@@ -82,11 +86,17 @@ export function Alert({
       ].join(" ")}
     >
       <div className="flex gap-3">
-        <Icon
-          size={22}
-          strokeWidth={2.25}
-          className={["mt-0.5 shrink-0", styles.icon].join(" ")}
-        />
+        <motion.div
+          initial={{ scale: 0, rotate: -45 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: "spring", stiffness: 400, damping: 15, delay: 0.1 }}
+        >
+          <Icon
+            size={22}
+            strokeWidth={2.25}
+            className={["mt-0.5 shrink-0", styles.icon].join(" ")}
+          />
+        </motion.div>
 
         <div className="min-w-0 flex-1">
           <p
@@ -108,16 +118,19 @@ export function Alert({
         </div>
 
         {dismissible ? (
-          <button
+          <motion.button
             type="button"
             onClick={onDismiss}
+            whileHover={{ scale: 1.15, rotate: 90 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
             className="anverso-focus -mr-1 -mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[var(--color-neutral)] hover:bg-[rgba(47,44,45,0.06)]"
             aria-label="Fechar mensagem"
           >
             <X size={14} />
-          </button>
+          </motion.button>
         ) : null}
       </div>
-    </article>
+    </motion.article>
   );
 }
