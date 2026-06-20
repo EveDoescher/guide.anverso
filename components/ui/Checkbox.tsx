@@ -14,7 +14,7 @@ export function Checkbox({ label, className = "", ...props }: CheckboxProps) {
         className,
       ].join(" ")}
     >
-      <input type="checkbox" className="peer sr-only" {...props} />
+      <motion.input type="checkbox" className="peer sr-only" {...props} />
 
       <span
         className={[
