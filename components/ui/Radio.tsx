@@ -14,7 +14,7 @@ export function Radio({ label, className = "", ...props }: RadioProps) {
         className,
       ].join(" ")}
     >
-      <input type="radio" className="peer sr-only" {...props} />
+      <motion.input type="radio" className="peer sr-only" {...props} />
 
       <span
         className={[
