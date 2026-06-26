@@ -55,7 +55,7 @@ export function ReferenceCard({
 
           <button
             type="button"
-            className="anverso-focus mt-3 inline-flex items-center gap-1.5 text-[11px] font-bold text-[var(--color-green)] hover:underline"
+            className="anverso-focus mt-1 inline-flex min-h-[44px] items-center gap-1.5 text-[11px] font-bold text-[var(--color-green)] hover:underline"
           >
             Ver detalhes
             <ExternalLink size={12} />

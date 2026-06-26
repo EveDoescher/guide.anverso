@@ -31,7 +31,7 @@ export function Badge({
   return (
     <span
       className={[
-        "inline-flex h-6 items-center rounded-full border px-2.5 text-[10px] font-bold",
+        "inline-flex shrink-0 whitespace-nowrap h-6 items-center rounded-full border px-2.5 text-[11px] md:text-[10px] font-bold",
         toneClasses[tone],
         className,
       ].join(" ")}

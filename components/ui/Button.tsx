@@ -32,9 +32,9 @@ const variantClasses: Record<ButtonVariant, string> = {
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: "h-9 px-3 text-xs rounded-[10px]",
-  md: "h-[43px] px-4 text-[14px] rounded-[10px]",
-  lg: "h-[52px] px-5 text-[17px] rounded-[11px]",
+  sm: "min-h-9 py-1.5 px-3 text-xs rounded-[10px]",
+  md: "min-h-[43px] py-2 px-4 text-[14px] rounded-[10px]",
+  lg: "min-h-[52px] py-2.5 px-5 text-[17px] rounded-[11px]",
 };
 
 const alignClasses: Record<ButtonAlign, string> = {
@@ -65,7 +65,7 @@ export function Button({
       whileTap={disabled || loading ? {} : { scale: 0.97 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
       className={[
-        "anverso-focus group inline-flex shrink-0 items-center gap-3 border font-bold transition-colors",
+        "anverso-focus group inline-flex min-w-0 items-center gap-3 border font-bold transition-colors",
         "disabled:pointer-events-none disabled:opacity-45",
         sizeClasses[size],
         alignClasses[align],
@@ -80,7 +80,7 @@ export function Button({
         <Icon size={iconSize} className="transition-transform duration-300 ease-out group-hover:scale-110 group-hover:-rotate-3" />
       ) : null}
 
-      <span className="truncate">{children}</span>
+      <span className="whitespace-normal break-words text-balance">{children}</span>
 
       {TrailingIcon ? (
         <TrailingIcon 

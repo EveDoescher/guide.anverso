@@ -36,7 +36,7 @@ export function SectionShell({
         {/* Container que força o título a ocupar uma tela inteira, isolando-o do conteúdo */}
         <div 
           ref={headerRef}
-          className="relative flex min-h-[100vh] flex-col items-center justify-center py-20"
+          className="section-content-offset relative flex min-h-[100dvh] flex-col items-center justify-center py-20"
           style={{ transform: "translateX(calc(var(--sidebar-width) / -2))" }}
         >
           <SectionHeader
@@ -52,7 +52,7 @@ export function SectionShell({
         {/* Conteúdo da seção */}
         <div 
           id={`content-${id}`} 
-          className="relative z-10 flex min-h-[100vh] w-full flex-col items-center justify-center py-24"
+          className="section-content-offset relative z-10 flex min-h-[100dvh] w-full flex-col items-center justify-center py-24"
           style={{ transform: "translateX(calc(var(--sidebar-width) / -2))" }}
         >
           <div className="w-full">
@@ -94,7 +94,7 @@ function SectionHeader({
           <h2
             className="font-serif leading-[0.9]"
             style={{
-              fontSize: "clamp(4.5rem, 10vw, 8.5rem)",
+              fontSize: "clamp(3rem, 10vw, 8.5rem)",
               color: "var(--color-espresso)", // Coffee for accents/details!
               letterSpacing: "-0.02em",
             }}

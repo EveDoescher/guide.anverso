@@ -76,12 +76,13 @@ export function Sidebar() {
   }
 
   return (
+    <>
     <motion.aside
       initial={reduceMotion ? false : { opacity: 0, x: -20, y: "-50%" }}
       animate={{ opacity: 1, x: 0, y: "-50%" }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-      className="fixed left-5 top-1/2 z-50 hidden md:block"
-      aria-label="Navegação do guia"
+      className="fixed left-5 top-1/2 z-50 hidden md:flex flex-col"
+      aria-label="Navegação do guia (Desktop)"
     >
       <nav
         className="relative flex flex-col items-center gap-2 rounded-[999px] p-3"
@@ -145,7 +146,71 @@ export function Sidebar() {
         })}
       </nav>
 
-
     </motion.aside>
+
+    {/* Bottom Nav Mobile (Floating Pill) */}
+    <div className="fixed bottom-6 left-0 right-0 z-50 flex justify-center md:hidden pointer-events-none">
+      <motion.nav
+        initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+        className="pointer-events-auto relative flex items-center justify-center gap-1 rounded-[999px] p-2"
+        style={{
+          border: "1px solid rgba(181,162,130,0.42)",
+          background: "rgba(250,245,236,0.82)",
+          backdropFilter: "blur(20px)",
+          boxShadow: "0 24px 60px rgba(20,32,26,0.12), inset 0 1px 0 rgba(255,255,255,0.60)",
+        }}
+        aria-label="Navegação do guia (Mobile)"
+      >
+        <span
+          className="pointer-events-none absolute inset-[3px] rounded-[999px]"
+          style={{ border: "1px solid rgba(255,255,255,0.45)" }}
+        />
+        {NAV_ITEMS.map((item, index) => {
+          const isActive = item.id === active;
+          const isPast = index < activeIndex;
+          const Icon = item.Icon;
+
+          return (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => scrollTo(item.id)}
+              aria-current={isActive ? "page" : undefined}
+              aria-label={item.label}
+              className={[
+                "anverso-focus relative z-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full transition-colors duration-200",
+                isActive
+                  ? "text-white"
+                  : "text-[var(--color-forest)] hover:text-[var(--color-gold-strong)]",
+              ].join(" ")}
+            >
+              {isActive ? (
+                <motion.span
+                  layoutId="mobile-nav-active-orb"
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    background: "var(--color-forest)",
+                    boxShadow: "0 8px 20px rgba(20,32,26,0.30)",
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              ) : null}
+
+              <Icon size={20} strokeWidth={1.75} className="relative z-10" />
+
+              {isPast && !isActive ? (
+                <span
+                  className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full"
+                  style={{ background: "var(--color-gold)" }}
+                />
+              ) : null}
+            </button>
+          );
+        })}
+      </motion.nav>
+    </div>
+    </>
   );
 }

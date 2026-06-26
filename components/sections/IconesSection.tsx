@@ -91,7 +91,7 @@ function PngCard({ file, name, category }: { file: string; name: string; categor
       <p className="mt-3 text-[11px] font-serif font-bold text-[var(--color-espresso)]">
         {name}
       </p>
-      <p className="mt-1 text-[9px] uppercase tracking-widest text-[var(--color-neutral)]">{category}</p>
+      <p className="mt-1 text-[11px] md:text-[9px] uppercase tracking-widest text-[var(--color-neutral)]">{category}</p>
     </article>
   );
 }
@@ -105,7 +105,7 @@ function LucideCard({ Icon, name, category }: { Icon: IconComponent; name: strin
       <p className="mt-3 text-[11px] font-serif font-bold text-[var(--color-espresso)]">
         {name}
       </p>
-      <p className="mt-1 text-[9px] uppercase tracking-widest text-[var(--color-neutral)]">{category}</p>
+      <p className="mt-1 text-[11px] md:text-[9px] uppercase tracking-widest text-[var(--color-neutral)]">{category}</p>
     </article>
   );
 }
@@ -141,7 +141,7 @@ export function IconesSection() {
     >
       <div className="grid gap-8 lg:grid-cols-[280px_1fr] items-start">
         <aside className="p-6 border border-[rgba(92,51,32,0.15)] bg-[rgba(92,51,32,0.01)]">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-espresso)]">
+          <p className="text-[11px] md:text-[10px] font-bold uppercase tracking-widest text-[var(--color-espresso)]">
             Categorias e filtros
           </p>
 

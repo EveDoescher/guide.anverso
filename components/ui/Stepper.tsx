@@ -19,9 +19,9 @@ export function Stepper({
   className = "",
 }: StepperProps) {
   return (
-    <div className={["w-full", className].join(" ")}>
+    <div className={["w-full overflow-x-auto pb-2 sm:pb-0", className].join(" ")}>
       <div
-        className="grid w-full"
+        className="grid min-w-[360px] sm:min-w-0 sm:w-full"
         style={{
           gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))`,
         }}
@@ -67,7 +67,7 @@ export function Stepper({
                   </p>
 
                   {step.description ? (
-                    <p className="mt-0.5 line-clamp-2 text-[10px] leading-tight text-[var(--color-neutral)]">
+                    <p className="mt-0.5 line-clamp-2 text-[11px] md:text-[10px] leading-tight text-[var(--color-neutral)]">
                       {step.description}
                     </p>
                   ) : null}

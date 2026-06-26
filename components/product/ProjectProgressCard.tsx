@@ -71,7 +71,7 @@ export function ProjectProgressCard({
 
       <div className="relative z-10">
         <div className="flex items-start justify-between gap-3">
-          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--color-green)]">
+          <p className="text-[11px] md:text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--color-green)]">
             {eyebrow}
           </p>
 
@@ -89,7 +89,7 @@ export function ProjectProgressCard({
         </p>
 
         <div className="mt-4">
-          <div className="mb-1.5 flex items-center justify-between text-[10px] font-bold text-[var(--color-neutral)]">
+          <div className="mb-1.5 flex items-center justify-between text-[11px] md:text-[10px] font-bold text-[var(--color-neutral)]">
             <span>Progresso</span>
             <span>{safeProgress}%</span>
           </div>

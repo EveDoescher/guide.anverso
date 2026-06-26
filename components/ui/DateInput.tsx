@@ -2,6 +2,7 @@
 
 import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 type DateInputProps = {
   label?: string;
@@ -104,11 +105,11 @@ export function DateInput({
   }
 
   return (
-    <label ref={wrapperRef} className="relative block">
+    <div ref={wrapperRef} className="relative block">
       {label ? (
-        <span className="mb-1.5 block text-[11px] font-medium text-[var(--color-text)]">
+        <label className="mb-1.5 block text-[11px] font-medium text-[var(--color-text)]">
           {label}
-        </span>
+        </label>
       ) : null}
 
       <button
@@ -132,78 +133,99 @@ export function DateInput({
         <Calendar size={15} className="shrink-0 text-[var(--color-text)]" />
       </button>
 
-      {open ? (
-        <div className="absolute left-0 top-[calc(100%+6px)] z-[80] w-[248px] rounded-[12px] border border-[var(--color-border)] bg-[var(--color-paper)] p-3 shadow-[0_14px_34px_rgba(47,44,45,0.12)]">
-          <div className="mb-3 flex items-center justify-between">
-            <button
-              type="button"
-              onClick={() => changeMonth(-1)}
-              className="anverso-focus flex h-7 w-7 items-center justify-center rounded-[7px] text-[var(--color-text)] hover:bg-[rgba(47,44,45,0.06)]"
-              aria-label="Mês anterior"
-            >
-              <ChevronLeft size={15} />
-            </button>
-
-            <p className="text-[12px] font-bold capitalize text-[var(--color-text)]">
-              {months[month]} {year}
-            </p>
-
-            <button
-              type="button"
-              onClick={() => changeMonth(1)}
-              className="anverso-focus flex h-7 w-7 items-center justify-center rounded-[7px] text-[var(--color-text)] hover:bg-[rgba(47,44,45,0.06)]"
-              aria-label="Próximo mês"
-            >
-              <ChevronRight size={15} />
-            </button>
-          </div>
-
-          <div className="mb-1 grid grid-cols-7 gap-1">
-            {weekdays.map((weekday, index) => (
-              <span
-                key={`${weekday}-${index}`}
-                className="flex h-6 items-center justify-center text-[10px] font-bold text-[var(--color-neutral)]"
+      <AnimatePresence>
+        {open ? (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="fixed inset-0 z-[70] bg-black/20 backdrop-blur-sm sm:hidden" 
+              onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); setOpen(false); }}
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); setOpen(false); }} 
+            />
+            <div className="fixed left-1/2 top-1/2 z-[80] -translate-x-1/2 -translate-y-1/2 sm:absolute sm:left-0 sm:top-[calc(100%+6px)] sm:translate-x-0 sm:translate-y-0 pointer-events-none w-[300px] sm:w-[248px]">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.15, ease: "easeOut" }}
+                className="pointer-events-auto rounded-[16px] border border-[var(--color-border)] bg-[var(--color-paper)] p-4 shadow-[0_24px_48px_rgba(47,44,45,0.2)] sm:rounded-[12px] sm:p-3 sm:shadow-[0_14px_34px_rgba(47,44,45,0.12)] origin-center sm:origin-top-left"
               >
-                {weekday}
-              </span>
-            ))}
-          </div>
+                <div className="mb-4 sm:mb-3 flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={() => changeMonth(-1)}
+                    className="anverso-focus flex h-9 w-9 sm:h-7 sm:w-7 items-center justify-center rounded-[7px] text-[var(--color-text)] hover:bg-[rgba(47,44,45,0.06)]"
+                    aria-label="Mês anterior"
+                  >
+                    <ChevronLeft size={18} className="sm:w-[15px] sm:h-[15px]" />
+                  </button>
 
-          <div className="grid grid-cols-7 gap-1">
-            {calendarDays.map((date, index) =>
-              date ? (
-                <button
-                  key={date.toISOString()}
-                  type="button"
-                  onClick={() => selectDate(date)}
-                  className={[
-                    "anverso-focus flex h-7 items-center justify-center rounded-[7px] text-[11px] font-medium transition-all",
-                    isSelected(date)
-                      ? "bg-[var(--color-green)] text-white"
-                      : isToday(date)
-                        ? "border border-[var(--color-green)] text-[var(--color-green)]"
-                        : "text-[var(--color-text)] hover:bg-[rgba(47,44,45,0.06)]",
-                  ].join(" ")}
-                >
-                  {date.getDate()}
-                </button>
-              ) : (
-                <span key={`empty-${index}`} />
-              ),
-            )}
-          </div>
-        </div>
-      ) : null}
+                  <p className="text-[14px] sm:text-[12px] font-bold capitalize text-[var(--color-text)]">
+                    {months[month]} {year}
+                  </p>
+
+                  <button
+                    type="button"
+                    onClick={() => changeMonth(1)}
+                    className="anverso-focus flex h-9 w-9 sm:h-7 sm:w-7 items-center justify-center rounded-[7px] text-[var(--color-text)] hover:bg-[rgba(47,44,45,0.06)]"
+                    aria-label="Próximo mês"
+                  >
+                    <ChevronRight size={18} className="sm:w-[15px] sm:h-[15px]" />
+                  </button>
+                </div>
+
+                <div className="mb-2 sm:mb-1 grid grid-cols-7 gap-1">
+                  {weekdays.map((weekday, index) => (
+                    <span
+                      key={`${weekday}-${index}`}
+                      className="flex h-8 sm:h-6 items-center justify-center text-[12px] sm:text-[11px] font-bold text-[var(--color-neutral)]"
+                    >
+                      {weekday}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="grid grid-cols-7 gap-1">
+                  {calendarDays.map((date, index) =>
+                    date ? (
+                      <button
+                        key={date.toISOString()}
+                        type="button"
+                        onClick={() => selectDate(date)}
+                        className={[
+                          "anverso-focus flex h-9 sm:h-7 items-center justify-center rounded-[8px] sm:rounded-[7px] text-[13px] sm:text-[11px] font-medium transition-all",
+                          isSelected(date)
+                            ? "bg-[var(--color-green)] text-white"
+                            : isToday(date)
+                              ? "border border-[var(--color-green)] text-[var(--color-green)]"
+                              : "text-[var(--color-text)] hover:bg-[rgba(47,44,45,0.06)]",
+                        ].join(" ")}
+                      >
+                        {date.getDate()}
+                      </button>
+                    ) : (
+                      <span key={`empty-${index}`} />
+                    ),
+                  )}
+                </div>
+              </motion.div>
+            </div>
+          </>
+        ) : null}
+      </AnimatePresence>
 
       {error ? (
-        <span className="mt-1.5 block text-[10px] font-medium text-[var(--color-error)]">
+        <span className="mt-1.5 block text-[11px] md:text-[10px] font-medium text-[var(--color-error)]">
           {error}
         </span>
       ) : helper ? (
-        <span className="mt-1.5 block text-[10px] text-[var(--color-neutral)]">
+        <span className="mt-1.5 block text-[11px] md:text-[10px] text-[var(--color-neutral)]">
           {helper}
         </span>
       ) : null}
-    </label>
+    </div>
   );
 }

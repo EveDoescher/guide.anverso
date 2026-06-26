@@ -59,11 +59,11 @@ export function Input({
       </span>
 
       {error ? (
-        <span className="mt-1.5 block text-[10px] font-medium text-[var(--color-error)]">
+        <span className="mt-1.5 block text-[11px] md:text-[10px] font-medium text-[var(--color-error)]">
           {error}
         </span>
       ) : helper ? (
-        <span className="mt-1.5 block text-[10px] text-[var(--color-neutral)]">
+        <span className="mt-1.5 block text-[11px] md:text-[10px] text-[var(--color-neutral)]">
           {helper}
         </span>
       ) : null}

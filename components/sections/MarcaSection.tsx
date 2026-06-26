@@ -137,7 +137,7 @@ export function MarcaSection() {
                   unoptimized
                 />
                 <p
-                  className="text-[10px] font-bold uppercase border-t border-[rgba(92,51,32,0.1)] w-full text-center pt-4"
+                  className="text-[11px] md:text-[10px] font-bold uppercase border-t border-[rgba(92,51,32,0.1)] w-full text-center pt-4"
                   style={{ letterSpacing: "0.16em", color: "var(--color-espresso)" }}
                 >
                   Logotipo principal
@@ -165,7 +165,7 @@ export function MarcaSection() {
                     unoptimized
                   />
                   <p
-                    className="text-center text-[9px] font-bold uppercase"
+                    className="text-center text-[11px] md:text-[9px] font-bold uppercase"
                     style={{ letterSpacing: "0.14em", color: "var(--color-espresso)" }}
                   >
                     Símbolo
@@ -188,7 +188,7 @@ export function MarcaSection() {
                     unoptimized
                   />
                   <p
-                    className="text-center text-[9px] font-bold uppercase"
+                    className="text-center text-[11px] md:text-[9px] font-bold uppercase"
                     style={{ letterSpacing: "0.14em", color: "var(--color-espresso)" }}
                   >
                     Ramo

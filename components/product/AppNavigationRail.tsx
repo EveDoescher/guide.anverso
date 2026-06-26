@@ -95,7 +95,7 @@ export function AppNavigationRail({
                   {item.label}
                 </span>
 
-                <span className="mt-0.5 block truncate text-[10px] text-[var(--color-neutral)]">
+                <span className="mt-0.5 block truncate text-[11px] md:text-[10px] text-[var(--color-neutral)]">
                   {item.description}
                 </span>
               </span>
@@ -103,7 +103,7 @@ export function AppNavigationRail({
               {item.count ? (
                 <span
                   className={[
-                    "flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-[9px] font-bold",
+                    "flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-[11px] md:text-[9px] font-bold",
                     isActive
                       ? "bg-[var(--color-green)] text-white"
                       : "bg-[rgba(47,44,45,0.07)] text-[var(--color-neutral)]",

@@ -19,7 +19,7 @@ export function SegmentedControl<T extends string>({
   return (
     <div
       className={[
-        "inline-flex overflow-hidden rounded-[10px] border border-[var(--color-border)] bg-[var(--color-paper-soft)]",
+        "inline-flex w-full sm:w-auto overflow-hidden rounded-[10px] border border-[var(--color-border)] bg-[var(--color-paper-soft)]",
         className,
       ].join(" ")}
     >
@@ -32,7 +32,7 @@ export function SegmentedControl<T extends string>({
             type="button"
             onClick={() => onChange(option.value)}
             className={[
-              "anverso-focus h-8 px-4 text-[11px] font-bold transition-all",
+              "anverso-focus flex-1 min-w-0 truncate h-8 px-2 sm:px-4 text-[11px] font-bold transition-all",
               selected
                 ? "bg-[var(--color-green)] text-white"
                 : "text-[var(--color-neutral)] hover:bg-[var(--color-paper)]",

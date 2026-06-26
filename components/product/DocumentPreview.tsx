@@ -130,8 +130,8 @@ export function DocumentPreview({
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-[1fr_260px] gap-4">
-        <div className="flex min-h-[580px] items-center justify-center overflow-hidden rounded-[16px] border border-[var(--color-border)] bg-[rgba(217,204,186,0.25)] p-5">
+      <div className="mt-4 flex flex-col lg:grid lg:grid-cols-[1fr_260px] gap-4">
+        <div className="flex min-h-[400px] md:min-h-[580px] items-center justify-center overflow-hidden rounded-[16px] border border-[var(--color-border)] bg-[rgba(217,204,186,0.25)] p-5">
           <article
             className={[
               "relative h-[500px] w-[353px] origin-center overflow-hidden bg-[var(--color-paper)] shadow-[0_18px_42px_rgba(47,44,45,0.16)] transition-transform duration-200",
@@ -145,14 +145,14 @@ export function DocumentPreview({
               <div className="pointer-events-none absolute inset-[24px] border border-dashed border-[rgba(63,91,74,0.25)]" />
             ) : null}
 
-            <div className="flex h-full flex-col px-10 py-9 text-center text-[9px] leading-relaxed text-black">
+            <div className="flex h-full flex-col px-10 py-9 text-center text-[11px] md:text-[9px] leading-relaxed text-black">
               {page.type === "cover" ? (
                 <>
                   <p className="font-bold uppercase">INSTITUIÇÃO DE ENSINO</p>
                   <p className="mt-7 uppercase">NOME DO AUTOR</p>
 
                   <div className="mt-16">
-                    <p className="text-[10px] font-bold uppercase leading-snug">
+                    <p className="text-[11px] md:text-[10px] font-bold uppercase leading-snug">
                       {page.title}
                     </p>
 
@@ -170,7 +170,7 @@ export function DocumentPreview({
 
               {page.type === "summary" ? (
                 <>
-                  <p className="text-[10px] font-bold uppercase">SUMÁRIO</p>
+                  <p className="text-[11px] md:text-[10px] font-bold uppercase">SUMÁRIO</p>
 
                   <div className="mt-8 space-y-3 text-left">
                     {[
@@ -192,7 +192,7 @@ export function DocumentPreview({
 
               {page.type === "content" ? (
                 <>
-                  <p className="text-left text-[10px] font-bold uppercase">
+                  <p className="text-left text-[11px] md:text-[10px] font-bold uppercase">
                     {page.title}
                   </p>
 
@@ -216,7 +216,7 @@ export function DocumentPreview({
                     </p>
                   </div>
 
-                  <p className="absolute top-6 right-9 text-[9px]">1</p>
+                  <p className="absolute top-6 right-9 text-[11px] md:text-[9px]">1</p>
                 </>
               ) : null}
             </div>

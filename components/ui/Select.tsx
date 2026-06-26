@@ -2,6 +2,7 @@
 
 import { Check, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 type SelectOption = {
   label: string;
@@ -54,11 +55,11 @@ export function Select({
   }
 
   return (
-    <label ref={wrapperRef} className="relative block">
+    <div ref={wrapperRef} className="relative block">
       {label ? (
-        <span className="mb-1.5 block text-[11px] font-medium text-[var(--color-text)]">
+        <label className="mb-1.5 block text-[11px] font-medium text-[var(--color-text)]">
           {label}
-        </span>
+        </label>
       ) : null}
 
       <button
@@ -89,44 +90,65 @@ export function Select({
         />
       </button>
 
-      {open ? (
-        <div className="absolute left-0 right-0 top-[calc(100%+6px)] z-[80] overflow-hidden rounded-[10px] border border-[var(--color-border)] bg-[var(--color-paper)] shadow-[0_14px_34px_rgba(47,44,45,0.12)]">
-          <div className="max-h-56 overflow-y-auto p-1.5">
-            {options.map((option) => {
-              const selected = option.value === value;
+      <AnimatePresence>
+        {open ? (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="fixed inset-0 z-[70] bg-black/20 backdrop-blur-sm sm:hidden" 
+              onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); setOpen(false); }}
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); setOpen(false); }} 
+            />
+            <div className="fixed left-4 right-4 top-1/2 z-[80] -translate-y-1/2 sm:absolute sm:left-0 sm:right-0 sm:top-[calc(100%+6px)] sm:-translate-y-0 pointer-events-none">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.15, ease: "easeOut" }}
+                className="pointer-events-auto overflow-hidden rounded-[14px] border border-[var(--color-border)] bg-[var(--color-paper)] shadow-[0_24px_48px_rgba(47,44,45,0.2)] sm:rounded-[10px] sm:shadow-[0_14px_34px_rgba(47,44,45,0.12)] origin-center sm:origin-top"
+              >
+                <div className="max-h-[50vh] sm:max-h-56 overflow-y-auto p-2 sm:p-1.5">
+                  {options.map((option) => {
+                    const selected = option.value === value;
 
-              return (
-                <button
-                  key={option.value}
-                  type="button"
-                  disabled={option.disabled}
-                  onClick={() => handleSelect(option.value)}
-                  className={[
-                    "flex h-8 w-full items-center justify-between gap-3 rounded-[7px] px-2.5 text-left text-[12px] transition-all",
-                    selected
-                      ? "bg-[rgba(63,91,74,0.10)] font-bold text-[var(--color-green)]"
-                      : "text-[var(--color-text)] hover:bg-[rgba(47,44,45,0.05)]",
-                    "disabled:cursor-not-allowed disabled:opacity-45",
-                  ].join(" ")}
-                >
-                  <span>{option.label}</span>
-                  {selected ? <Check size={14} /> : null}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      ) : null}
+                    return (
+                      <button
+                        key={option.value}
+                        type="button"
+                        disabled={option.disabled}
+                        onClick={() => handleSelect(option.value)}
+                        className={[
+                          "flex h-12 sm:h-8 w-full items-center justify-between gap-3 rounded-[7px] px-3 sm:px-2.5 text-left text-[14px] sm:text-[12px] transition-all",
+                          selected
+                            ? "bg-[rgba(63,91,74,0.10)] font-bold text-[var(--color-green)]"
+                            : "text-[var(--color-text)] hover:bg-[rgba(47,44,45,0.05)]",
+                          "disabled:cursor-not-allowed disabled:opacity-45",
+                        ].join(" ")}
+                      >
+                        <span>{option.label}</span>
+                        {selected ? <Check size={16} className="sm:w-3.5 sm:h-3.5" /> : null}
+                      </button>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            </div>
+          </>
+        ) : null}
+      </AnimatePresence>
 
       {error ? (
-        <span className="mt-1.5 block text-[10px] font-medium text-[var(--color-error)]">
+        <span className="mt-1.5 block text-[11px] md:text-[10px] font-medium text-[var(--color-error)]">
           {error}
         </span>
       ) : helper ? (
-        <span className="mt-1.5 block text-[10px] text-[var(--color-neutral)]">
+        <span className="mt-1.5 block text-[11px] md:text-[10px] text-[var(--color-neutral)]">
           {helper}
         </span>
       ) : null}
-    </label>
+    </div>
   );
 }

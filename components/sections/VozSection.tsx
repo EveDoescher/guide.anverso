@@ -81,7 +81,7 @@ export function VozSection() {
       intro="O texto do Anverso reduz ansiedade, mostra critério e transforma pendências em passos claros."
     >
       {/* ── Layout de três colunas ── */}
-      <div className="grid gap-8 xl:grid-cols-[340px_minmax(0,1fr)_minmax(0,1fr)]">
+      <div className="grid gap-8 xl:grid-cols-[300px_minmax(0,1fr)_minmax(0,1fr)]">
 
         {/* Coluna 1: Manifesto interativo */}
         <Reveal>
@@ -93,14 +93,14 @@ export function VozSection() {
             }}
           >
             <p
-              className="text-[10px] font-bold uppercase"
+              className="text-[11px] md:text-[10px] font-bold uppercase"
               style={{ letterSpacing: "0.22em", color: "var(--color-espresso)" }}
             >
               Manifesto de voz
             </p>
 
             {/* Frase animada */}
-            <div className="relative mt-12 min-h-[140px]">
+            <div className="relative mt-12 min-h-[100px] xl:min-h-[140px]">
               <AnimatePresence mode="wait">
                 <motion.blockquote
                   key={activePhrase}
@@ -154,7 +154,7 @@ export function VozSection() {
         {/* Coluna 2: Princípios */}
         <div>
           <p
-            className="mb-6 text-[10px] font-bold uppercase border-b border-[rgba(92,51,32,0.1)] pb-2"
+            className="mb-6 text-[11px] md:text-[10px] font-bold uppercase border-b border-[rgba(92,51,32,0.1)] pb-2"
             style={{ letterSpacing: "0.18em", color: "var(--color-espresso)" }}
           >
             Princípios
@@ -198,7 +198,7 @@ export function VozSection() {
         {/* Coluna 3: Tabela de exemplos */}
         <div>
           <p
-            className="mb-6 text-[10px] font-bold uppercase border-b border-[rgba(92,51,32,0.1)] pb-2"
+            className="mb-6 text-[11px] md:text-[10px] font-bold uppercase border-b border-[rgba(92,51,32,0.1)] pb-2"
             style={{ letterSpacing: "0.18em", color: "var(--color-espresso)" }}
           >
             Exemplos Práticos
@@ -218,7 +218,7 @@ export function VozSection() {
                       {/* Use */}
                       <div>
                         <p
-                          className="text-[10px] font-bold uppercase tracking-wider mb-1"
+                          className="text-[11px] md:text-[10px] font-bold uppercase tracking-wider mb-1"
                           style={{ color: "var(--color-green)" }}
                         >
                           Use
@@ -233,7 +233,7 @@ export function VozSection() {
                       {/* Evite */}
                       <div>
                         <p
-                          className="text-[10px] font-bold uppercase tracking-wider mb-1"
+                          className="text-[11px] md:text-[10px] font-bold uppercase tracking-wider mb-1"
                           style={{ color: "var(--color-neutral)", opacity: 0.8 }}
                         >
                           Evite

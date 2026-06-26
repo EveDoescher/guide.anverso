@@ -114,7 +114,7 @@
 
 /* ── Reset & base ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
   font-family: var(--font-sans);
@@ -267,8 +267,11 @@ body, button, input, textarea, select, .font-sans {
 }
 
 /* ── Responsivo ─────────────────────────────────────────────── */
-@media (max-width: 900px) {
-  :root { --sidebar-width: 0px; }
+@media (max-width: 767px) {
+  :root { 
+    --sidebar-width: 0px;
+    --bottom-nav-height: 80px;
+  }
   .guide-container {
     width: min(100% - 24px, 760px);
   }
@@ -277,4 +280,5 @@ body, button, input, textarea, select, .font-sans {
     padding-left: 0;
     width: 100%;
   }
+  .section-content-offset { transform: none !important; }
 }

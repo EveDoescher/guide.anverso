@@ -90,7 +90,7 @@ export function ValidationSummary({
                 </p>
 
                 {item.description ? (
-                  <p className="mt-0.5 text-[10px] leading-snug text-[var(--color-neutral)]">
+                  <p className="mt-0.5 text-[11px] md:text-[10px] leading-snug text-[var(--color-neutral)]">
                     {item.description}
                   </p>
                 ) : null}

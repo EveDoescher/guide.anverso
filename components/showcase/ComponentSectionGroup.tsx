@@ -37,7 +37,7 @@ export function ComponentSectionGroup({
       <div className="mb-8 flex items-end gap-5">
         <div className="max-w-[760px]">
           <p
-            className="text-[10px] font-bold uppercase tracking-[0.22em]"
+            className="text-[11px] md:text-[10px] font-bold uppercase tracking-[0.22em]"
             style={{
               color: dark ? "rgba(212,170,92,0.75)" : "var(--color-gold)",
             }}
@@ -78,7 +78,7 @@ export function ComponentSectionGroup({
       </div>
 
       {/* Showcase Grid */}
-      <div className="grid gap-6">
+      <div className="grid gap-6 [&>*]:min-w-0">
         {children}
       </div>
     </motion.section>

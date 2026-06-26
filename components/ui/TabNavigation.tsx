@@ -46,7 +46,7 @@ export function TabNavigation({
             {item.count ? (
               <span
                 className={[
-                  "rounded-full px-1.5 text-[9px]",
+                  "rounded-full px-1.5 text-[11px] md:text-[9px]",
                   isActive
                     ? "bg-white/18 text-white"
                     : "bg-[rgba(47,44,45,0.08)] text-[var(--color-neutral)]",

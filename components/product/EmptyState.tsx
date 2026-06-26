@@ -69,8 +69,9 @@ export function EmptyState({
         <Button
           variant="primary"
           size="sm"
+          align="center"
           onClick={onAction}
-          className="mx-auto mt-4"
+          className="w-full sm:w-auto mx-auto mt-4"
         >
           {actionLabel}
         </Button>

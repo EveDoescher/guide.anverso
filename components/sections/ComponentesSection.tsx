@@ -156,7 +156,7 @@ function SelecaoFiltros() {
       title="Seleção e Filtros"
       className="w-full"
     >
-      <div className="relative z-10 grid grid-cols-2 gap-x-8 gap-y-8">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8">
         <div>
           <p className="mb-3 text-[11px] font-medium text-[var(--color-neutral)]">
             Chips
@@ -203,7 +203,7 @@ function SelecaoFiltros() {
           </div>
         </div>
 
-        <div className="col-span-2">
+        <div className="col-span-1 md:col-span-2">
           <p className="mb-3 text-[11px] font-medium text-[var(--color-neutral)]">
             Segmented control
           </p>
@@ -513,7 +513,7 @@ function Cards() {
             Cards de acompanhamento
           </p>
 
-          <div className="grid grid-cols-3 items-start gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-start gap-4 [&>*]:min-w-0">
             <WorkFileCard
               title="Trabalho de Conclusão de Curso.docx"
               updatedAt="25/05/2026"
@@ -541,7 +541,7 @@ function Cards() {
             Cards de configuração
           </p>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 [&>*]:min-w-0">
             <AcademicWorkCard
               title="Trabalho acadêmico"
               description="Modelo completo para capa, folha de rosto, sumário, seções e referências."
@@ -650,7 +650,7 @@ function FeedbackValidacao() {
       className="w-full"
       overflow="visible"
     >
-      <div className="relative z-10 grid grid-cols-2 gap-4">
+      <div className="relative z-10 grid grid-cols-1 xl:grid-cols-2 gap-4">
         <AnimatePresence mode="popLayout">
           {alerts.map((alert) => {
             if (!visibleAlerts[alert.key]) return null;
@@ -743,7 +743,7 @@ function NavegacaoLateral() {
       className="w-full"
       overflow="visible"
     >
-      <div className="relative z-10 grid grid-cols-[238px_1fr] gap-5">
+      <div className="relative z-10 flex flex-col md:grid md:grid-cols-[238px_1fr] gap-5">
         <AppNavigationRail
           items={appItems}
           activeId={activeArea}
@@ -778,7 +778,7 @@ function NavegacaoLateral() {
             </div>
 
             <div className="rounded-[14px] border border-[var(--color-border)] bg-[var(--color-paper-soft)] px-3 py-2 text-right">
-              <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-neutral)]">
+              <p className="text-[11px] md:text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-neutral)]">
                 Atalhos
               </p>
               <p className="mt-1 text-[18px] font-bold text-[var(--color-green)]">
@@ -863,7 +863,7 @@ function ModaisApoio() {
       className="w-full"
       overflow="visible"
     >
-      <div className="relative z-10 grid grid-cols-2 gap-4">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-4">
         <ModalCard
           title={generating ? "Preparando seu DOCX..." : "Gerar o DOCX agora?"}
           description={
@@ -895,7 +895,7 @@ function ModaisApoio() {
             </motion.div>
           }
         >
-          <div className="grid grid-cols-2 gap-2">
+          <div className="flex flex-col-reverse xl:grid xl:grid-cols-2 gap-2">
             <Button
               variant="ghost"
               size="sm"
@@ -988,7 +988,7 @@ function ModaisApoio() {
             </div>
           }
         >
-          <div className="grid grid-cols-2 gap-2">
+          <div className="flex flex-col-reverse xl:grid xl:grid-cols-2 gap-2">
             <Button
               variant="ghost"
               size="sm"
@@ -1048,7 +1048,7 @@ function ModaisApoio() {
           onClick={() => setUploaded(true)}
         />
 
-        <div className="col-span-2 flex justify-end pb-1 pr-1">
+        <div className="col-span-full flex justify-end pb-1 pr-1">
           <ObservationBubble text="Clique para adicionar uma observação." />
         </div>
       </div>
@@ -1130,7 +1130,7 @@ export function ComponentesSection() {
           title="Começo da experiência"
           description="Ações, filtros e campos aparecem juntos como o primeiro contato do usuário com a criação do documento. O bloco prioriza escolha rápida, entrada de dados e clareza visual."
         >
-          <div className="grid items-start gap-5 xl:grid-cols-[320px_minmax(0,1fr)]">
+          <div className="grid items-start gap-5 lg:grid-cols-[280px_minmax(0,1fr)] xl:grid-cols-[320px_minmax(0,1fr)]">
             <AcoesPrincipais />
             <SelecaoFiltros />
           </div>
@@ -1156,7 +1156,7 @@ export function ComponentesSection() {
           title="Respostas do sistema"
           description="Feedbacks, confirmações, uploads, estados vazios e ajudas contextuais aparecem como apoio ao usuário, sem competir com o fluxo principal."
         >
-          <div className="grid items-start gap-5 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+          <div className="grid items-start gap-5 lg:grid-cols-2 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
             <FeedbackValidacao />
             <ModaisApoio />
           </div>

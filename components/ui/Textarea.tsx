@@ -44,18 +44,18 @@ export function Textarea({
         />
 
         {counter && maxLength ? (
-          <span className="absolute bottom-2 right-3 text-[10px] text-[var(--color-neutral)]">
+          <span className="absolute bottom-2 right-3 text-[11px] md:text-[10px] text-[var(--color-neutral)]">
             {valueLength}/{maxLength}
           </span>
         ) : null}
       </span>
 
       {error ? (
-        <span className="mt-1.5 block text-[10px] font-medium text-[var(--color-error)]">
+        <span className="mt-1.5 block text-[11px] md:text-[10px] font-medium text-[var(--color-error)]">
           {error}
         </span>
       ) : helper ? (
-        <span className="mt-1.5 block text-[10px] text-[var(--color-neutral)]">
+        <span className="mt-1.5 block text-[11px] md:text-[10px] text-[var(--color-neutral)]">
           {helper}
         </span>
       ) : null}

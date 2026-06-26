@@ -39,7 +39,7 @@ export default function DesignGuidePage() {
 
       <main
         className="min-h-screen"
-        style={{ marginLeft: "var(--sidebar-width)" }}
+        style={{ marginLeft: "var(--sidebar-width)", paddingBottom: "var(--bottom-nav-height, 0px)" }}
       >
         <MarcaSection />
         <CoresSection />
@@ -70,7 +70,7 @@ export default function DesignGuidePage() {
           </div>
 
           <p
-            className="text-[9px] font-bold uppercase"
+            className="text-[11px] md:text-[9px] font-bold uppercase"
             style={{
               letterSpacing: "0.28em",
               color: "var(--color-gold)",

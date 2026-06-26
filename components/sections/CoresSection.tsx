@@ -56,14 +56,14 @@ function TokenRow({
             {name}
           </span>
           <span
-            className="block truncate text-[10px] font-serif italic"
+            className="block truncate text-[11px] md:text-[10px] font-serif italic"
             style={{ color: "var(--color-neutral)" }}
           >
             {role}
           </span>
         </span>
         <span
-          className="inline-flex items-center gap-1 rounded-full px-2 py-1 font-mono text-[9px]"
+          className="inline-flex items-center gap-1 rounded-full px-2 py-1 font-mono text-[11px] md:text-[9px]"
           style={{
             border: "1px solid rgba(92,51,32,0.2)",
             color: "var(--color-espresso)",
@@ -81,11 +81,11 @@ function TokenRow({
 /* ── Círculos grandes de cor — visual impactante ── */
 function ColorCircles() {
   const circles = [
-    { hex: "#1E3028", size: 120, label: "Floresta" },
-    { hex: "#5C3320", size: 90,  label: "Café" },
-    { hex: "#B5892A", size: 70,  label: "Ouro" },
-    { hex: "#FAF5EC", size: 52,  label: "Papel" },
-    { hex: "#4C7A5D", size: 42,  label: "Verde" },
+    { hex: "#1E3028", sizeDesktop: 120, sizeMobile: 72, label: "Floresta" },
+    { hex: "#5C3320", sizeDesktop: 90,  sizeMobile: 56, label: "Café" },
+    { hex: "#B5892A", sizeDesktop: 70,  sizeMobile: 44, label: "Ouro" },
+    { hex: "#FAF5EC", sizeDesktop: 52,  sizeMobile: 36, label: "Papel" },
+    { hex: "#4C7A5D", sizeDesktop: 42,  sizeMobile: 30, label: "Verde" },
   ];
 
   return (
@@ -95,8 +95,8 @@ function ColorCircles() {
           <span
             className="block rounded-full"
             style={{
-              width: c.size,
-              height: c.size,
+              width: `clamp(${c.sizeMobile}px, ${c.sizeDesktop / 14}vw, ${c.sizeDesktop}px)`,
+              height: `clamp(${c.sizeMobile}px, ${c.sizeDesktop / 14}vw, ${c.sizeDesktop}px)`,
               background: c.hex,
               border: c.hex === "#FAF5EC"
                 ? "1px solid rgba(181,162,130,0.50)"
@@ -105,7 +105,7 @@ function ColorCircles() {
             }}
           />
           <span
-            className="text-[9px] font-bold uppercase"
+            className="text-[11px] md:text-[9px] font-bold uppercase"
             style={{ letterSpacing: "0.14em", color: "var(--color-espresso)" }}
           >
             {c.label}
@@ -282,7 +282,7 @@ export function CoresSection() {
                   style={{ backgroundColor: combo.accent }}
                 />
                 <p
-                  className="text-[10px] font-bold uppercase"
+                  className="text-[11px] md:text-[10px] font-bold uppercase"
                   style={{ letterSpacing: "0.14em", opacity: 0.7 }}
                 >
                   {combo.title}

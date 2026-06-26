@@ -58,83 +58,7 @@ export function TipografiaSection() {
       pill="Escala"
       intro="A serifada carrega a memória editorial da marca. A sans segura os formulários, estados e leitura funcional."
     >
-      <div className="grid gap-12 xl:grid-cols-[1fr_1.3fr_1fr] xl:items-stretch">
-        {/* ── Painel de identidade tipográfica (Cartão Verde Floresta) ── */}
-        <Reveal
-          className="relative min-h-[400px] overflow-hidden p-8"
-          style={{
-            background: "var(--color-forest)",
-            boxShadow: "0 24px 48px rgba(0,0,0,0.12)",
-          }}
-        >
-          {/* Aa decorativo de fundo */}
-          <div
-            className="pointer-events-none absolute -bottom-10 -right-6 select-none font-serif font-black leading-none"
-            style={{
-              fontSize: "180px",
-              color: "rgba(255,255,255,0.035)",
-            }}
-          >
-            Aa
-          </div>
-
-          <div className="relative z-10 flex h-full flex-col justify-between gap-12">
-            <div>
-              <p
-                className="text-[10px] font-bold uppercase"
-                style={{ letterSpacing: "0.24em", color: "var(--color-gold)" }}
-              >
-                Sistema editorial
-              </p>
-              <p
-                className="mt-8 font-serif italic leading-[0.80]"
-                style={{
-                  fontSize: "clamp(4rem, 8vw, 6rem)",
-                  color: "var(--color-ink-inv)",
-                }}
-              >
-                Aa
-              </p>
-              <p
-                className="mt-6 max-w-[300px] text-[13px] leading-relaxed font-serif"
-                style={{ color: "var(--color-muted-inv)" }}
-              >
-                A marca fala como uma página bem composta: quente, precisa e
-                com ritmo suficiente para guiar sem endurecer.
-              </p>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
-              {[
-                ["Crimson Pro", "Títulos, assinatura e memória editorial"],
-                ["Mulish", "Campos, botões, tabelas e leitura de interface"],
-              ].map(([name, use]) => (
-                <PressableMotion key={name}>
-                  <div
-                    className="p-4"
-                    style={{
-                      borderTop: "1px solid rgba(255,255,255,0.1)",
-                    }}
-                  >
-                    <p
-                      className="text-[13px] font-bold"
-                      style={{ color: "var(--color-ink-inv)" }}
-                    >
-                      {name}
-                    </p>
-                    <p
-                      className="mt-1 text-[11px] leading-relaxed font-serif italic"
-                      style={{ color: "var(--color-muted-inv)" }}
-                    >
-                      {use}
-                    </p>
-                  </div>
-                </PressableMotion>
-              ))}
-            </div>
-          </div>
-        </Reveal>
-
+      <div className="grid gap-8 xl:grid-cols-[1fr_1.3fr_1fr] xl:items-stretch xl:gap-12">
         {/* ── Escala tipográfica ── */}
         <div className="min-w-0 flex flex-col justify-center">
           <div className="mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-[rgba(92,51,32,0.15)] pb-3">
@@ -147,7 +71,7 @@ export function TipografiaSection() {
             <button
               type="button"
               onClick={() => setDense((v) => !v)}
-              className="anverso-focus inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest transition-opacity hover:opacity-70"
+              className="anverso-focus inline-flex items-center gap-2 text-[11px] md:text-[10px] font-bold uppercase tracking-widest transition-opacity hover:opacity-70"
               style={{ color: "var(--color-coffee)" }}
             >
               <Columns3 size={13} />
@@ -185,7 +109,7 @@ export function TipografiaSection() {
                       </p>
                       <div className="text-left md:text-right">
                         <p
-                          className="text-[10px] font-bold uppercase"
+                          className="text-[11px] md:text-[10px] font-bold uppercase"
                           style={{ color: "var(--color-espresso)" }}
                         >
                           {item.tone}
@@ -246,6 +170,82 @@ export function TipografiaSection() {
             >
               Preencha com calma: nós estruturamos para você.
             </p>
+          </div>
+        </Reveal>
+
+        {/* ── Painel de identidade tipográfica (Cartão Verde Floresta) ── */}
+        <Reveal
+          className="relative min-h-[280px] xl:min-h-[400px] overflow-hidden p-8 xl:order-first"
+          style={{
+            background: "var(--color-forest)",
+            boxShadow: "0 24px 48px rgba(0,0,0,0.12)",
+          }}
+        >
+          {/* Aa decorativo de fundo */}
+          <div
+            className="pointer-events-none absolute -bottom-10 -right-6 select-none font-serif font-black leading-none"
+            style={{
+              fontSize: "180px",
+              color: "rgba(255,255,255,0.035)",
+            }}
+          >
+            Aa
+          </div>
+
+          <div className="relative z-10 flex h-full flex-col justify-between gap-12">
+            <div>
+              <p
+                className="text-[11px] md:text-[10px] font-bold uppercase"
+                style={{ letterSpacing: "0.24em", color: "var(--color-gold)" }}
+              >
+                Sistema editorial
+              </p>
+              <p
+                className="mt-8 font-serif italic leading-[0.80]"
+                style={{
+                  fontSize: "clamp(4rem, 8vw, 6rem)",
+                  color: "var(--color-ink-inv)",
+                }}
+              >
+                Aa
+              </p>
+              <p
+                className="mt-6 max-w-[300px] text-[13px] leading-relaxed font-serif"
+                style={{ color: "var(--color-muted-inv)" }}
+              >
+                A marca fala como uma página bem composta: quente, precisa e
+                com ritmo suficiente para guiar sem endurecer.
+              </p>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
+              {[
+                ["Crimson Pro", "Títulos, assinatura e memória editorial"],
+                ["Mulish", "Campos, botões, tabelas e leitura de interface"],
+              ].map(([name, use]) => (
+                <PressableMotion key={name}>
+                  <div
+                    className="p-4"
+                    style={{
+                      borderTop: "1px solid rgba(255,255,255,0.1)",
+                    }}
+                  >
+                    <p
+                      className="text-[13px] font-bold"
+                      style={{ color: "var(--color-ink-inv)" }}
+                    >
+                      {name}
+                    </p>
+                    <p
+                      className="mt-1 text-[11px] leading-relaxed font-serif italic"
+                      style={{ color: "var(--color-muted-inv)" }}
+                    >
+                      {use}
+                    </p>
+                  </div>
+                </PressableMotion>
+              ))}
+            </div>
           </div>
         </Reveal>
       </div>
