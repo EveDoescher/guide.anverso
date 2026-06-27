@@ -1136,21 +1136,45 @@ function PreviaDocumento() {
     },
     {
       id: 2,
-      label: "Sumário",
-      title: "Estrutura automática",
-      type: "summary" as const,
+      label: "Folha de Rosto",
+      title: "TÍTULO DO TRABALHO",
+      type: "title-page" as const,
     },
     {
       id: 3,
+      label: "Resumo",
+      title: "RESUMO",
+      type: "abstract" as const,
+    },
+    {
+      id: 4,
+      label: "Sumário",
+      title: "SUMÁRIO",
+      type: "summary" as const,
+    },
+    {
+      id: 5,
       label: "Introdução",
       title: "1 INTRODUÇÃO",
       type: "content" as const,
     },
     {
-      id: 4,
+      id: 6,
       label: "Desenvolvimento",
       title: "2 DESENVOLVIMENTO",
       type: "content" as const,
+    },
+    {
+      id: 7,
+      label: "Conclusão",
+      title: "3 CONSIDERAÇÕES FINAIS",
+      type: "content" as const,
+    },
+    {
+      id: 8,
+      label: "Referências",
+      title: "REFERÊNCIAS",
+      type: "references" as const,
     },
   ];
 

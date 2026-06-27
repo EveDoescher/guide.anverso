@@ -37,8 +37,8 @@ export function IconButton({
           type={type}
           aria-label={label}
           title={label}
-          whileHover={props.disabled ? {} : { scale: 1.1, rotate: [0, -5, 5, 0] }}
-          transition={props.disabled ? {} : { duration: 0.3, ease: "easeInOut" }}
+          whileHover={props.disabled ? {} : { scale: 1.05 }}
+          transition={props.disabled ? {} : { duration: 0.2, ease: "easeOut" }}
           whileTap={props.disabled ? {} : { scale: 0.9 }}
           className={[
               "anverso-focus group relative flex h-[44px] w-[44px] md:h-[42px] md:w-[42px] items-center justify-center rounded-[10px] border transition-colors",
