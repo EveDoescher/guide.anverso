@@ -42,11 +42,11 @@ export default function DesignGuidePage() {
         style={{ marginLeft: "var(--sidebar-width)", paddingBottom: "var(--bottom-nav-height, 0px)" }}
       >
         <MarcaSection />
+        <VozSection />
         <CoresSection />
         <TipografiaSection />
         <ComponentesSection />
         <IconesSection />
-        <VozSection />
 
         <footer
           className="guide-container mt-0 flex flex-wrap items-center justify-between gap-4 px-2 py-10"

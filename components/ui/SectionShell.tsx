@@ -20,11 +20,11 @@ export function SectionShell({
 }) {
   const number = {
     marca: "01",
-    cores: "02",
-    tipografia: "03",
-    componentes: "04",
-    icones: "05",
-    voz: "06",
+    voz: "02",
+    cores: "03",
+    tipografia: "04",
+    componentes: "05",
+    icones: "06",
   }[id] || "00";
 
   const headerRef = useRef<HTMLDivElement>(null);

@@ -6,11 +6,11 @@ import { Home, MessageCircle, Palette, Shapes, Star, Type } from "lucide-react";
 
 const NAV_ITEMS = [
   { id: "marca",       label: "Marca",       Icon: Home },
+  { id: "voz",         label: "Tom de Voz",  Icon: MessageCircle },
   { id: "cores",       label: "Cores",       Icon: Palette },
   { id: "tipografia",  label: "Tipografia",  Icon: Type },
   { id: "componentes", label: "Componentes", Icon: Shapes },
   { id: "icones",      label: "Ícones",      Icon: Star },
-  { id: "voz",         label: "Tom de Voz",  Icon: MessageCircle },
 ];
 
 export function Sidebar() {
