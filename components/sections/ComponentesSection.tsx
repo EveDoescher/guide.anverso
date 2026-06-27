@@ -826,9 +826,9 @@ function NavegacaoLateral() {
               </div>
 
               <Alert 
-                variant="warning"
+                tone="warning"
                 title="Prazo próximo"
-                message="A entrega final do seu trabalho está agendada para daqui a 5 dias."
+                description="A entrega final do seu trabalho está agendada para daqui a 5 dias."
                 icon={Calendar}
               />
 
@@ -930,8 +930,8 @@ function NavegacaoLateral() {
                   />
                 ) : (
                   <div className="flex flex-col gap-3">
-                    <Alert variant="warning" title="Referência incompleta" message="O autor 'Silva, 2023' citado na página 12 não consta na lista bibliográfica final." />
-                    <Alert variant="info" title="Sugestão de formatação" message="A Margem superior está configurada em 3cm, verifique se esse é o padrão da sua universidade." />
+                    <Alert tone="warning" title="Referência incompleta" description="O autor 'Silva, 2023' citado na página 12 não consta na lista bibliográfica final." />
+                    <Alert tone="info" title="Sugestão de formatação" description="A Margem superior está configurada em 3cm, verifique se esse é o padrão da sua universidade." />
                   </div>
                 )}
               </div>
