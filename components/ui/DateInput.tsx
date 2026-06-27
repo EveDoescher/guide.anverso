@@ -1,8 +1,9 @@
 "use client";
 
+import { useState, useRef, useEffect, useMemo } from "react";
 import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { FieldHelper } from "./FieldHelper";
 
 type DateInputProps = {
   label?: string;
@@ -107,7 +108,7 @@ export function DateInput({
   return (
     <div ref={wrapperRef} className="relative block">
       {label ? (
-        <label className="mb-1.5 block text-[11px] font-medium text-[var(--color-text)]">
+        <label className="mb-3 block text-[14px] font-medium text-[var(--color-text)]">
           {label}
         </label>
       ) : null}
@@ -218,13 +219,9 @@ export function DateInput({
       </AnimatePresence>
 
       {error ? (
-        <span className="mt-1.5 block text-[11px] md:text-[10px] font-medium text-[var(--color-error)]">
-          {error}
-        </span>
+        <FieldHelper variant="error">{error}</FieldHelper>
       ) : helper ? (
-        <span className="mt-1.5 block text-[11px] md:text-[10px] text-[var(--color-neutral)]">
-          {helper}
-        </span>
+        <FieldHelper variant="neutral">{helper}</FieldHelper>
       ) : null}
     </div>
   );

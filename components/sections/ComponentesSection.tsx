@@ -21,6 +21,7 @@ import { SegmentedControl } from "@/components/ui/SegmentedControl";
 import { Radio } from "@/components/ui/Radio";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { Input } from "@/components/ui/Input";
+import { FieldHelper } from "@/components/ui/FieldHelper";
 import { Textarea } from "@/components/ui/Textarea";
 import { Select } from "@/components/ui/Select";
 import { SearchInput } from "@/components/ui/SearchInput";
@@ -335,30 +336,30 @@ function CamposFormulario() {
       
       overflow="visible"
     >
-      <Input
-        label="Texto"
-        placeholder="Título do trabalho"
-        value={title}
-        onChange={(event) => setTitle(event.target.value)}
-      />
+      <div className="flex flex-col gap-6">
+        <Input
+          label="Texto"
+          placeholder="Título do trabalho"
+          value={title}
+          onChange={(event) => setTitle(event.target.value)}
+        />
 
-      <SearchInput
-        label="Busca"
-        placeholder="Buscar normas, templates, exemplos..."
-        value={search}
-        onChange={(event) => setSearch(event.target.value)}
-      />
+        <SearchInput
+          label="Busca"
+          placeholder="Buscar normas, templates, exemplos..."
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+        />
 
-      <Textarea
-        label="Área de texto"
-        placeholder="Resumo do seu trabalho..."
-        value={summary}
-        maxLength={500}
-        counter
-        onChange={(event) => setSummary(event.target.value)}
-      />
+        <Textarea
+          label="Área de texto"
+          placeholder="Resumo do seu trabalho..."
+          value={summary}
+          maxLength={500}
+          counter
+          onChange={(event) => setSummary(event.target.value)}
+        />
 
-      <div className="space-y-4">
         <Input
           label="Campo com máscara"
           placeholder="(19) 99999-9999"
@@ -374,40 +375,32 @@ function CamposFormulario() {
         />
 
         <div>
-          <p className="mb-1.5 text-[11px] font-medium text-[var(--color-text)]">
+          <p className="mb-3 text-[14px] font-medium text-[var(--color-text)]">
             Texto de ajuda (helper)
           </p>
-
-          <div className="flex items-start gap-2 text-[11px] text-[var(--color-text)]">
-            <Info
-              size={14}
-              className="mt-0.5 shrink-0 text-[var(--color-neutral)]"
-            />
-
-            <span>Use o título principal em caixa alta.</span>
-          </div>
+          <FieldHelper variant="info">Use o título principal em caixa alta.</FieldHelper>
         </div>
+
+        <Select
+          label="Seleção (dropdown)"
+          placeholder="Selecione o tipo de trabalho"
+          value={workType}
+          onValueChange={setWorkType}
+          options={[
+            { label: "Trabalho acadêmico", value: "academic-work" },
+            { label: "Artigo científico", value: "scientific-article" },
+            { label: "Relatório técnico", value: "technical-report" },
+            { label: "Monografia", value: "monograph" },
+          ]}
+        />
+
+        <DateInput
+          label="Data"
+          placeholder="25/05/2026"
+          value={date}
+          onValueChange={setDate}
+        />
       </div>
-
-      <Select
-        label="Seleção (dropdown)"
-        placeholder="Selecione o tipo de trabalho"
-        value={workType}
-        onValueChange={setWorkType}
-        options={[
-          { label: "Trabalho acadêmico", value: "academic-work" },
-          { label: "Artigo científico", value: "scientific-article" },
-          { label: "Relatório técnico", value: "technical-report" },
-          { label: "Monografia", value: "monograph" },
-        ]}
-      />
-
-      <DateInput
-        label="Data"
-        placeholder="25/05/2026"
-        value={date}
-        onValueChange={setDate}
-      />
     </ShowcasePanel>
   );
 }

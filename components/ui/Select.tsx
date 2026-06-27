@@ -1,8 +1,9 @@
 "use client";
 
-import { Check, ChevronDown } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { ChevronDown, Check } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { FieldHelper } from "./FieldHelper";
 
 type SelectOption = {
   label: string;
@@ -57,7 +58,7 @@ export function Select({
   return (
     <div ref={wrapperRef} className="relative block">
       {label ? (
-        <label className="mb-1.5 block text-[11px] font-medium text-[var(--color-text)]">
+        <label className="mb-3 block text-[14px] font-medium text-[var(--color-text)]">
           {label}
         </label>
       ) : null}
@@ -141,13 +142,9 @@ export function Select({
       </AnimatePresence>
 
       {error ? (
-        <span className="mt-1.5 block text-[11px] md:text-[10px] font-medium text-[var(--color-error)]">
-          {error}
-        </span>
+        <FieldHelper variant="error">{error}</FieldHelper>
       ) : helper ? (
-        <span className="mt-1.5 block text-[11px] md:text-[10px] text-[var(--color-neutral)]">
-          {helper}
-        </span>
+        <FieldHelper variant="neutral">{helper}</FieldHelper>
       ) : null}
     </div>
   );

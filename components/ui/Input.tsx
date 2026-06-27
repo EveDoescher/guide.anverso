@@ -1,4 +1,5 @@
 import type { ComponentType, InputHTMLAttributes } from "react";
+import { FieldHelper } from "./FieldHelper";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
@@ -21,7 +22,7 @@ export function Input({
   return (
     <label className="block">
       {label ? (
-        <span className="mb-1.5 block text-[11px] font-medium text-[var(--color-text)]">
+        <span className="mb-3 block text-[14px] font-medium text-[var(--color-text)]">
           {label}
         </span>
       ) : null}
@@ -59,13 +60,9 @@ export function Input({
       </span>
 
       {error ? (
-        <span className="mt-1.5 block text-[11px] md:text-[10px] font-medium text-[var(--color-error)]">
-          {error}
-        </span>
+        <FieldHelper variant="error">{error}</FieldHelper>
       ) : helper ? (
-        <span className="mt-1.5 block text-[11px] md:text-[10px] text-[var(--color-neutral)]">
-          {helper}
-        </span>
+        <FieldHelper variant="neutral">{helper}</FieldHelper>
       ) : null}
     </label>
   );

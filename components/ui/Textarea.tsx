@@ -1,4 +1,5 @@
 import type { TextareaHTMLAttributes } from "react";
+import { FieldHelper } from "./FieldHelper";
 
 type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   label?: string;
@@ -22,7 +23,7 @@ export function Textarea({
   return (
     <label className="block">
       {label ? (
-        <span className="mb-1.5 block text-[11px] font-medium text-[var(--color-text)]">
+        <span className="mb-3 block text-[14px] font-medium text-[var(--color-text)]">
           {label}
         </span>
       ) : null}
@@ -44,20 +45,16 @@ export function Textarea({
         />
 
         {counter && maxLength ? (
-          <span className="absolute bottom-2 right-3 text-[11px] md:text-[10px] text-[var(--color-neutral)]">
-            {valueLength}/{maxLength}
+          <span className="absolute bottom-2 right-3 text-[12px] text-[var(--color-neutral)]">
+            {value?.toString().length || 0}/{maxLength}
           </span>
         ) : null}
       </span>
 
       {error ? (
-        <span className="mt-1.5 block text-[11px] md:text-[10px] font-medium text-[var(--color-error)]">
-          {error}
-        </span>
+        <FieldHelper variant="error">{error}</FieldHelper>
       ) : helper ? (
-        <span className="mt-1.5 block text-[11px] md:text-[10px] text-[var(--color-neutral)]">
-          {helper}
-        </span>
+        <FieldHelper variant="neutral">{helper}</FieldHelper>
       ) : null}
     </label>
   );
