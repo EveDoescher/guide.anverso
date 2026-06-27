@@ -35,7 +35,7 @@ export function Select({
   disabled = false,
 }: SelectProps) {
   const [open, setOpen] = useState(false);
-  const wrapperRef = useRef<HTMLLabelElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const selectedOption = options.find((option) => option.value === value);
 

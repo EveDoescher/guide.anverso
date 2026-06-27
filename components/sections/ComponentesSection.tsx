@@ -961,13 +961,11 @@ function NavegacaoLateral() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                  <WorkFileCard
                     title="dataset_pesquisa_2026.csv"
-                    type="Planilha"
                     updatedAt="Ontem"
                     pages={1}
                  />
                  <WorkFileCard
                     title="diagrama_arquitetura.png"
-                    type="Imagem"
                     updatedAt="12/04/2026"
                     pages={1}
                  />
@@ -1025,7 +1023,6 @@ function NavegacaoLateral() {
                     <p className="text-[11px] text-[var(--color-neutral)] mt-0.5">Tema de interface padrão do aplicativo</p>
                   </div>
                   <SegmentedControl
-                    name="theme"
                     options={[
                       { label: "Claro", value: "light" },
                       { label: "Escuro", value: "dark" }
@@ -1039,7 +1036,7 @@ function NavegacaoLateral() {
                     <p className="text-[13px] font-bold text-[var(--color-text)]">Notificações por E-mail</p>
                     <p className="text-[11px] text-[var(--color-neutral)] mt-0.5">Avisos de colaboração e lembretes</p>
                   </div>
-                  <Toggle checked={mockNotif} onCheckedChange={(val) => setMockNotif(val)} />
+                  <Toggle label="Ativar notificações por e-mail" checked={mockNotif} onCheckedChange={(val) => setMockNotif(val)} />
                 </div>
               </div>
             </div>

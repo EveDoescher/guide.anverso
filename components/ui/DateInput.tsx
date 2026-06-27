@@ -61,7 +61,7 @@ export function DateInput({
 
   const [open, setOpen] = useState(false);
   const [viewDate, setViewDate] = useState(parsedValue ?? today);
-  const wrapperRef = useRef<HTMLLabelElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const year = viewDate.getFullYear();
   const month = viewDate.getMonth();
