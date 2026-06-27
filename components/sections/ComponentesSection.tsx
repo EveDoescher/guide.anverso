@@ -700,6 +700,9 @@ function NavegacaoLateral() {
   const [activeArea, setActiveArea] = useState("trabalhos");
   const [activeTab, setActiveTab] = useState("visao-geral");
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [mockModel, setMockModel] = useState("tcc");
+  const [mockTheme, setMockTheme] = useState("light");
+  const [mockNotif, setMockNotif] = useState(true);
 
   const appItems: AppNavigationItem[] = [
     {
@@ -814,71 +817,240 @@ function NavegacaoLateral() {
           />
         </div>
 
-        <div className="min-w-0 w-full flex-1 rounded-[18px] border border-[var(--color-border)] bg-[var(--color-cream-soft)] p-4 md:p-5">
-          <div className="flex justify-start">
-            <Breadcrumb
-              items={[
-                { label: "Início" },
-                { label: "Trabalhos" },
-                { label: "TCC", current: true },
-              ]}
-            />
-          </div>
+        <div className="min-w-0 w-full flex-1 rounded-[18px] border border-[var(--color-border)] bg-[var(--color-cream-soft)] p-4 md:p-5 min-h-[400px]">
+          {activeArea === "inicio" && (
+            <div className="animate-in fade-in duration-300">
+              <div className="flex justify-start">
+                <Breadcrumb items={[{ label: "Início", current: true, onClick: () => setActiveArea("inicio") }]} />
+              </div>
+              <div className="mt-5 md:mt-6 mb-6">
+                <p className="font-serif text-[22px] md:text-[27px] font-bold leading-tight text-[var(--color-forest)]">
+                  Bem-vindo de volta!
+                </p>
+                <p className="mt-1 text-[13px] text-[var(--color-neutral)]">
+                  Aqui está um resumo das suas atividades e atalhos rápidos.
+                </p>
+              </div>
 
-          <div className="mt-5 md:mt-6 flex flex-col sm:flex-row items-start justify-between gap-4">
-            <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--color-green)]">
-                Área selecionada
-              </p>
+              <Alert 
+                variant="warning"
+                title="Prazo próximo"
+                message="A entrega final do seu trabalho está agendada para daqui a 5 dias."
+                icon={Calendar}
+              />
 
-              <p className="mt-2 font-serif text-[22px] md:text-[27px] font-bold leading-tight text-[var(--color-forest)]">
-                {activeItem?.label}
-              </p>
-
-              <p className="mt-2 max-w-[330px] text-[12.5px] leading-relaxed text-[var(--color-neutral)]">
-                {activeItem?.description}. Esta navegação pertence ao produto, não ao fluxo interno de criação.
-              </p>
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
+                 <ProjectProgressCard
+                   eyebrow="Continuar editando"
+                   title="Impacto da Inteligência Artificial"
+                   meta="ABNT · Salvo há 2 horas"
+                   progress={85}
+                   onContinue={() => {}}
+                 />
+                 <AdvisorNoteCard
+                   title="Anotações do sistema"
+                   note="Revisar as referências do Capítulo 3 antes de exportar."
+                   author="AnversoBot"
+                 />
+              </div>
             </div>
+          )}
 
-            <div className="w-full sm:w-auto rounded-[14px] border border-[var(--color-border)] bg-[var(--color-paper-soft)] px-4 sm:px-3 py-3 sm:py-2 text-left sm:text-right flex sm:block items-center justify-between">
-              <p className="text-[11px] md:text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-neutral)]">
-                Atalhos
-              </p>
-              <p className="mt-0 sm:mt-1 text-[18px] font-bold text-[var(--color-green)]">
-                {activeItem?.count ?? 0}
-              </p>
+          {activeArea === "modelos" && (
+            <div className="animate-in fade-in duration-300">
+              <div className="flex justify-start">
+                <Breadcrumb items={[{ label: "Início", onClick: () => setActiveArea("inicio") }, { label: "Modelos", current: true }]} />
+              </div>
+              <div className="mt-5 md:mt-6 mb-6">
+                <p className="font-serif text-[22px] md:text-[27px] font-bold leading-tight text-[var(--color-forest)]">
+                  Modelos e Perfis
+                </p>
+                <p className="mt-1 text-[13px] text-[var(--color-neutral)]">
+                  Crie trabalhos já configurados nas normas da sua instituição.
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                 <AcademicWorkCard
+                   title="Trabalho de Conclusão"
+                   description="Modelo completo com capa, sumário e anexos obrigatórios."
+                   badge="ABNT"
+                   status={mockModel === "tcc" ? "Mais usado" : undefined}
+                   selected={mockModel === "tcc"}
+                   onSelect={() => setMockModel("tcc")}
+                 />
+                 <AcademicWorkCard
+                   title="Artigo Científico"
+                   description="Estrutura compacta recomendada para publicação em revistas."
+                   badge="IEEE"
+                   status={mockModel === "article" ? "Recomendado" : undefined}
+                   selected={mockModel === "article"}
+                   onSelect={() => setMockModel("article")}
+                 />
+              </div>
             </div>
-          </div>
+          )}
 
-          <div className="mt-6 md:mx-0 md:px-0">
-            <TabNavigation
-              items={[
-                { id: "visao-geral", label: "Visão geral", icon: Eye },
-                { id: "conteudo", label: "Conteúdo", icon: BookOpen },
-                { id: "arquivos", label: "Arquivos", count: 3, icon: FileText },
-                { id: "comentarios", label: "Comentários", count: 2, icon: MessageSquare },
-                { id: "historico", label: "Histórico", icon: Clock },
-              ]}
-              activeId={activeTab}
-              onChange={setActiveTab}
-            />
-          </div>
+          {activeArea === "trabalhos" && (
+            <div className="animate-in fade-in duration-300">
+              <div className="flex justify-start">
+                <Breadcrumb
+                  items={[
+                    { label: "Início", onClick: () => setActiveArea("inicio") },
+                    { label: "Trabalhos", onClick: () => setActiveArea("trabalhos") },
+                    { label: "TCC", current: true },
+                  ]}
+                />
+              </div>
+              
+              <div className="mt-5 md:mt-6">
+                <p className="font-serif text-[22px] md:text-[27px] font-bold leading-tight text-[var(--color-forest)]">
+                  Impacto da Inteligência Artificial na Educação
+                </p>
+                <p className="mt-1 text-[13px] text-[var(--color-neutral)]">
+                  Trabalho de Conclusão de Curso • Última edição há 2 horas
+                </p>
+              </div>
 
-          <div className="mt-5 rounded-[16px] border border-dashed border-[var(--color-border)] bg-[var(--color-paper-soft)] p-4">
-            <p className="text-[13px] font-bold text-[var(--color-text)]">
-              {activeTab === "visao-geral" && "Resumo do trabalho"}
-              {activeTab === "conteudo" && "Estrutura textual"}
-              {activeTab === "arquivos" && "Arquivos anexados"}
-              {activeTab === "comentarios" && "Comentários e observações"}
-              {activeTab === "historico" && "Histórico de alterações"}
-            </p>
+              <div className="mt-6 md:mx-0 md:px-0">
+                <TabNavigation
+                  items={[
+                    { id: "visao-geral", label: "Estrutura ABNT", icon: Eye },
+                    { id: "conteudo", label: "Alertas", icon: AlertTriangle, count: 2 },
+                  ]}
+                  activeId={activeTab === "arquivos" ? "visao-geral" : activeTab}
+                  onChange={setActiveTab}
+                />
+              </div>
 
-            <p className="mt-1.5 text-[12px] leading-relaxed text-[var(--color-neutral)]">
-              As abas organizam partes de uma mesma página. Elas não substituem
-              o fluxo guiado; apenas ajudam a navegar dentro de uma área já
-              aberta.
-            </p>
-          </div>
+              <div className="mt-5">
+                {activeTab === "visao-geral" || activeTab === "arquivos" ? (
+                  <DocumentStructureCard
+                    title="Progresso do Documento"
+                    description="Acompanhe o preenchimento dos elementos obrigatórios e opcionais."
+                    items={[
+                      { label: "Capa e metadados configurados", status: "done" },
+                      { label: "Resumo e Abstract redigidos", status: "pending" },
+                      { label: "Sumário gerado automaticamente", status: "done" },
+                      { label: "Capítulo de Conclusão", status: "pending" },
+                    ]}
+                  />
+                ) : (
+                  <div className="flex flex-col gap-3">
+                    <Alert variant="warning" title="Referência incompleta" message="O autor 'Silva, 2023' citado na página 12 não consta na lista bibliográfica final." />
+                    <Alert variant="info" title="Sugestão de formatação" message="A Margem superior está configurada em 3cm, verifique se esse é o padrão da sua universidade." />
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {activeArea === "biblioteca" && (
+            <div className="animate-in fade-in duration-300">
+              <div className="flex justify-start">
+                <Breadcrumb
+                  items={[
+                    { label: "Início", onClick: () => setActiveArea("inicio") },
+                    { label: "Biblioteca", current: true },
+                  ]}
+                />
+              </div>
+              
+              <div className="mt-5 md:mt-6 mb-6">
+                <p className="font-serif text-[22px] md:text-[27px] font-bold leading-tight text-[var(--color-forest)]">
+                  Arquivos e Anexos
+                </p>
+                <p className="mt-1 text-[13px] text-[var(--color-neutral)]">
+                  Gerencie imagens, PDFs e dados brutos vinculados aos seus projetos.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                 <WorkFileCard
+                    title="dataset_pesquisa_2026.csv"
+                    type="Planilha"
+                    updatedAt="Ontem"
+                    pages={1}
+                 />
+                 <WorkFileCard
+                    title="diagrama_arquitetura.png"
+                    type="Imagem"
+                    updatedAt="12/04/2026"
+                    pages={1}
+                 />
+              </div>
+            </div>
+          )}
+
+          {activeArea === "referencias" && (
+            <div className="animate-in fade-in duration-300">
+              <div className="flex justify-start">
+                <Breadcrumb
+                  items={[
+                    { label: "Início", onClick: () => setActiveArea("inicio") },
+                    { label: "Referências", current: true },
+                  ]}
+                />
+              </div>
+
+              <div className="mt-5 md:mt-6 mb-6">
+                <p className="font-serif text-[22px] md:text-[27px] font-bold leading-tight text-[var(--color-forest)]">
+                  Banco de Referências
+                </p>
+                <p className="mt-1 text-[13px] text-[var(--color-neutral)]">
+                  Cadastre bibliografias prontas para citação automática nos textos.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-4">
+                 <ReferenceCard
+                   title="Design de Interfaces: Uma abordagem centrada no usuário"
+                   source="Livro, 3ª Edição, Editora Novatec"
+                   status="valid"
+                 />
+                 <ReferenceCard
+                   title="O papel da Inteligência Artificial no frontend moderno"
+                   source="Dados de edição e ano de publicação pendentes."
+                   status="review"
+                 />
+              </div>
+            </div>
+          )}
+
+          {activeArea === "configuracoes" && (
+            <div className="animate-in fade-in duration-300">
+              <div className="mt-2 md:mt-3 mb-6">
+                <p className="font-serif text-[22px] md:text-[27px] font-bold leading-tight text-[var(--color-forest)]">
+                  Ajustes da Conta
+                </p>
+              </div>
+              
+              <div className="mt-6 flex flex-col gap-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between rounded-[16px] border border-[var(--color-border)] bg-[var(--color-paper-soft)] p-4 gap-4">
+                  <div>
+                    <p className="text-[13px] font-bold text-[var(--color-text)]">Modo de Leitura</p>
+                    <p className="text-[11px] text-[var(--color-neutral)] mt-0.5">Tema de interface padrão do aplicativo</p>
+                  </div>
+                  <SegmentedControl
+                    name="theme"
+                    options={[
+                      { label: "Claro", value: "light" },
+                      { label: "Escuro", value: "dark" }
+                    ]}
+                    value={mockTheme}
+                    onChange={(val) => setMockTheme(val)}
+                  />
+                </div>
+                <div className="flex items-center justify-between rounded-[16px] border border-[var(--color-border)] bg-[var(--color-paper-soft)] p-4">
+                  <div>
+                    <p className="text-[13px] font-bold text-[var(--color-text)]">Notificações por E-mail</p>
+                    <p className="text-[11px] text-[var(--color-neutral)] mt-0.5">Avisos de colaboração e lembretes</p>
+                  </div>
+                  <Toggle checked={mockNotif} onCheckedChange={(val) => setMockNotif(val)} />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </ShowcasePanel>

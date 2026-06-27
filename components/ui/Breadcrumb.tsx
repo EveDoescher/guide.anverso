@@ -5,6 +5,7 @@ import { ChevronRight, Home } from "lucide-react";
 export type BreadcrumbItem = {
   label: string;
   current?: boolean;
+  onClick?: () => void;
 };
 
 type BreadcrumbProps = {
@@ -38,6 +39,7 @@ export function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
           <button
             type="button"
             disabled={item.current}
+            onClick={item.onClick}
             className={[
               "anverso-focus rounded-full px-1.5 py-0.5 text-[11px] font-bold transition-all",
               item.current
