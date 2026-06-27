@@ -44,7 +44,7 @@ export function AppNavigationRail({
   return (
     <aside
       className={[
-        "w-[238px] rounded-[18px] border border-[var(--color-border)] bg-[var(--color-paper-soft)] p-4",
+        "flex w-full md:w-[238px] flex-col rounded-[18px] border border-[var(--color-border)] bg-[var(--color-paper-soft)] p-4 transition-all",
         className,
       ].join(" ")}
     >

@@ -18,13 +18,19 @@ export function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
       aria-label="Localização"
       className={[
         "flex items-center gap-1.5 rounded-full border border-[var(--color-border)] bg-[var(--color-paper-soft)] px-3 py-2",
+        "max-w-full overflow-x-auto [&::-webkit-scrollbar]:hidden",
         className,
       ].join(" ")}
+      style={{
+        scrollbarWidth: "none",
+        msOverflowStyle: "none",
+        WebkitOverflowScrolling: "touch",
+      }}
     >
-      <Home size={13} className="text-[var(--color-green)]" />
+      <Home size={13} className="shrink-0 text-[var(--color-green)]" />
 
       {items.map((item, index) => (
-        <span key={item.label} className="flex items-center gap-1.5">
+        <span key={item.label} className="flex shrink-0 items-center gap-1.5">
           {index > 0 ? (
             <ChevronRight size={12} className="text-[var(--color-neutral)]" />
           ) : null}

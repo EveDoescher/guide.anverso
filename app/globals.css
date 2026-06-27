@@ -273,7 +273,7 @@ body, button, input, textarea, select, .font-sans {
     --bottom-nav-height: 80px;
   }
   .guide-container {
-    width: min(100% - 24px, 760px);
+    width: 100%;
   }
   .dark-stage-wrapper {
     margin-left: 0;

@@ -7,7 +7,8 @@ import {
   ChevronDown, Calendar, Check, X, Info, AlertTriangle,
   Cloud, Bookmark, Edit2, MoreHorizontal, Plus, Leaf,
   BookOpen, ClipboardList, FileCheck, ArrowLeft, ArrowRight,
-  CheckCircle2, Circle, AlertCircle, User, Loader2, XCircle
+  CheckCircle2, Circle, AlertCircle, User, Loader2, XCircle, Menu,
+  MessageSquare, Clock
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
@@ -62,7 +63,7 @@ function AcoesPrincipais() {
     <ShowcasePanel
       number={1}
       title="Ações Principais"
-      className="w-full"
+      
     >
       <div className="relative z-10 flex flex-col items-center gap-3">
         <Button variant="primary" size="lg" icon={FileText} className="w-[268px] justify-center">
@@ -154,7 +155,7 @@ function SelecaoFiltros() {
     <ShowcasePanel
       number={2}
       title="Seleção e Filtros"
-      className="w-full"
+      
     >
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8">
         <div>
@@ -331,7 +332,7 @@ function CamposFormulario() {
     <ShowcasePanel
       number={3}
       title="Campos de Formulário"
-      className="w-full"
+      
       overflow="visible"
     >
       <Input
@@ -460,7 +461,7 @@ function FluxoGuiado() {
     <ShowcasePanel
       number={4}
       title="Fluxo Guiado"
-      className="w-full"
+      
       overflow="visible"
     >
       <div className="relative z-10">
@@ -504,7 +505,7 @@ function Cards() {
     <ShowcasePanel
       number={5}
       title="Cards"
-      className="w-full"
+      
       overflow="visible"
     >
       <div className="relative z-10 space-y-5">
@@ -647,7 +648,7 @@ function FeedbackValidacao() {
     <ShowcasePanel
       number={6}
       title="Feedback e Validação"
-      className="w-full"
+      
       overflow="visible"
     >
       <div className="relative z-10 grid grid-cols-1 xl:grid-cols-2 gap-4">
@@ -698,6 +699,7 @@ const NAV_STEPS = [
 function NavegacaoLateral() {
   const [activeArea, setActiveArea] = useState("trabalhos");
   const [activeTab, setActiveTab] = useState("visao-geral");
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   const appItems: AppNavigationItem[] = [
     {
@@ -740,61 +742,122 @@ function NavegacaoLateral() {
     <ShowcasePanel
       number={7}
       title="Navegação"
-      className="w-full"
+      
       overflow="visible"
     >
-      <div className="relative z-10 flex flex-col md:grid md:grid-cols-[238px_1fr] gap-5">
-        <AppNavigationRail
-          items={appItems}
-          activeId={activeArea}
-          onChange={setActiveArea}
-        />
+      <div className="relative z-10 flex flex-col lg:grid lg:grid-cols-[238px_1fr] gap-4 md:gap-5 items-start">
+        {/* Overlay Backdrop */}
+        <AnimatePresence>
+          {isNavOpen && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 z-40 bg-[rgba(47,44,45,0.3)] backdrop-blur-sm lg:hidden rounded-[24px]"
+              onClick={() => setIsNavOpen(false)}
+            />
+          )}
+        </AnimatePresence>
 
-        <div className="min-w-0 rounded-[18px] border border-[var(--color-border)] bg-[var(--color-cream-soft)] p-5">
+        {/* Mobile Unified Nav Container */}
+        <div className="lg:hidden relative w-full z-50">
+          {/* Top Bar */}
+          <div 
+            className={[
+              "flex w-full items-center justify-between border border-[var(--color-border)] bg-[var(--color-paper-soft)] p-3 transition-all duration-200 relative z-20",
+              isNavOpen ? "rounded-t-[20px] rounded-b-none border-b-0 pb-[13px]" : "rounded-[18px] shadow-sm"
+            ].join(" ")}
+          >
+            <span className="ml-2 text-[14px] font-bold text-[var(--color-text)]">
+              {activeItem?.label || "Navegação"}
+            </span>
+            <IconButton
+              variant="ghost"
+              icon={isNavOpen ? X : Menu}
+              onClick={() => setIsNavOpen(!isNavOpen)}
+              label="Alternar menu"
+            />
+          </div>
+
+          {/* Absolute Dropdown overlaying content */}
+          <AnimatePresence>
+            {isNavOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="absolute left-0 right-0 top-full bg-[var(--color-paper-soft)] border border-t-0 border-[var(--color-border)] rounded-b-[20px] shadow-2xl overflow-hidden origin-top z-10 -mt-[1px]"
+              >
+                <div className="px-3 pb-3 pt-2">
+                  <AppNavigationRail
+                    items={appItems}
+                    activeId={activeArea}
+                    onChange={(id) => {
+                      setActiveArea(id);
+                      setIsNavOpen(false);
+                    }}
+                    className="!p-0 !border-none !bg-transparent !shadow-none !rounded-none"
+                  />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Desktop Sidebar */}
+        <div className="hidden lg:block w-[238px]">
+          <AppNavigationRail
+            items={appItems}
+            activeId={activeArea}
+            onChange={setActiveArea}
+          />
+        </div>
+
+        <div className="min-w-0 w-full flex-1 rounded-[18px] border border-[var(--color-border)] bg-[var(--color-cream-soft)] p-4 md:p-5">
           <div className="flex justify-start">
             <Breadcrumb
               items={[
                 { label: "Início" },
-                { label: "Meus trabalhos" },
-                { label: "TCC: Marketing Digital", current: true },
+                { label: "Trabalhos" },
+                { label: "TCC", current: true },
               ]}
             />
           </div>
 
-          <div className="mt-6 flex items-start justify-between gap-4">
+          <div className="mt-5 md:mt-6 flex flex-col sm:flex-row items-start justify-between gap-4">
             <div>
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--color-green)]">
                 Área selecionada
               </p>
 
-              <p className="mt-2 font-serif text-[27px] font-bold leading-tight text-[var(--color-forest)]">
+              <p className="mt-2 font-serif text-[22px] md:text-[27px] font-bold leading-tight text-[var(--color-forest)]">
                 {activeItem?.label}
               </p>
 
               <p className="mt-2 max-w-[330px] text-[12.5px] leading-relaxed text-[var(--color-neutral)]">
-                {activeItem?.description}. Esta navegação pertence ao produto,
-                não ao fluxo interno de criação do documento.
+                {activeItem?.description}. Esta navegação pertence ao produto, não ao fluxo interno de criação.
               </p>
             </div>
 
-            <div className="rounded-[14px] border border-[var(--color-border)] bg-[var(--color-paper-soft)] px-3 py-2 text-right">
+            <div className="w-full sm:w-auto rounded-[14px] border border-[var(--color-border)] bg-[var(--color-paper-soft)] px-4 sm:px-3 py-3 sm:py-2 text-left sm:text-right flex sm:block items-center justify-between">
               <p className="text-[11px] md:text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-neutral)]">
                 Atalhos
               </p>
-              <p className="mt-1 text-[18px] font-bold text-[var(--color-green)]">
+              <p className="mt-0 sm:mt-1 text-[18px] font-bold text-[var(--color-green)]">
                 {activeItem?.count ?? 0}
               </p>
             </div>
           </div>
 
-          <div className="mt-6">
+          <div className="mt-6 md:mx-0 md:px-0">
             <TabNavigation
               items={[
-                { id: "visao-geral", label: "Visão geral" },
-                { id: "conteudo", label: "Conteúdo" },
-                { id: "arquivos", label: "Arquivos", count: 3 },
-                { id: "comentarios", label: "Comentários", count: 2 },
-                { id: "historico", label: "Histórico" },
+                { id: "visao-geral", label: "Visão geral", icon: Eye },
+                { id: "conteudo", label: "Conteúdo", icon: BookOpen },
+                { id: "arquivos", label: "Arquivos", count: 3, icon: FileText },
+                { id: "comentarios", label: "Comentários", count: 2, icon: MessageSquare },
+                { id: "historico", label: "Histórico", icon: Clock },
               ]}
               activeId={activeTab}
               onChange={setActiveTab}
@@ -860,7 +923,7 @@ function ModaisApoio() {
     <ShowcasePanel
       number={8}
       title="Modais e Apoio"
-      className="w-full"
+      
       overflow="visible"
     >
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1095,17 +1158,15 @@ function PreviaDocumento() {
     <ShowcasePanel
       number={9}
       title="Prévia do Documento"
-      className="w-full"
+      
       overflow="visible"
     >
       <div className="relative z-10">
         <DocumentPreview
           pages={pages}
           currentPage={currentPage}
-          zoom={zoom}
           showGuides={showGuides}
           onPageChange={setCurrentPage}
-          onZoomChange={setZoom}
           onToggleGuides={() => setShowGuides((current) => !current)}
         />
       </div>

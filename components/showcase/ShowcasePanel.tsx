@@ -30,12 +30,12 @@ export function ShowcasePanel({
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: motionTimings.item, ease: motionEase }}
       className={[
-        "relative rounded-[16px] p-6 lg:p-10",
+        "relative p-4 sm:p-6 lg:p-10 rounded-none sm:rounded-[16px] border-y border-x-0 sm:border-x border-[rgba(92,51,32,0.15)]",
+        "w-[calc(100%+32px)] -ml-4 max-w-none sm:w-full sm:ml-0",
         overflow === "visible" ? "overflow-visible" : "overflow-hidden",
         className,
       ].join(" ")}
       style={{
-        border: "1px solid rgba(92,51,32,0.15)",
         background: "rgba(92,51,32,0.015)",
         backgroundImage: "radial-gradient(rgba(92,51,32,0.1) 1px, transparent 0)",
         backgroundSize: "24px 24px",
